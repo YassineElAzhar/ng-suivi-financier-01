@@ -1,0 +1,64 @@
+<mat-toolbar class="mat-elevation-z8">
+    <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+        <mat-icon *ngIf="!sidenav.opened">
+            menu
+        </mat-icon>
+        <mat-icon *ngIf="sidenav.opened">
+            close
+        </mat-icon>
+    </button>
+    
+    <div class="logo_sf">
+        Suivi Financier
+    </div>
+    
+    
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+        <img class="avatar mat-elevation-z8" src="http://localhost/mock-data/img/yass.jpg">
+        <h4 class="name">Yassine EL-AZHAR</h4>
+        <p class="designatino">Software Engineer</p>
+
+        <mat-divider></mat-divider>
+        
+        <button mat-button class="menu-button" routerLink="/home">
+            <mat-icon>home</mat-icon>
+            <span>Home</span>
+        </button>
+        <button mat-button class="menu-button" routerLink="/profile">
+            <mat-icon>person</mat-icon>
+            <span>Profile</span>
+        </button>
+        <button mat-button class="menu-button" routerLink="/calendar">
+            <mat-icon>calendar_today</mat-icon>
+            <span>Calendrier</span>
+        </button>
+        <button mat-button class="menu-button" routerLink="/incomes">
+            <mat-icon>attach_money</mat-icon>
+            <span>Revenus</span>
+        </button>
+        <button mat-button class="menu-button" routerLink="/expenses">
+            <mat-icon>money_off</mat-icon>
+            <span>Dépenses</span>
+        </button>        
+        <mat-divider></mat-divider>
+        <button mat-button class="menu-button" routerLink="/about">
+            <mat-icon>info</mat-icon>
+            <span>About</span>
+        </button>
+        <button mat-button class="menu-button" routerLink="/help">
+            <mat-icon>help</mat-icon>
+            <span>Help</span>
+        </button>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="content mat-elevation-z8">
+            <router-outlet>
+                <!-- C'est ici que tout se passe -->
+                <!-- Voir les routes dans app-routing.module.ts -->
+            </router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
