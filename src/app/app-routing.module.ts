@@ -49,7 +49,6 @@ const routes: Routes = [
     component: NotFoundComponent
   }
 ];
-//new change test
 
 @NgModule({
   declarations:[],
