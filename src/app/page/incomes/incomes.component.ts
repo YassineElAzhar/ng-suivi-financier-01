@@ -4,6 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { IncomesModel } from '../../model/incomes.model';
 import { ELEMENT_DATA_INCOMES } from '../../mock-data/mock-incomes-list';
 import { IncomesService } from '../../service/incomes.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AddIncomesComponent } from 'src/app/popup/incomes/addIncomes.component';
 
 @Component({
   selector: 'app-incomes',
@@ -19,12 +21,10 @@ export class IncomesComponent implements AfterViewInit {
   //dataSource = new MatTableDataSource<IncomesModel>(ELEMENT_DATA_INCOMES);
   dataSource = new MatTableDataSource<IncomesModel>();
 
-
-  
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private incomesService:IncomesService){}
+  constructor(private incomesService:IncomesService, private dialog: MatDialog){}
 
   ngOnInit(){
     //this.getAllIncomesV1();
@@ -75,6 +75,16 @@ export class IncomesComponent implements AfterViewInit {
       console.log(this.dataSource.data);
     });
   }
+
+  onCreate(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "60%";
+    this.dialog.open(AddIncomesComponent, dialogConfig);
+
+  }
+
 
 
 }

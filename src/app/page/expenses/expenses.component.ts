@@ -3,6 +3,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ExpensesModel } from '../../model/expenses.model';
 import { ExpensesService } from 'src/app/service/expenses.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AddExpensesComponent } from 'src/app/popup/expenses/addExpenses.component';
 
 @Component({
   selector: 'app-expenses',
@@ -17,7 +19,7 @@ export class ExpensesComponent implements AfterViewInit {
   displayedColumns: string[] = ['id', 'type', 'destinataire','titre', 'montant', 'dateExpense'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private expensesService:ExpensesService){
+  constructor(private expensesService:ExpensesService, private dialog: MatDialog){
   }
 
   ngOnInit(){
@@ -44,6 +46,15 @@ export class ExpensesComponent implements AfterViewInit {
       this.dataSource = new MatTableDataSource<ExpensesModel>(this.expenses);
       //console.log(this.dataSource.data);
     });
+  }
+
+  onCreate(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "60%";
+    this.dialog.open(AddExpensesComponent, dialogConfig);
+
   }
 
 
