@@ -4,7 +4,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { IncomesModel } from '../../model/incomes.model';
 import { ELEMENT_DATA_INCOMES } from '../../mock-data/mock-incomes-list';
 import { IncomesService } from '../../service/incomes.service';
-import { map,tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-incomes',
@@ -74,8 +73,6 @@ export class IncomesComponent implements AfterViewInit {
       //On met à jour le dataSource avec les valeurs venant du WebService
       this.dataSource = new MatTableDataSource<IncomesModel>(this.members);
       console.log(this.dataSource.data);
-
-      
     });
   }
 

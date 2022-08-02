@@ -1,6 +1,9 @@
 @import "~bootstrap/scss/bootstrap";
 
-
 table {
     width: 100%;
+}
+
+tr {
+  border-bottom: 1px solid #919191;
 }
