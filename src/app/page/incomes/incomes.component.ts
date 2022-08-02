@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { IncomesModel } from '../../model/incomes.model';
 import { ELEMENT_DATA_INCOMES } from '../../mock-data/mock-incomes-list';
@@ -19,6 +19,9 @@ export class IncomesComponent implements AfterViewInit {
   //Si nous souhations utiliser la mock-list, nous utiliserions cette declaration de dataSource
   //dataSource = new MatTableDataSource<IncomesModel>(ELEMENT_DATA_INCOMES);
   dataSource = new MatTableDataSource<IncomesModel>();
+
+
+  
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -30,7 +33,12 @@ export class IncomesComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    //Pour l'initialiser directement
+    //this.dataSource.paginator = this.paginator;
+
+    //Nous allons ajouter un timeout
+    //C'est pour laisser le temps de récupérer les donnée du webservice
+    setTimeout(() => this.dataSource.paginator = this.paginator);
   }
 
   
@@ -65,11 +73,11 @@ export class IncomesComponent implements AfterViewInit {
       console.log(this.members);
       //On met à jour le dataSource avec les valeurs venant du WebService
       this.dataSource = new MatTableDataSource<IncomesModel>(this.members);
+      console.log(this.dataSource.data);
+
+      
     });
   }
-
-
-
 
 
 }
