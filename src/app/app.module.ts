@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -21,8 +22,10 @@ import { MatInputModule } from  '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
-
-
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSortModule } from '@angular/material/sort';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -35,8 +38,16 @@ import { CalendarComponent } from './page/calendar/calendar.component';
 import { IncomesComponent } from './page/incomes/incomes.component';
 import { ExpensesComponent } from './page/expenses/expenses.component';
 
+import { AddExpensesComponent } from './popup/expenses/addExpenses.component';
+import { AddIncomesComponent } from './popup/incomes/addIncomes.component';
+
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -48,9 +59,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NotFoundComponent,
     CalendarComponent,
     IncomesComponent,
-    ExpensesComponent
+    ExpensesComponent,
+    AddExpensesComponent,
+    AddIncomesComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -73,7 +87,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     MatProgressBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatSortModule,
+    MatRadioModule
     
   ],
   providers: [],
