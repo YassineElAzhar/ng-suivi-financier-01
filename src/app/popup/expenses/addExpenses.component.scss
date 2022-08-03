@@ -1,1 +1,6 @@
 @import "~bootstrap/scss/bootstrap";
+
+/*On change le mat-form-field pour le passer à 100%*/
+mat-form-field {
+    width: 100%;
+}

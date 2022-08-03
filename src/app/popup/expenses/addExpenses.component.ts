@@ -13,12 +13,11 @@ export class AddExpensesComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      name: [null, [Validators.required, Validators.minLength(10)]],
-      email: [null, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      dob: [null, [Validators.required]],
-      address: [null],
-      country: [null],
-      gender: [null]
+      typeExpense: [null],
+      destinataire: [null, [Validators.required, Validators.minLength(3)]],
+      titre: [null, [Validators.required, Validators.minLength(10)]],
+      dateExpense: [null, [Validators.required]],
+      montant: [null],
     });
   }
 

@@ -5,7 +5,7 @@
             <div class="col">
                 <mat-form-field appearance="standard" hintLabel="Le type est obligatoire">
                     <mat-label>Type</mat-label>
-                    <mat-select matNativeControl name="type" formControlName="type">
+                    <mat-select matNativeControl name="typeExpense" formControlName="typeExpense">
                         <mat-option value="hypoteque">Hypoteque</mat-option>
                         <mat-option value="taxes">Taxes</mat-option>
                         <mat-option value="facture">Facture</mat-option>
@@ -20,89 +20,62 @@
                     <input matInput maxlength="15" inputmode="tel" placeholder="Destinataire" formControlName="destinataire" #destinataireInput>
                     <mat-hint>Mini character 3: {{ destinataireInput.value.length }}/3</mat-hint>
                     <mat-error>Le destinatire est obligatoire</mat-error>
-                    <mat-error *ngIf="form.controls['name'].errors?.['minlength']">
-                        Please enter more than 10 character
+                    <mat-error *ngIf="form.controls['destinataire'].errors?.['minlength']">
+                        Entrez au moins de 3 caractères
                     </mat-error>
                 </mat-form-field>
             </div>
         </div>
     
         <hr/>
-  
-    <div class="row">
-        <div class="col">
-            <mat-form-field appearance="standard">
-                <mat-label>Name</mat-label>
-                <input matInput maxlength="15" inputmode="tel" placeholder="Type name" formControlName="name" #nameInput>
-                <mat-hint>Mini character 10: {{ nameInput.value.length }}/10</mat-hint>
-                <mat-error>Name is required</mat-error>
-                <mat-error *ngIf="form.controls['name'].errors?.['minlength']">
-                    Please enter more than 10 character
-                </mat-error>
-            </mat-form-field>
-        </div>
-        <div class="col">
-            <mat-form-field appearance="legacy">
-            <mat-label>Email Address:</mat-label>
-            <input matInput type="email" formControlName="email" placeholder="Your email">
-            <mat-icon matSuffix>mail_outline</mat-icon>
-            <mat-hint>Input the fully qualified email address</mat-hint>
-            <mat-error *ngIf="form.controls['email'].errors?.['required']">Email is required</mat-error>
-            <mat-error *ngIf="form.controls['email'].errors?.['pattern']">Please enter valid email</mat-error>
-            </mat-form-field>
-        </div>
-    </div>
 
-    <hr/>
-
-    <div class="row">
-        <div class="col">
-            <mat-form-field appearance="standard">
-                <mat-label>Address:</mat-label>
-                <textarea matInput placeholder="address" formControlName="address"></textarea>
-            </mat-form-field>
-        </div>
-        <div class="col">
-            <mat-form-field appearance="fill" hintLabel="Country name required">
-                <mat-label>Country</mat-label>
-                <mat-select matNativeControl name="country" formControlName="country">
-                    <mat-option value="india">India</mat-option>
-                    <mat-option value="france">France</mat-option>
-                    <mat-option value="germany">Germany</mat-option>
-                    <mat-option value="japan">Japan</mat-option>
-                    <mat-option value="Mongolia">Mongolia</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-    </div>
-
-    <hr/>
-
-    <div class="row">
-        <div class="col">
-            <div style="margin-right:3%; color:#6b6b6b;">
-                <mat-label>Gender</mat-label>
-            </div>
-            <mat-radio-group formControlName="gender">
-                <mat-radio-button value="Male">Male</mat-radio-button>
-                <mat-radio-button value="Female">Female</mat-radio-button>
-            </mat-radio-group>
-        </div>
-        <div class="col">
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Choose a date</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="dob">
-                <mat-datepicker-toggle matSuffix [for]="picker">
-                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-                </mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-            <div mat-dialog-actions align="end">
-                <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Submit</button>
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="standard">
+                    <mat-label>Titre</mat-label>
+                    <input matInput maxlength="40" inputmode="tel" placeholder="Titre" formControlName="titre" #titreInput>
+                    <mat-hint>Mini character 10: {{ titreInput.value.length }}/10</mat-hint>
+                    <mat-error>Le destinatire est obligatoire</mat-error>
+                    <mat-error *ngIf="form.controls['titre'].errors?.['minlength']">
+                        Entrez au moins 10 caractères
+                    </mat-error>
+                </mat-form-field>
             </div>
         </div>
-    </div>
+        
+        <hr/>
+
+        <div class="row">
+            
+            <div class="col">
+                <mat-form-field appearance="standard">
+                    <mat-label>Selectionner la date</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="dateExpense">
+                    <mat-datepicker-toggle matSuffix [for]="picker">
+                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field appearance="standard">
+                    <input matInput type="number" placeholder="Montant" formControlName="montant" #montantInput>
+                </mat-form-field>
+            </div>
+        </div>
+        <hr/>
+
+        <div class="row text-center">
+            <div class="col">
+                <button type="button" class="btn btn-primary">Ajouter</button>
+            </div>
+        </div>
       
     </form>
-    <div>{{ form.value | json }}</div>
+
+    <hr/>
+
+    <div class="row">
+        <div class="col">{{ form.value | json }}</div>
+    </div>
   </div>
