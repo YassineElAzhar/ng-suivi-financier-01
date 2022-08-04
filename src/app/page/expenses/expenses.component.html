@@ -17,38 +17,38 @@
 <div class="row">
     <div class="col-lg-4 col-md-12">
         <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource">
+            <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
                 <!-- Position Column -->
                 <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef> Id. </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="trier par id"> Id. </th>
                     <td mat-cell *matCellDef="let element"> {{element.id}} </td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
 
                 <!-- Name Column -->
                 <ng-container matColumnDef="type">
-                    <th mat-header-cell *matHeaderCellDef> Type </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="trier par type"> Type </th>
                     <td mat-cell *matCellDef="let element"> {{element.type}} </td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
 
                 <!-- Weight Column -->
                 <ng-container matColumnDef="destinataire">
-                    <th mat-header-cell *matHeaderCellDef> Destinataire </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="trier par destinataire"> Destinataire </th>
                     <td mat-cell *matCellDef="let element"> {{element.destinataire}} </td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
 
                 <!-- Weight Column -->
                 <ng-container matColumnDef="titre">
-                    <th mat-header-cell *matHeaderCellDef> Titre </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="trier par titre"> Titre </th>
                     <td mat-cell *matCellDef="let element"> {{element.titre}} </td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
 
                 <!-- Symbol Column -->
                 <ng-container matColumnDef="montant">
-                    <th mat-header-cell *matHeaderCellDef> Montant </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="trier par montant"> Montant </th>
                     <td mat-cell *matCellDef="let element"> {{element.montant}} </td>
                     <td mat-footer-cell *matFooterCellDef>{{ sum("montant") | number: '.2' }}</td>
                 </ng-container>
@@ -56,7 +56,7 @@
 
                 <!-- Symbol Column -->
                 <ng-container matColumnDef="dateExpense">
-                    <th mat-header-cell *matHeaderCellDef> Date de la dépense </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="trier par date"> Date de la dépense </th>
                     <td mat-cell *matCellDef="let element"> {{element.dateExpense}} </td>
                     <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>

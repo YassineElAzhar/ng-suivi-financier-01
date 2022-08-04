@@ -1,13 +1,13 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import {MatSort, Sort} from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { IncomesModel } from '../../model/incomes.model';
 import { ELEMENT_DATA_INCOMES } from '../../mock-data/mock-incomes-list';
 import { IncomesService } from '../../service/incomes.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddIncomesComponent } from 'src/app/popup/incomes/addIncomes.component';
-import {LiveAnnouncer} from '@angular/cdk/a11y';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-incomes',
@@ -48,13 +48,17 @@ export class IncomesComponent implements AfterViewInit {
     setTimeout(() => this.dataSource.sort = this.sort);
   }
 
-  
+
   public applyFilter(filterValue: string){
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   
   public sum(key: keyof IncomesModel) {
-    return this.dataSource.data.reduce((a, b) => a + (Number(b[key]) || 0), 0);
+    //Si nous souhaitons afficher la somme sur toutes les valeurs
+    //return this.dataSource.data.reduce((a, b) => a + (Number(b[key]) || 0), 0);
+
+    //Si nous souhaitons afficher la somme avec le filtre
+    return this.dataSource.filteredData.reduce((a,b) => a + (Number(b[key]) || 0), 0);
   }
 
 

@@ -1,10 +1,12 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, Sort } from '@angular/material/sort';
 import { ExpensesModel } from '../../model/expenses.model';
 import { ExpensesService } from 'src/app/service/expenses.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddExpensesComponent } from 'src/app/popup/expenses/addExpenses.component';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-expenses',
@@ -17,9 +19,15 @@ export class ExpensesComponent implements AfterViewInit {
   expenses: ExpensesModel[];
   dataSource = new MatTableDataSource<ExpensesModel>();
   displayedColumns: string[] = ['id', 'type', 'destinataire','titre', 'montant', 'dateExpense'];
+  
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private expensesService:ExpensesService, private dialog: MatDialog){
+  constructor(
+    private expensesService:ExpensesService, 
+    private dialog: MatDialog,
+    private _liveAnnouncer: LiveAnnouncer
+  ){
   }
 
   ngOnInit(){
@@ -28,6 +36,7 @@ export class ExpensesComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     setTimeout(() => this.dataSource.paginator = this.paginator);
+    setTimeout(() => this.dataSource.sort = this.sort);
   }
 
   public applyFilter(filterValue: string){
@@ -35,7 +44,19 @@ export class ExpensesComponent implements AfterViewInit {
   }
   
   public sum(key: keyof ExpensesModel) {
-    return this.dataSource.data.reduce((a, b) => a + (Number(b[key]) || 0), 0);
+    //Si nous souhaitons afficher la somme sur toutes les valeurs
+    //return this.dataSource.data.reduce((a, b) => a + (Number(b[key]) || 0), 0);
+
+    //Si nous souhaitons afficher la somme avec le filtre
+    return this.dataSource.filteredData.reduce((a,b) => a + (Number(b[key]) || 0), 0);
+  }
+
+  announceSortChange(sortState: Sort) {
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
   }
 
   getAllExpenses() {
@@ -52,7 +73,7 @@ export class ExpensesComponent implements AfterViewInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "40%";
+    dialogConfig.width = "60%";
     this.dialog.open(AddExpensesComponent, dialogConfig);
 
   }
