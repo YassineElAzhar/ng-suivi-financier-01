@@ -1,11 +1,13 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import {MatSort, Sort} from '@angular/material/sort';
 import { IncomesModel } from '../../model/incomes.model';
 import { ELEMENT_DATA_INCOMES } from '../../mock-data/mock-incomes-list';
 import { IncomesService } from '../../service/incomes.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddIncomesComponent } from 'src/app/popup/incomes/addIncomes.component';
+import {LiveAnnouncer} from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-incomes',
@@ -23,8 +25,13 @@ export class IncomesComponent implements AfterViewInit {
 
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private incomesService:IncomesService, private dialog: MatDialog){}
+  constructor(
+    private incomesService:IncomesService, 
+    private dialog: MatDialog,
+    private _liveAnnouncer: LiveAnnouncer
+  ){}
 
   ngOnInit(){
     //this.getAllIncomesV1();
@@ -38,6 +45,7 @@ export class IncomesComponent implements AfterViewInit {
     //Nous allons ajouter un timeout
     //C'est pour laisser le temps de récupérer les donnée du webservice
     setTimeout(() => this.dataSource.paginator = this.paginator);
+    setTimeout(() => this.dataSource.sort = this.sort);
   }
 
   
@@ -49,6 +57,15 @@ export class IncomesComponent implements AfterViewInit {
     return this.dataSource.data.reduce((a, b) => a + (Number(b[key]) || 0), 0);
   }
 
+
+
+  announceSortChange(sortState: Sort) {
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
+  }
 
   public getAllIncomesV1(){
     this.incomesService.getAllIncomesV1().subscribe({
