@@ -37,6 +37,7 @@ import { NotFoundComponent } from './page/not-found/not-found.component';
 import { CalendarComponent } from './page/calendar/calendar.component';
 import { IncomesComponent } from './page/incomes/incomes.component';
 import { ExpensesComponent } from './page/expenses/expenses.component';
+import { ChartsComponent } from './page/charts/charts.component';
 
 import { AddExpensesComponent } from './popup/expenses/addExpenses.component';
 import { AddIncomesComponent } from './popup/incomes/addIncomes.component';
@@ -61,7 +62,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     IncomesComponent,
     ExpensesComponent,
     AddExpensesComponent,
-    AddIncomesComponent
+    AddIncomesComponent,
+    ChartsComponent
   ],
   imports: [
     CommonModule,

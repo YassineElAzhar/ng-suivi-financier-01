@@ -9,6 +9,7 @@ import { HelpComponent } from './page/help/help.component';
 import { CalendarComponent } from './page/calendar/calendar.component';
 import { IncomesComponent } from './page/incomes/incomes.component';
 import { ExpensesComponent } from './page/expenses/expenses.component';
+import { ChartsComponent } from './page/charts/charts.component';
 
 const routes: Routes = [
   {
@@ -43,6 +44,10 @@ const routes: Routes = [
   {
     path: 'expenses',
     component: ExpensesComponent
+  },
+  {
+    path: 'charts',
+    component: ChartsComponent
   },
   {
     path: '**',
