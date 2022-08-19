@@ -1,13 +1,41 @@
+<div class="main">
 
-<div>
-    <div>
-      <div>
-        <div style="display: block">
-          <canvas baseChart [data]="barChartData" [options]="barChartOptions"
-            [type]="barChartType" (chartHover)="chartHovered($event)"
-            (chartClick)="chartClicked($event)"></canvas>
-        </div>
-        <button mat-button mat-raised-button color="primary" (click)="randomize()">Update</button>
-      </div>
-    </div>
-  </div>
+  <mat-grid-list [cols]="breakpoint" rowHeight="2:1" (window:resize)="handleSize($event)">
+
+    <!-- Graphique 1 -->
+    <mat-grid-tile (click)="changeChartType()">
+        <canvas baseChart [data]="inOut_ChartData" [options]="inOut_ChartOptions"
+          [type]="inOut_ChartType" (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)">
+        </canvas>
+    </mat-grid-tile>
+
+    <!-- Graphique 2 -->
+    <mat-grid-tile>
+      <canvas baseChart [data]="inOut_ChartData" [options]="inOut_ChartOptions"
+        [type]="inOut_ChartType" (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)">
+      </canvas>
+    </mat-grid-tile>
+
+    <!-- Graphique 3 -->
+    <mat-grid-tile>
+      <canvas baseChart [data]="inOut_ChartData" [options]="inOut_ChartOptions"
+        [type]="inOut_ChartType" (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)">
+      </canvas>
+    </mat-grid-tile>
+
+    <!-- Graphique 4 -->
+    <mat-grid-tile>
+      <canvas baseChart [data]="inOut_ChartData" [options]="inOut_ChartOptions"
+        [type]="inOut_ChartType" (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)">
+      </canvas>
+    </mat-grid-tile>
+
+
+    
+  </mat-grid-list>
+
+</div>

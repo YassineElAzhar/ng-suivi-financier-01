@@ -27,6 +27,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSortModule } from '@angular/material/sort';
 import { MatRadioModule } from '@angular/material/radio';
 
+import { FlexLayoutModule } from '@angular/flex-layout';
+
+
 import { HttpClientModule } from '@angular/common/http';
 
 import { HomeComponent } from './page/home/home.component';
@@ -95,6 +98,8 @@ import { NgChartsModule } from 'ng2-charts';
     MatDatepickerModule,
     MatSortModule,
     MatRadioModule,
+
+    FlexLayoutModule,
 
     NgChartsModule
     

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
+import { ChartConfiguration, ChartData, ChartEvent, ChartType, Title } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 
 
@@ -11,15 +11,32 @@ import { BaseChartDirective } from 'ng2-charts';
 
 export class ChartsComponent implements OnInit {
 
+  breakpoint: number; //Pour le responsive
+
+  //Revenu VS Dépenses
+  public inOut_ChartLabels: string[] = [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ];
+  public inOut_ChartType: ChartType = 'bar';
+
+  //Dépense pie chart
+  
+
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
   
-  constructor() {
+  constructor() {}
+
+  ngOnInit():void {
+    //Pour le responsive
+    this.breakpoint = (window.innerWidth <= 1200) ? 1 : 2;
   }
 
-  ngOnInit(): void {
+  handleSize(event:any) {
+    //Pour le responsive
+    this.breakpoint = (event.target.innerWidth <= 1200) ? 1 : 2;
   }
   
-  public barChartOptions: ChartConfiguration['options'] = {
+
+  //Revenu VS Dépenses
+  public inOut_ChartOptions: ChartConfiguration['options'] = {
     elements: {
       line: {
         tension: 0.4
@@ -32,13 +49,12 @@ export class ChartsComponent implements OnInit {
     },
     plugins: {
       legend: { display: true },
+      title: { display: true, text: "Revenus VS Dépenses"}
     }
   };
-  public barChartLabels: string[] = [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ];
-  public barChartType: ChartType = 'bar';
 
-  public barChartData: ChartData<'bar'> = {
-    labels: this.barChartLabels,
+  public inOut_ChartData: ChartData<'bar'> = {
+    labels: this.inOut_ChartLabels,
     datasets: [
       { 
         data: [ 100, 105, 120, 100, 120, 106, 92, 105, 120, 98, 100, 165 ], 
@@ -53,8 +69,6 @@ export class ChartsComponent implements OnInit {
     ]
   };
 
-  
-  // events
   public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
     console.log(event, active);
   }
@@ -63,7 +77,12 @@ export class ChartsComponent implements OnInit {
     console.log(event, active);
   }
 
-  public randomize(): void {
-    this.barChartType = this.barChartType === 'bar' ? 'line' : 'bar';
+  public changeChartType(): void {
+    this.inOut_ChartType = this.inOut_ChartType === 'bar' ? 'line' : 'bar';
   }
+
+
+  //Dépenses pie chart
+  
+
 }
