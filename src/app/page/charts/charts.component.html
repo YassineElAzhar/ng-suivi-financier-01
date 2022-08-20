@@ -4,7 +4,7 @@
 
     <!-- Graphique 1 - Depense VS Revenus année courante -->
     <mat-grid-tile (click)="inOutChangeChartType()">
-      <div style="width: 100%; height: 100%; padding-top: 0%; padding-bottom:0%;">
+      <div class="canvasBlock">
         <canvas baseChart [data]="inOut_ChartData" [options]="inOut_ChartOptions"
           [type]="inOut_ChartType" (chartHover)="inOutChartHovered($event)"
           (chartClick)="inOutChartClicked($event)">
@@ -14,7 +14,7 @@
 
     <!-- Graphique 2 - Prévisions annuel -->
     <mat-grid-tile (click)="forcastChangeChartType()">
-      <div style="width: 100%; height: 100%; padding-top: 0%; padding-bottom:0%;">
+      <div class="canvasBlock">
         <canvas baseChart [data]="forcast_ChartData" [options]="forcast_ChartOptions"
           [type]="forcast_ChartType" (chartHover)="forcastChartHovered($event)"
           (chartClick)="forcastChartClicked($event)">
@@ -24,7 +24,7 @@
 
     <!-- Graphique 3 - Dépenses sur le dernier mois -->
     <mat-grid-tile (click)="outChangeChartType()">
-      <div style="width: 100%; height: 100%; padding-top: 0%; padding-bottom:0%;">
+      <div class="canvasBlock">
         <canvas baseChart [data]="out_ChartData" [options]="out_ChartOptions"
           [type]="out_ChartType" (chartHover)="outChartHovered($event)"
           (chartClick)="outChartClicked($event)">
@@ -34,7 +34,7 @@
 
     <!-- Graphique 4 - Revenus sur le dernier mois -->
     <mat-grid-tile (click)="inChangeChartType()">
-      <div style="width: 100%; height: 100%; padding-top: 0%; padding-bottom:0%;">
+      <div class="canvasBlock">
         <canvas baseChart [data]="in_ChartData" [options]="in_ChartOptions"
           [type]="in_ChartType" (chartHover)="inChartHovered($event)"
           (chartClick)="inChartClicked($event)">
