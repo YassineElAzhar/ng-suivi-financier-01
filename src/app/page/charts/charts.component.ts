@@ -16,14 +16,13 @@ export class ChartsComponent implements OnInit {
   
   chartInOutModel: ChartInOutModel; //Model pour "Revenus VS Dépenses"
 
-
   breakpoint: number; //Pour le responsive
 
   /*****************************************/
   
   //Revenu VS Dépenses
   public inOut_ChartLabels: string[] = [];//[ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ];
-  public inOut_ChartType: ChartType = 'bar';
+  public inOut_ChartType: ChartType;// = 'bar';
 
   //Prévisions annuel
   public forcast_ChartLabels: string[] = [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ];
@@ -40,7 +39,7 @@ export class ChartsComponent implements OnInit {
   /*****************************************/
   
 
-  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+  @ViewChild(BaseChartDirective) charts: BaseChartDirective | undefined;
   
   constructor(private chartService:ChartService) {
   }
@@ -57,13 +56,17 @@ export class ChartsComponent implements OnInit {
 
   ngAfterViewInit() {
     //On met à jour le graphique "Revenus VS Dépenses" avec le web service
-    setTimeout(() => this.updateInOutData());
+    setTimeout(() => this.updateInOutData(),500);
   }
 
   public updateInOutData(){
+    //Dépenses VS Revenus - Mise à jour des données avec l'API
     this.inOut_ChartData.labels = this.chartInOutModel.chartLabels;
     this.inOut_ChartData.datasets = this.chartInOutModel.dataset;
     this.inOut_ChartType = this.chartInOutModel.chartTypeInit;
+
+    //Nous raffraichissons les charts avec les nouvelles données
+    this.charts?.update();
   }
 
   handleSize(event:any) {
