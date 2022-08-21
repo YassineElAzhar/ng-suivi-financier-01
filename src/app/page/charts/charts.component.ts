@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartEvent, ChartType, Title } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { ChartInOutModel } from '../../model/chart.inout.model';
+import { ChartService } from 'src/app/service/charts.service';
 
 
 @Component({
@@ -11,12 +13,16 @@ import { BaseChartDirective } from 'ng2-charts';
 
 export class ChartsComponent implements OnInit {
 
+  
+  chartInOutModel: ChartInOutModel; //Model pour "Revenus VS Dépenses"
+
+
   breakpoint: number; //Pour le responsive
 
   /*****************************************/
   
   //Revenu VS Dépenses
-  public inOut_ChartLabels: string[] = [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ];
+  public inOut_ChartLabels: string[] = [];//[ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ];
   public inOut_ChartType: ChartType = 'bar';
 
   //Prévisions annuel
@@ -36,12 +42,28 @@ export class ChartsComponent implements OnInit {
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
   
-  constructor() {
+  constructor(private chartService:ChartService) {
   }
 
   ngOnInit():void {
     //Pour le responsive
     this.breakpoint = (window.innerWidth <= 1200) ? 1 : 2;
+
+    //On appel le webservice
+    this.getInOutChartData();
+    
+  }
+  
+
+  ngAfterViewInit() {
+    //On met à jour le graphique "Revenus VS Dépenses" avec le web service
+    setTimeout(() => this.updateInOutData());
+  }
+
+  public updateInOutData(){
+    this.inOut_ChartData.labels = this.chartInOutModel.chartLabels;
+    this.inOut_ChartData.datasets = this.chartInOutModel.dataset;
+    this.inOut_ChartType = this.chartInOutModel.chartTypeInit;
   }
 
   handleSize(event:any) {
@@ -73,7 +95,7 @@ export class ChartsComponent implements OnInit {
 
   public inOut_ChartData: ChartData<'bar'> = {
     labels: this.inOut_ChartLabels,
-    datasets: [
+    datasets:[/*
       { 
         data: [ 100, 105, 120, 100, 120, 106, 92, 105, 120, 98, 100, 165 ], 
         label: 'Revenus',
@@ -83,16 +105,16 @@ export class ChartsComponent implements OnInit {
         data: [ 80, 88, 56, 120, 100, 80, 80, 90, 105, 120, 100, 100 ], 
         label: 'Dépenses',
         backgroundColor: 'blue'
-      }
+      }*/
     ]
   };
 
   public inOutChartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
+    //console.log(event, active);
   }
 
   public inOutChartHovered({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
+    //console.log(event, active);
   }
 
   public inOutChangeChartType(): void {
@@ -134,11 +156,11 @@ export class ChartsComponent implements OnInit {
   };
 
   public outChartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
+    //console.log(event, active);
   }
 
   public outChartHovered({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
+    //console.log(event, active);
   }
 
   public outChangeChartType(): void {
@@ -181,11 +203,11 @@ export class ChartsComponent implements OnInit {
   };
 
   public inChartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
+    //console.log(event, active);
   }
 
   public inChartHovered({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
+    //console.log(event, active);
   }
 
   public inChangeChartType(): void {
@@ -237,15 +259,24 @@ export class ChartsComponent implements OnInit {
   };
 
   public forcastChartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
+    //console.log(event, active);
   }
 
   public forcastChartHovered({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
+    //console.log(event, active);
   }
 
   public forcastChangeChartType(): void {
     this.forcast_ChartType = this.forcast_ChartType === 'radar' ? 'line' : 'radar';
   }
+
+  public getInOutChartData() {
+    this.chartService.getInOutChartData().subscribe((response: ChartInOutModel) => {
+      this.chartInOutModel = response;
+    });
+  }
+
+
+
 
 }
