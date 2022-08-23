@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartEvent, ChartType, Title } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartInOutModel } from '../../model/chart.inout.model';
+import { ChartInModel } from '../../model/chart.in.model';
 import { ChartService } from 'src/app/service/charts.service';
 
 
@@ -15,6 +16,7 @@ export class ChartsComponent implements OnInit {
 
   
   chartInOutModel: ChartInOutModel; //Model pour "Revenus VS Dépenses"
+  chartInModel: ChartInModel; //Model pour "Revenus"
 
   breakpoint: number; //Pour le responsive
 
@@ -50,6 +52,7 @@ export class ChartsComponent implements OnInit {
 
     //On appel le webservice
     this.getInOutChartData();
+    this.getInChartData();
     
   }
   
@@ -57,6 +60,7 @@ export class ChartsComponent implements OnInit {
   ngAfterViewInit() {
     //On met à jour le graphique "Revenus VS Dépenses" avec le web service
     setTimeout(() => this.updateInOutData(),500);
+    setTimeout(() => this.updateInData(),500);
   }
 
   public updateInOutData(){
@@ -64,6 +68,16 @@ export class ChartsComponent implements OnInit {
     this.inOut_ChartData.labels = this.chartInOutModel.chartLabels;
     this.inOut_ChartData.datasets = this.chartInOutModel.dataset;
     this.inOut_ChartType = this.chartInOutModel.chartTypeInit;
+
+    //Nous raffraichissons les charts avec les nouvelles données
+    this.charts?.update();
+  }
+
+  public updateInData(){
+    //Dépenses VS Revenus - Mise à jour des données avec l'API
+    this.in_ChartData.labels = this.chartInModel.chartLabels;
+    this.in_ChartData.datasets = this.chartInModel.dataset;
+    this.in_ChartType = this.chartInModel.chartTypeInit;
 
     //Nous raffraichissons les charts avec les nouvelles données
     this.charts?.update();
@@ -276,6 +290,12 @@ export class ChartsComponent implements OnInit {
   public getInOutChartData() {
     this.chartService.getInOutChartData().subscribe((response: ChartInOutModel) => {
       this.chartInOutModel = response;
+    });
+  }
+
+  public getInChartData() {
+    this.chartService.getInChartData().subscribe((response: ChartInModel) => {
+      this.chartInModel = response;
     });
   }
 
