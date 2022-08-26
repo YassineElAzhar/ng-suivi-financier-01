@@ -5,7 +5,7 @@
     <!-- Graphique 1 - Depense VS Revenus année courante -->
     <mat-grid-tile (click)="inOutChangeChartType()">
       <div class="canvasBlock">
-        <canvas #myChart baseChart [data]="inOut_ChartData" [options]="inOut_ChartOptions"
+        <canvas baseChart [data]="inOut_ChartData" [options]="inOut_ChartOptions"
           [type]="inOut_ChartType" (chartHover)="inOutChartHovered($event)"
           (chartClick)="inOutChartClicked($event)">
         </canvas>
