@@ -27,20 +27,20 @@ export class ChartsComponent implements OnInit {
   /*****************************************/
   
   //Revenu VS Dépenses
-  public inOut_ChartLabels: string[] = [];//[ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ];
-  public inOut_ChartType: ChartType;// = 'bar';
+  public inOut_ChartLabels: string[] = [];
+  public inOut_ChartType: ChartType;
 
   //Prévisions annuel
-  public forcast_ChartLabels: string[] = [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ];
-  public forcast_ChartType: ChartType = 'radar';
+  public forcast_ChartLabels: string[] = [];
+  public forcast_ChartType: ChartType = 'bar';
 
   //Dépense pie chart
-  public out_ChartLabels: string[] = [ 'Epicerie', 'Internet', 'Divertissement', 'Hypothèques', 'Electricité' ];
-  public out_ChartType: ChartType = 'polarArea';
+  public out_ChartLabels: string[] = [];
+  public out_ChartType: ChartType;
 
   //Revenus pie chart
-  public in_ChartLabels: string[] = [];// [ 'Loyer App 1', 'Loyer App 2', 'Loyer App 4', 'Salaire', 'Autre' ];
-  public in_ChartType: ChartType = 'pie';
+  public in_ChartLabels: string[] = [];
+  public in_ChartType: ChartType;
   
   /*****************************************/
   
@@ -59,12 +59,11 @@ export class ChartsComponent implements OnInit {
     this.getInChartData();
     this.getOutChartData();
     this.getForcastChartData();
-    
   }
   
 
   ngAfterViewInit() {
-    //On met à jour le graphique "Revenus VS Dépenses" avec le web service    
+    //On met à jour le graphique "Revenus VS Dépenses" avec le web service 
     this.updateInOutData();
     this.updateInData();
     this.updateOutData();
@@ -85,7 +84,6 @@ export class ChartsComponent implements OnInit {
       this.inOut_ChartData.labels = this.chartInOutModel.chartLabels;
       this.inOut_ChartData.datasets = this.chartInOutModel.dataset;
       this.inOut_ChartType = this.chartInOutModel.chartTypeInit;
-      this.forcast_ChartType = this.chartForcastModel.chartTypeInit;
     }, 500);
   }
 
@@ -113,6 +111,7 @@ export class ChartsComponent implements OnInit {
       this.forcast_ChartData.labels = this.chartForcastModel.chartLabels;
       this.forcast_ChartData.datasets = this.chartForcastModel.dataset;
       this.forcast_ChartType = this.chartForcastModel.chartTypeInit;
+      this.forcast_ChartLabels = this.chartForcastModel.chartLabels;
     }, 500);
   }
 
