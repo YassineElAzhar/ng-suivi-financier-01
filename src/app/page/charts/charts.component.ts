@@ -3,6 +3,8 @@ import { ChartConfiguration, ChartData, ChartEvent, ChartType, Title } from 'cha
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartInOutModel } from '../../model/chart.inout.model';
 import { ChartInModel } from '../../model/chart.in.model';
+import { ChartOutModel } from '../../model/chart.out.model';
+import { ChartForcastModel } from '../../model/chart.forcast.model';
 import { ChartService } from 'src/app/service/charts.service';
 
 
@@ -17,6 +19,8 @@ export class ChartsComponent implements OnInit {
   
   chartInOutModel: ChartInOutModel; //Model pour "Revenus VS Dépenses"
   chartInModel: ChartInModel; //Model pour "Revenus"
+  chartOutModel: ChartOutModel; //Model pour "Dépenses"
+  chartForcastModel: ChartForcastModel; //Model pour "Dépenses"
 
   breakpoint: number; //Pour le responsive
 
@@ -35,7 +39,7 @@ export class ChartsComponent implements OnInit {
   public out_ChartType: ChartType = 'polarArea';
 
   //Revenus pie chart
-  public in_ChartLabels: string[] = [ 'Loyer App 1', 'Loyer App 2', 'Loyer App 4', 'Salaire', 'Autre' ];
+  public in_ChartLabels: string[] = [];// [ 'Loyer App 1', 'Loyer App 2', 'Loyer App 4', 'Salaire', 'Autre' ];
   public in_ChartType: ChartType = 'pie';
   
   /*****************************************/
@@ -53,34 +57,63 @@ export class ChartsComponent implements OnInit {
     //On appel le webservice
     this.getInOutChartData();
     this.getInChartData();
+    this.getOutChartData();
+    this.getForcastChartData();
     
   }
   
 
   ngAfterViewInit() {
-    //On met à jour le graphique "Revenus VS Dépenses" avec le web service
-    setTimeout(() => this.updateInOutData(),500);
-    setTimeout(() => this.updateInData(),500);
+    //On met à jour le graphique "Revenus VS Dépenses" avec le web service    
+    this.updateInOutData();
+    this.updateInData();
+    this.updateOutData();
+    this.updateForcastData();
+    this.charts?.update;
+
+    setTimeout(() => {
+      this.inOut_ChartType = this.inOut_ChartType === 'bar' ? 'line' : 'bar';
+      this.out_ChartType = this.out_ChartType === 'pie' ? 'polarArea' : 'pie';
+      this.in_ChartType = this.in_ChartType === 'polarArea' ? 'pie' : 'polarArea';
+      this.forcast_ChartType = this.forcast_ChartType === 'radar' ? 'line' : 'radar';
+    }, 500);
   }
 
-  public updateInOutData(){
+  public async updateInOutData(){
     //Dépenses VS Revenus - Mise à jour des données avec l'API
-    this.inOut_ChartData.labels = this.chartInOutModel.chartLabels;
-    this.inOut_ChartData.datasets = this.chartInOutModel.dataset;
-    this.inOut_ChartType = this.chartInOutModel.chartTypeInit;
-
-    //Nous raffraichissons les charts avec les nouvelles données
-    this.charts?.update();
+    setTimeout(() => {
+      this.inOut_ChartData.labels = this.chartInOutModel.chartLabels;
+      this.inOut_ChartData.datasets = this.chartInOutModel.dataset;
+      this.inOut_ChartType = this.chartInOutModel.chartTypeInit;
+      this.forcast_ChartType = this.chartForcastModel.chartTypeInit;
+    }, 500);
   }
 
-  public updateInData(){
-    //Dépenses VS Revenus - Mise à jour des données avec l'API
-    this.in_ChartData.labels = this.chartInModel.chartLabels;
-    this.in_ChartData.datasets = this.chartInModel.dataset;
-    this.in_ChartType = this.chartInModel.chartTypeInit;
+  public async updateInData(){
+    //Revenus - Mise à jour des données avec l'API    
+    setTimeout(() => {
+      this.in_ChartData.labels = this.chartInModel.chartLabels;
+      this.in_ChartData.datasets = this.chartInModel.dataset;
+      this.in_ChartType = this.chartInModel.chartTypeInit;
+    }, 500);
+  }
 
-    //Nous raffraichissons les charts avec les nouvelles données
-    this.charts?.update();
+  public async updateOutData(){
+    setTimeout(() => {
+      //Dépenses - Mise à jour des données avec l'API
+      this.out_ChartData.labels = this.chartOutModel.chartLabels;
+      this.out_ChartData.datasets = this.chartOutModel.dataset;
+      this.out_ChartType = this.chartOutModel.chartTypeInit;
+    }, 500);
+  }
+
+  public async updateForcastData(){
+    setTimeout(() => {
+      //Dépenses - Mise à jour des données avec l'API
+      this.forcast_ChartData.labels = this.chartForcastModel.chartLabels;
+      this.forcast_ChartData.datasets = this.chartForcastModel.dataset;
+      this.forcast_ChartType = this.chartForcastModel.chartTypeInit;
+    }, 500);
   }
 
   handleSize(event:any) {
@@ -112,18 +145,7 @@ export class ChartsComponent implements OnInit {
 
   public inOut_ChartData: ChartData<'bar'> = {
     labels: this.inOut_ChartLabels,
-    datasets:[/*
-      { 
-        data: [ 100, 105, 120, 100, 120, 106, 92, 105, 120, 98, 100, 165 ], 
-        label: 'Revenus',
-        backgroundColor:'red' 
-      },
-      { 
-        data: [ 80, 88, 56, 120, 100, 80, 80, 90, 105, 120, 100, 100 ], 
-        label: 'Dépenses',
-        backgroundColor: 'blue'
-      }*/
-    ]
+    datasets:[]
   };
 
   public inOutChartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
@@ -163,13 +185,7 @@ export class ChartsComponent implements OnInit {
 
   public out_ChartData: ChartData<'pie'> = {
     labels: this.out_ChartLabels,
-    datasets: [
-      { 
-        data: [ 100, 105, 120, 100, 120 ], 
-        label: 'Dépenses - Juillet 2022'//,
-        //backgroundColor:'red'
-      }
-    ]
+    datasets: []
   };
 
   public outChartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
@@ -209,14 +225,8 @@ export class ChartsComponent implements OnInit {
   };
 
   public in_ChartData: ChartData<'polarArea'> = {
-    labels: this.in_ChartLabels,
-    datasets: [
-      { 
-        data: [ 100, 105, 120, 100, 120 ], 
-        label: 'Revenus - Juillet 2020'//,
-        //backgroundColor:'red'
-      }
-    ]
+    /*labels: this.in_ChartLabels,*/
+    datasets: []
   };
 
   public inChartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
@@ -230,7 +240,6 @@ export class ChartsComponent implements OnInit {
   public inChangeChartType(): void {
     this.in_ChartType = this.in_ChartType === 'polarArea' ? 'pie' : 'polarArea';
   }
-
 
   
   /**
@@ -260,15 +269,19 @@ export class ChartsComponent implements OnInit {
     datasets: [
       {
         label: 'Revenus',
-        data: [ 100, 105, 120, 100, 120, 106, 92, 105, 120, 98, 100, 165 ], /*,
+        data: [] //[ 100, 105, 120, 100, 120, 106, 92, 105, 120, 98, 100, 165 ], 
+        /*,
         borderColor: 'red',
-        backgroundColor: 'red',*/
+        backgroundColor: 'red',
+        */
       },
       {
         label: 'Dépenses',
-        data: [ 80, 88, 56, 120, 100, 80, 80, 90, 105, 120, 100, 100 ], /*,
+        data: [] //[ 80, 88, 56, 120, 100, 80, 80, 90, 105, 120, 100, 100 ], 
+        /*,
         borderColor: 'blue',
-        backgroundColor: 'blue',*/
+        backgroundColor: 'blue',
+        */
       }
     ]
 
@@ -287,6 +300,8 @@ export class ChartsComponent implements OnInit {
     this.forcast_ChartType = this.forcast_ChartType === 'radar' ? 'line' : 'radar';
   }
 
+
+  // Call the API with the services
   public getInOutChartData() {
     this.chartService.getInOutChartData().subscribe((response: ChartInOutModel) => {
       this.chartInOutModel = response;
@@ -296,6 +311,18 @@ export class ChartsComponent implements OnInit {
   public getInChartData() {
     this.chartService.getInChartData().subscribe((response: ChartInModel) => {
       this.chartInModel = response;
+    });
+  }
+
+  public getOutChartData() {
+    this.chartService.getOutChartData().subscribe((response: ChartOutModel) => {
+      this.chartOutModel = response;
+    });
+  }
+
+  public getForcastChartData() {
+    this.chartService.getForcastChartData().subscribe((response: ChartForcastModel) => {
+      this.chartForcastModel = response;
     });
   }
 
