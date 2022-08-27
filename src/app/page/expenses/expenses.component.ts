@@ -1,9 +1,12 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, Sort } from '@angular/material/sort';
 import { ExpensesModel } from '../../model/expenses.model';
-import { ELEMENT_DATA_EXPENSES } from '../../mock-data/mock-expenses-list';
-
+import { ExpensesService } from 'src/app/service/expenses.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AddExpensesComponent } from 'src/app/popup/expenses/addExpenses.component';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-expenses',
@@ -12,18 +15,68 @@ import { ELEMENT_DATA_EXPENSES } from '../../mock-data/mock-expenses-list';
 })
 export class ExpensesComponent implements AfterViewInit {
 
-  displayedColumns: string[] = ['id', 'type', 'provenance','titre', 'montant', 'dateExpense'];
+  expensesModel: ExpensesModel;
+  expenses: ExpensesModel[];
+  dataSource = new MatTableDataSource<ExpensesModel>();
+  displayedColumns: string[] = ['id', 'type', 'destinataire','titre', 'montant', 'dateExpense'];
   
-  dataSource = new MatTableDataSource<ExpensesModel>(ELEMENT_DATA_EXPENSES);
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
-  applyFilter(filterValue: string){
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  constructor(
+    private expensesService:ExpensesService, 
+    private dialog: MatDialog,
+    private _liveAnnouncer: LiveAnnouncer
+  ){
   }
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  ngOnInit(){
+    this.getAllExpenses();
+  }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    setTimeout(() => this.dataSource.paginator = this.paginator);
+    setTimeout(() => this.dataSource.sort = this.sort);
   }
+
+  public applyFilter(filterValue: string){
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+  
+  public sum(key: keyof ExpensesModel) {
+    //Si nous souhaitons afficher la somme sur toutes les valeurs
+    //return this.dataSource.data.reduce((a, b) => a + (Number(b[key]) || 0), 0);
+
+    //Si nous souhaitons afficher la somme avec le filtre
+    return this.dataSource.filteredData.reduce((a,b) => a + (Number(b[key]) || 0), 0);
+  }
+
+  announceSortChange(sortState: Sort) {
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
+  }
+
+  getAllExpenses() {
+    this.expensesService.getAllExpenses().subscribe((response: ExpensesModel[]) => {
+      this.expenses = response;
+      //console.log(this.expenses);
+      //On met à jour le dataSource avec les valeurs venant du WebService
+      this.dataSource = new MatTableDataSource<ExpensesModel>(this.expenses);
+      //console.log(this.dataSource.data);
+    });
+  }
+
+  onCreate(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "60%";
+    this.dialog.open(AddExpensesComponent, dialogConfig);
+
+  }
+
 
 }

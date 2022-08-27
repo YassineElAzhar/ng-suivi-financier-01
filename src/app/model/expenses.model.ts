@@ -1,7 +1,7 @@
 export interface ExpensesModel {
     id: number;
     type: string;
-    provenance: string;
+    destinataire: string;
     titre: string;
     montant: number;
     dateExpense: string;

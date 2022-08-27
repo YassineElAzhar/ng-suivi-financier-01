@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +20,14 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from  '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSortModule } from '@angular/material/sort';
+import { MatRadioModule } from '@angular/material/radio';
+
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 import { HttpClientModule } from '@angular/common/http';
@@ -31,9 +40,20 @@ import { NotFoundComponent } from './page/not-found/not-found.component';
 import { CalendarComponent } from './page/calendar/calendar.component';
 import { IncomesComponent } from './page/incomes/incomes.component';
 import { ExpensesComponent } from './page/expenses/expenses.component';
+import { ChartsComponent } from './page/charts/charts.component';
+
+import { AddExpensesComponent } from './popup/expenses/addExpenses.component';
+import { AddIncomesComponent } from './popup/incomes/addIncomes.component';
+import { AddEventComponent } from './popup/event/addEvent.component';
 
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
+import { NgChartsModule } from 'ng2-charts';
+
+
+
 
 @NgModule({
   declarations: [
@@ -45,9 +65,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NotFoundComponent,
     CalendarComponent,
     IncomesComponent,
-    ExpensesComponent
+    ExpensesComponent,
+    AddExpensesComponent,
+    AddIncomesComponent,
+    ChartsComponent,
+    AddEventComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -68,7 +93,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     MatGridListModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressBarModule,
+    MatDialogModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatSortModule,
+    MatRadioModule,
+
+    FlexLayoutModule,
+
+    NgChartsModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

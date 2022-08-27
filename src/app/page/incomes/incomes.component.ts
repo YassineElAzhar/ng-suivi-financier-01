@@ -1,10 +1,13 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, Sort } from '@angular/material/sort';
 import { IncomesModel } from '../../model/incomes.model';
 import { ELEMENT_DATA_INCOMES } from '../../mock-data/mock-incomes-list';
 import { IncomesService } from '../../service/incomes.service';
-import { map,tap } from 'rxjs/operators';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AddIncomesComponent } from 'src/app/popup/incomes/addIncomes.component';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-incomes',
@@ -19,10 +22,16 @@ export class IncomesComponent implements AfterViewInit {
   //Si nous souhations utiliser la mock-list, nous utiliserions cette declaration de dataSource
   //dataSource = new MatTableDataSource<IncomesModel>(ELEMENT_DATA_INCOMES);
   dataSource = new MatTableDataSource<IncomesModel>();
+
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private incomesService:IncomesService){}
+  constructor(
+    private incomesService:IncomesService, 
+    private dialog: MatDialog,
+    private _liveAnnouncer: LiveAnnouncer
+  ){}
 
   ngOnInit(){
     //this.getAllIncomesV1();
@@ -30,18 +39,37 @@ export class IncomesComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    //Pour l'initialiser directement
+    //this.dataSource.paginator = this.paginator;
+
+    //Nous allons ajouter un timeout
+    //C'est pour laisser le temps de récupérer les donnée du webservice
+    setTimeout(() => this.dataSource.paginator = this.paginator);
+    setTimeout(() => this.dataSource.sort = this.sort);
   }
 
-  
+
   public applyFilter(filterValue: string){
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   
   public sum(key: keyof IncomesModel) {
-    return this.dataSource.data.reduce((a, b) => a + (Number(b[key]) || 0), 0);
+    //Si nous souhaitons afficher la somme sur toutes les valeurs
+    //return this.dataSource.data.reduce((a, b) => a + (Number(b[key]) || 0), 0);
+
+    //Si nous souhaitons afficher la somme avec le filtre
+    return this.dataSource.filteredData.reduce((a,b) => a + (Number(b[key]) || 0), 0);
   }
 
+
+
+  announceSortChange(sortState: Sort) {
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
+  }
 
   public getAllIncomesV1(){
     this.incomesService.getAllIncomesV1().subscribe({
@@ -65,10 +93,18 @@ export class IncomesComponent implements AfterViewInit {
       console.log(this.members);
       //On met à jour le dataSource avec les valeurs venant du WebService
       this.dataSource = new MatTableDataSource<IncomesModel>(this.members);
+      console.log(this.dataSource.data);
     });
   }
 
+  onCreate(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "60%";
+    this.dialog.open(AddIncomesComponent, dialogConfig);
 
+  }
 
 
 

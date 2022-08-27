@@ -9,7 +9,7 @@ import { map,tap } from 'rxjs/operators';
 })
 export class IncomesService{
 
-    private urlGetAllIncomes="http://local-api/incomes-2.php";
+    private urlGetAllIncomes="http://local-api/incomes.php";
 
     constructor(private http:HttpClient){
         

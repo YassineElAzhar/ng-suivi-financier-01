@@ -1,0 +1,81 @@
+
+<div class="container">
+    <form [formGroup]="form" (ngSubmit)="saveDetails(form)">
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="standard" hintLabel="Le type est obligatoire">
+                    <mat-label>Type</mat-label>
+                    <mat-select matNativeControl name="typeExpense" formControlName="typeExpense">
+                        <mat-option value="hypoteque">Hypoteque</mat-option>
+                        <mat-option value="taxes">Taxes</mat-option>
+                        <mat-option value="facture">Facture</mat-option>
+                        <mat-option value="immobilier">Immobilier</mat-option>
+                        <mat-option value="divers">Divers</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field appearance="standard">
+                    <mat-label>Destinataire</mat-label>
+                    <input matInput maxlength="15" inputmode="text" placeholder="Destinataire" formControlName="destinataire" #destinataireInput>
+                    <mat-hint>Mini character 3: {{ destinataireInput.value.length }}/3</mat-hint>
+                    <mat-error>Le destinatire est obligatoire</mat-error>
+                    <mat-error *ngIf="form.controls['destinataire'].errors?.['minlength']">
+                        Entrez au moins de 3 caractères
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    
+        <hr/>
+
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="standard">
+                    <mat-label>Titre</mat-label>
+                    <input matInput maxlength="40" inputmode="text" placeholder="Titre" formControlName="titre" #titreInput>
+                    <mat-hint>Mini character 10: {{ titreInput.value.length }}/10</mat-hint>
+                    <mat-error>Le destinatire est obligatoire</mat-error>
+                    <mat-error *ngIf="form.controls['titre'].errors?.['minlength']">
+                        Entrez au moins 10 caractères
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        
+        <hr/>
+
+        <div class="row">
+            
+            <div class="col">
+                <mat-form-field appearance="standard">
+                    <mat-label>Selectionner la date</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="dateExpense">
+                    <mat-datepicker-toggle matSuffix [for]="picker">
+                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field appearance="standard">
+                    <input matInput type="number" placeholder="Montant" formControlName="montant" #montantInput>
+                </mat-form-field>
+            </div>
+        </div>
+        <hr/>
+
+        <div class="row text-center">
+            <div class="col">
+                <button type="button" class="btn btn-primary">Ajouter</button>
+            </div>
+        </div>
+      
+    </form>
+
+    <hr/>
+
+    <div class="row">
+        <div class="col">{{ form.value | json }}</div>
+    </div>
+  </div>
