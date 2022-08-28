@@ -133,8 +133,6 @@ export class CalendarComponent implements OnInit {
   }
 
   public generateDaysToDisplayArray(): (string | number)[][][]{
-    //TODO : verifier quand le permier jour est un dimance
-    //Exemple : Mai 2022 (il y a un bug)
 
     var allDaysArray = [];
 
@@ -226,7 +224,7 @@ export class CalendarComponent implements OnInit {
     week_3 = allDaysArray.slice(14,21);
     week_4 = allDaysArray.slice(21,28);
     week_5 = allDaysArray.slice(28,35);
-    week_6 = allDaysArray.slice(35,45);
+    week_6 = allDaysArray.slice(35,42);
 
     //On recherche la semaine courante
     if(week_1.some(item => item[1] === this.mainDateCalendar.getDate())){
