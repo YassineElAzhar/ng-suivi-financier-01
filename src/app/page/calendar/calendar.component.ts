@@ -16,6 +16,13 @@ export class CalendarComponent implements OnInit {
   ) { }
 
   mainDateCalendar = new Date();
+
+  //mainDateCalendar = new Date(2022,7,1) //mois qui commence par un lundi
+  //mainDateCalendar = new Date(2022,8,1) //mois quelconque
+  //mainDateCalendar = new Date(2023,3,1) //mois qui termine par un dimanche
+  //mainDateCalendar = new Date(2022,4,1) //mois qui commence par un dimanche
+  //mainDateCalendar = new Date(2024,8,1) //mois qui commence par un dimanche
+
   currentWeek:number;
   
   calendarWeek1:(string | number)[][];
@@ -23,30 +30,26 @@ export class CalendarComponent implements OnInit {
   calendarWeek3:(string | number)[][];
   calendarWeek4:(string | number)[][];
   calendarWeek5:(string | number)[][];
+  calendarWeek6:(string | number)[][];
 
   ngOnInit(): void {
-    //this.updateMainDate(2022,8,1) //mois qui commence par un lundi
-    //this.updateMainDate(2022,9,1) //mois quelconque
-    //this.updateMainDate(2023,4,1) //mois qui termine par un dimanche
-    //console.log(this.generateDaysToDisplayArray());
-
-    this.calendarWeek1 = this.generateDaysToDisplayArray()[0];
-    this.calendarWeek2 = this.generateDaysToDisplayArray()[1];
-    this.calendarWeek3 = this.generateDaysToDisplayArray()[2];
-    this.calendarWeek4 = this.generateDaysToDisplayArray()[3];
-    this.calendarWeek5 = this.generateDaysToDisplayArray()[4];
+    var daysToDisplay:(string | number)[][][] = this.generateDaysToDisplayArray();
+    this.calendarWeek1 = daysToDisplay[0];
+    this.calendarWeek2 = daysToDisplay[1];
+    this.calendarWeek3 = daysToDisplay[2];
+    this.calendarWeek4 = daysToDisplay[3];
+    this.calendarWeek5 = daysToDisplay[4];
+    this.calendarWeek6 = daysToDisplay[5];
   }
 
-  public test(temp:any){
-    console.log(temp);
-  }
-  
   public updateMainDate(year:number, month:number, day:number){
-    month = month - 1;
-    this.mainDateCalendar = new Date(year,month, day);
-    setTimeout(() => {
-      this.ngOnInit();
-    }, 200);
+    if((!isNaN(year))&&(month>0)){
+      month = month - 1;
+      this.mainDateCalendar = new Date(year,month, day);
+      setTimeout(() => {
+        this.ngOnInit();
+      }, 200);
+    }
   }
 
   public getFirstDayOfCalendar():Date{
@@ -61,12 +64,22 @@ export class CalendarComponent implements OnInit {
     var firstDayDisplayed = new Date();//Initialisation de var pour le premier jour à afficher
 
     if(currentMonthFirstDay.getDay() !== 1){
-      //Nous décidons du premier jour en fonction du jour de la semaines
-      firstDayDisplayed = new Date(
-        currentMonthFirstDay.setDate(currentMonthFirstDay.getDate() - ( currentMonthFirstDay.getDay() - 1 ) )
-      );
+
+      if(currentMonthFirstDay.getDay() == 0){
+        //Dans le cas ou le premier jour est un dimanche
+        firstDayDisplayed = new Date(
+          currentMonthFirstDay.setDate(currentMonthFirstDay.getDate() - ( 7 - 1 ) )
+        );
+      }else { 
+        //Nous décidons du premier jour en fonction du jour de la semaines
+        firstDayDisplayed = new Date(
+          currentMonthFirstDay.setDate(currentMonthFirstDay.getDate() - ( currentMonthFirstDay.getDay() - 1 ) )
+        );
+      }
+
+
     }else{
-      //Si le premier jour est un lundi, nous afficons lundi
+      //Si le premier jour est un lundi, nous affichons lundi
       firstDayDisplayed = currentMonthFirstDay;
     }
 
@@ -120,6 +133,8 @@ export class CalendarComponent implements OnInit {
   }
 
   public generateDaysToDisplayArray(): (string | number)[][][]{
+    //TODO : verifier quand le permier jour est un dimance
+    //Exemple : Mai 2022 (il y a un bug)
 
     var allDaysArray = [];
 
@@ -134,6 +149,7 @@ export class CalendarComponent implements OnInit {
     var week_3 = [];
     var week_4 = [];
     var week_5 = [];
+    var week_6 = [];
     var calendarDays = [];
     
     if(firstDayToDisplay != 1){
@@ -198,11 +214,11 @@ export class CalendarComponent implements OnInit {
       } else {
         allDaysArray.push(["out", initalCpt]);
       }
-      //allDaysArray.push(["out",initalCpt]);
       initalCpt++;
     }
+
     //Nous supprimons le surplus
-    allDaysArray = allDaysArray.slice(0,35);
+    //allDaysArray = allDaysArray.slice(0,42);
     
     //On divise le resulat en 5 tableaux de 5 semaines
     week_1 = allDaysArray.slice(0,7);
@@ -210,6 +226,7 @@ export class CalendarComponent implements OnInit {
     week_3 = allDaysArray.slice(14,21);
     week_4 = allDaysArray.slice(21,28);
     week_5 = allDaysArray.slice(28,35);
+    week_6 = allDaysArray.slice(35,45);
 
     //On recherche la semaine courante
     if(week_1.some(item => item[1] === this.mainDateCalendar.getDate())){
@@ -222,13 +239,17 @@ export class CalendarComponent implements OnInit {
       this.currentWeek = 4;
     } else if(week_5.some(item => item[1] === this.mainDateCalendar.getDate())){
       this.currentWeek = 5;
-    } 
+    } else if(week_6.some(item => item[1] === this.mainDateCalendar.getDate())){
+      this.currentWeek = 6;
+    } else{
+      this.currentWeek = 7;
+    }
 
 
 
     //On met tout dans une tableau a deux dimensions
     calendarDays = [
-      week_1,week_2,week_3,week_4,week_5
+      week_1,week_2,week_3,week_4,week_5,week_6
     ];
     
     return calendarDays;

@@ -23,7 +23,7 @@
                     <option value="2021">2021</option>
                     <option value="2022">2022</option>
                     <option value="2023">2023</option>
-                    <option value="2025">2023</option>
+                    <option value="2024">2024</option>
                 </select>
                 <button type="button" class="btn btn-light" style="margin-left: 15px;" (click)="updateMainDate(+anneeSelect.value, +moisSelect.value,1)">Go</button>
                 <!--February 2014-->
@@ -300,6 +300,13 @@
                     <td *ngFor="let dayNumberWeek5 of calendarWeek5; let i = index">
                         <div [ngClass]="{'weekend': i >= 5, 'outOfWeek': dayNumberWeek5[0] >= 'out', 'current-day': dayNumberWeek5[0] == 'current'}">
                             <span class="date">{{ dayNumberWeek5[1] }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr [ngClass]="{'current-week': currentWeek == 6}">
+                    <td *ngFor="let dayNumberWeek6 of calendarWeek6; let i = index">
+                        <div [ngClass]="{'weekend': i >= 5, 'outOfWeek': dayNumberWeek6[0] >= 'out', 'current-day': dayNumberWeek6[0] == 'current'}">
+                            <span class="date">{{ dayNumberWeek6[1] }}</span>
                         </div>
                     </td>
                 </tr>
