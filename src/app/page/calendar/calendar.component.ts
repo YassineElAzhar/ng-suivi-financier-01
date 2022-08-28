@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddEventComponent } from 'src/app/popup/event/addEvent.component';
 
@@ -8,6 +9,7 @@ import { AddEventComponent } from 'src/app/popup/event/addEvent.component';
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent implements OnInit {
+  form: FormGroup = new FormGroup({});
 
   constructor(
     private dialog: MatDialog
@@ -34,10 +36,17 @@ export class CalendarComponent implements OnInit {
     this.calendarWeek4 = this.generateDaysToDisplayArray()[3];
     this.calendarWeek5 = this.generateDaysToDisplayArray()[4];
   }
+
+  public test(temp:any){
+    console.log(temp);
+  }
   
   public updateMainDate(year:number, month:number, day:number){
     month = month - 1;
     this.mainDateCalendar = new Date(year,month, day);
+    setTimeout(() => {
+      this.ngOnInit();
+    }, 200);
   }
 
   public getFirstDayOfCalendar():Date{
