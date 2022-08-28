@@ -34,6 +34,8 @@
     </div>
 </div>
 
+
+<!--
 <div class="row">
     <div class="col-lg-4 col-md-12">
         <div class="row">
@@ -205,4 +207,103 @@
         </div>
     </div>
     
+</div>
+
+<br><br><br><br><br>
+-->
+
+<div class="row">
+    <div class="col-lg-4 col-md-12">
+        <div class="row">
+            <table>
+                <thead>
+                <tr>
+                    <th>Lundi</th>
+                    <th>Mardi</th>
+                    <th>Mercredi</th>
+                    <th>Jeudi</th>
+                    <th>Vendredi</th>
+                    <th>Samedi</th>
+                    <th>Dimanche</th>
+                </tr>
+                </thead>
+                
+                <tr [ngClass]="{'current-week': currentWeek == 1}">
+                    <td *ngFor="let dayNumberWeek1 of calendarWeek1; let i = index" >
+                        <div 
+                            [ngClass]="{
+                                'weekend': i >= 5, 
+                                'outOfWeek': dayNumberWeek1[0] == 'out', 
+                                'current-day': dayNumberWeek1[0] == 'current'
+                            }">
+                            <span class="date">
+                                {{ dayNumberWeek1[1] }}
+                                <!--
+                                <br>
+                                <ul>
+                                    <li class="different-calendar">
+                                        <span class="event">Seulement 17 char</span>
+                                        <span class="time">10 am</span>
+                                    </li>
+                                    <li>
+                                        <span class="event">Code Review</span>
+                                        <span class="time">Noon</span>
+                                    </li>
+                                    <li>
+                                        <span class="event">Project X Kickoff</span>
+                                        <span class="time">5 pm</span>
+                                    </li>
+                                </ul>
+                                -->
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                <tr [ngClass]="{'current-week': currentWeek == 2}">
+                    <td *ngFor="let dayNumberWeek2 of calendarWeek2; let i = index">
+                        <div 
+                        [ngClass]="{
+                            'weekend': i >= 5, 
+                            'outOfWeek': dayNumberWeek2[0] == 'out', 
+                            'current-day': dayNumberWeek2[0] == 'current'
+                        }">
+                            <span class="date">{{ dayNumberWeek2[1] }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr [ngClass]="{'current-week': currentWeek == 3}">
+                    <td *ngFor="let dayNumberWeek3 of calendarWeek3; let i = index">
+                        <div 
+                        [ngClass]="{
+                            'weekend': i >= 5, 
+                            'outOfWeek': dayNumberWeek3[0] == 'out', 
+                            'current-day': dayNumberWeek3[0] == 'current'
+                        }">
+                            <span class="date">{{ dayNumberWeek3[1] }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr [ngClass]="{'current-week': currentWeek == 4}">
+                    <td *ngFor="let dayNumberWeek4 of calendarWeek4; let i = index">
+                        <div 
+                        [ngClass]="{
+                            'weekend': i >= 5, 
+                            'outOfWeek': dayNumberWeek4[0] == 'out', 
+                            'current-day': dayNumberWeek4[0] == 'current'
+                        }">
+                            <span class="date">{{ dayNumberWeek4[1] }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr [ngClass]="{'current-week': currentWeek == 5}">
+                    <td *ngFor="let dayNumberWeek5 of calendarWeek5; let i = index">
+                        <div [ngClass]="{'weekend': i >= 5, 'outOfWeek': dayNumberWeek5[0] >= 'out', 'current-day': dayNumberWeek5[0] == 'current'}">
+                            <span class="date">{{ dayNumberWeek5[1] }}</span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
 </div>

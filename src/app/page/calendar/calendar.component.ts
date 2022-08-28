@@ -14,12 +14,25 @@ export class CalendarComponent implements OnInit {
   ) { }
 
   mainDateCalendar = new Date();
+  currentWeek:number;
+  
+  calendarWeek1:(string | number)[][];
+  calendarWeek2:(string | number)[][];
+  calendarWeek3:(string | number)[][];
+  calendarWeek4:(string | number)[][];
+  calendarWeek5:(string | number)[][];
 
   ngOnInit(): void {
     //this.updateMainDate(2022,8,1) //mois qui commence par un lundi
     //this.updateMainDate(2022,9,1) //mois quelconque
     //this.updateMainDate(2023,4,1) //mois qui termine par un dimanche
-    console.log(this.generateDaysToDisplayArray());
+    //console.log(this.generateDaysToDisplayArray());
+
+    this.calendarWeek1 = this.generateDaysToDisplayArray()[0];
+    this.calendarWeek2 = this.generateDaysToDisplayArray()[1];
+    this.calendarWeek3 = this.generateDaysToDisplayArray()[2];
+    this.calendarWeek4 = this.generateDaysToDisplayArray()[3];
+    this.calendarWeek5 = this.generateDaysToDisplayArray()[4];
   }
   
   public updateMainDate(year:number, month:number, day:number){
@@ -97,7 +110,7 @@ export class CalendarComponent implements OnInit {
     return currentMonthLastDay.getDate();
   }
 
-  public generateDaysToDisplayArray():number[][]{
+  public generateDaysToDisplayArray(): (string | number)[][][]{
 
     var allDaysArray = [];
 
@@ -113,21 +126,70 @@ export class CalendarComponent implements OnInit {
     var week_4 = [];
     var week_5 = [];
     var calendarDays = [];
-
-
+    
     if(firstDayToDisplay != 1){
       while (firstDayToDisplay <= maxDayPreviousMonth) {
-        allDaysArray.push(firstDayToDisplay);
+        //allDaysArray.push(firstDayToDisplay);
+        allDaysArray.push(["out",firstDayToDisplay]);
         firstDayToDisplay++;
       }
     }
     while (initalCpt <= maxDayCurrentMonth) {
-      allDaysArray.push(initalCpt);
+      //allDaysArray.push(initalCpt);
+      var month:string;
+      var inOrCurrentClass:string;
+      if(this.mainDateCalendar.getDate() === initalCpt){
+        inOrCurrentClass = "current";
+      } else {
+        inOrCurrentClass = "in";
+      }
+      if(initalCpt == 1){
+        switch(this.mainDateCalendar.getMonth()) { 
+          case 0: { month = "er Janvier"; break; }
+          case 1: { month = "er Février"; break; }
+          case 2: { month = "er Mars"; break; }
+          case 3: { month = "er Avril"; break; }
+          case 4: { month = "er Mai"; break; }
+          case 5: { month = "er Juin"; break; }
+          case 6: { month = "er Juillet"; break; }
+          case 7: { month = "er Aout"; break; }
+          case 8: { month = "er Septembre"; break; }
+          case 9: { month = "er Octobre"; break; }
+          case 10: { month = "er Novembre"; break; }
+          case 11: { month = "er Décembre"; break; }
+          default: { month = "er"; break; } 
+        }
+        allDaysArray.push([inOrCurrentClass,initalCpt+month]);
+      } else {
+        allDaysArray.push([inOrCurrentClass, initalCpt]);
+      }
       initalCpt++;
     }
     initalCpt = 1
     while (initalCpt <= lastDayToDisplay) {
-      allDaysArray.push(initalCpt);
+      //allDaysArray.push(initalCpt);
+      var month:string;
+      if(initalCpt == 1){
+        switch(this.mainDateCalendar.getMonth()+1) { 
+          case 0: { month = "er Janvier"; break; }
+          case 1: { month = "er Février"; break; }
+          case 2: { month = "er Mars"; break; }
+          case 3: { month = "er Avril"; break; }
+          case 4: { month = "er Mai"; break; }
+          case 5: { month = "er Juin"; break; }
+          case 6: { month = "er Juillet"; break; }
+          case 7: { month = "er Aout"; break; }
+          case 8: { month = "er Septembre"; break; }
+          case 9: { month = "er Octobre"; break; }
+          case 10: { month = "er Novembre"; break; }
+          case 11: { month = "er Décembre"; break; }
+          default: { month = "er"; break; } 
+       } 
+        allDaysArray.push(["out",initalCpt+month]);
+      } else {
+        allDaysArray.push(["out", initalCpt]);
+      }
+      //allDaysArray.push(["out",initalCpt]);
       initalCpt++;
     }
     //Nous supprimons le surplus
@@ -140,13 +202,27 @@ export class CalendarComponent implements OnInit {
     week_4 = allDaysArray.slice(21,28);
     week_5 = allDaysArray.slice(28,35);
 
+    //On recherche la semaine courante
+    if(week_1.some(item => item[1] === this.mainDateCalendar.getDate())){
+      this.currentWeek = 1;
+    } else if(week_2.some(item => item[1] === this.mainDateCalendar.getDate())){
+      this.currentWeek = 2;
+    } else if(week_3.some(item => item[1] === this.mainDateCalendar.getDate())){
+      this.currentWeek = 3;
+    } else if(week_4.some(item => item[1] === this.mainDateCalendar.getDate())){
+      this.currentWeek = 4;
+    } else if(week_5.some(item => item[1] === this.mainDateCalendar.getDate())){
+      this.currentWeek = 5;
+    } 
+
+
+
     //On met tout dans une tableau a deux dimensions
     calendarDays = [
       week_1,week_2,week_3,week_4,week_5
     ];
     
     return calendarDays;
-
   }
 
   addEvent(){
