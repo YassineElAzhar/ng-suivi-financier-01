@@ -252,6 +252,11 @@ export class CalendarComponent implements OnInit {
       week_1,week_2,week_3,week_4,week_5,week_6
     ];
     
+    //Nous supprimer la semaine 6 si on est hors du mois courrant
+    if((week_6.length > 0) && (week_6[0][0] == 'out')){
+      delete calendarDays[5];
+    }
+    
     return calendarDays;
   }
 
