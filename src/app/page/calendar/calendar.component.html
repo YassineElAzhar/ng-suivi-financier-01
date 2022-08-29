@@ -52,7 +52,7 @@
                 </thead>
                 
                 <tr [ngClass]="{'current-week': currentWeek == 1}">
-                    <td *ngFor="let dayNumberWeek1 of calendarWeek1; let i = index" >
+                    <td *ngFor="let dayNumberWeek1 of calendarWeek1; let i = index"  class="eventCellScrollable" >
                         <div 
                             [ngClass]="{
                                 'weekend': i >= 5, 
@@ -73,7 +73,7 @@
                     </td>
                 </tr>
                 <tr [ngClass]="{'current-week': currentWeek == 2}">
-                    <td *ngFor="let dayNumberWeek2 of calendarWeek2; let i = index">
+                    <td *ngFor="let dayNumberWeek2 of calendarWeek2; let i = index" class="eventCellScrollable" >
                         <div 
                         [ngClass]="{
                             'weekend': i >= 5, 
@@ -94,7 +94,7 @@
                     </td>
                 </tr>
                 <tr [ngClass]="{'current-week': currentWeek == 3}">
-                    <td *ngFor="let dayNumberWeek3 of calendarWeek3; let i = index">
+                    <td *ngFor="let dayNumberWeek3 of calendarWeek3; let i = index" class="eventCellScrollable" >
                         <div 
                         [ngClass]="{
                             'weekend': i >= 5, 
@@ -115,7 +115,7 @@
                     </td>
                 </tr>
                 <tr [ngClass]="{'current-week': currentWeek == 4}">
-                    <td *ngFor="let dayNumberWeek4 of calendarWeek4; let i = index">
+                    <td *ngFor="let dayNumberWeek4 of calendarWeek4; let i = index" class="eventCellScrollable" >
                         <div 
                         [ngClass]="{
                             'weekend': i >= 5, 
@@ -136,7 +136,7 @@
                     </td>
                 </tr>
                 <tr [ngClass]="{'current-week': currentWeek == 5}">
-                    <td *ngFor="let dayNumberWeek5 of calendarWeek5; let i = index">
+                    <td *ngFor="let dayNumberWeek5 of calendarWeek5; let i = index" class="eventCellScrollable" >
                         <div [ngClass]="{'weekend': i >= 5, 'outOfWeek': dayNumberWeek5[0] >= 'out', 'current-day': dayNumberWeek5[0] == 'current'}">
                             <span class="date">
                                 <b>{{ dayNumberWeek5[1] }}</b>
@@ -152,7 +152,7 @@
                     </td>
                 </tr>
                 <tr [ngClass]="{'current-week': currentWeek == 6}">
-                    <td *ngFor="let dayNumberWeek6 of calendarWeek6; let i = index">
+                    <td *ngFor="let dayNumberWeek6 of calendarWeek6; let i = index" class="eventCellScrollable" >
                         <div [ngClass]="{'weekend': i >= 5, 'outOfWeek': dayNumberWeek6[0] >= 'out', 'current-day': dayNumberWeek6[0] == 'current'}">
                             <span class="date">
                                 <b>{{ dayNumberWeek6[1] }}</b>
