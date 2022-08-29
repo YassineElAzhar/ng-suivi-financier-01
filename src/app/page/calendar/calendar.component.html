@@ -26,7 +26,6 @@
                     <option value="2024">2024</option>
                 </select>
                 <button type="button" class="btn btn-light" style="margin-left: 15px;" (click)="updateMainDate(+anneeSelect.value, +moisSelect.value,1)">Go</button>
-                <!--February 2014-->
             </div>
             <div class="col" style="text-align: right;">
                 <button type="button" class="btn btn-primary" (click)="addEvent()">Ajouter un event</button>
@@ -35,8 +34,13 @@
     </div>
 </div>
 
-<div class="row calendarBox">
-    <div class="col-lg-4 col-md-12">
+<div class="row">
+    <div style="width: 5%; float: left;">
+        <button type="button" class="btn btn-light" style=" position: relative; right: 5px;" (click)="goToPreviousMonth()" >
+            <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+    </div>
+    <div class="col-lg-4 col-md-12 calendarMainBox" style="width: 90%; float: left;">
         <div class="row">
             <table>
                 <thead>
@@ -169,6 +173,12 @@
                 </tr>
             </table>
         </div>
+    </div>
+    
+    <div style="width: 5%; float: left;">
+        <button type="button" class="btn btn-light"  style=" position: relative; right: 5px;" (click)="goToNextMonth()">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
     </div>
 
 </div>

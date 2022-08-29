@@ -49,8 +49,6 @@ export class CalendarComponent implements OnInit {
       this.calendarWeek4 = daysToDisplay[3];
       this.calendarWeek5 = daysToDisplay[4];
       this.calendarWeek6 = daysToDisplay[5];
-
-      console.log(daysToDisplay);
     }, 200);
     
 
@@ -66,6 +64,22 @@ export class CalendarComponent implements OnInit {
         this.ngOnInit();
       }, 400);
     }
+  }
+
+  
+  public goToPreviousMonth(){
+    this.mainDateCalendar = new Date(this.mainDateCalendar.setMonth(this.mainDateCalendar.getMonth()-1));
+    setTimeout(() => {
+      this.ngOnInit();
+    }, 400);
+  }
+
+  
+  public goToNextMonth(){
+    this.mainDateCalendar = new Date(this.mainDateCalendar.setMonth(this.mainDateCalendar.getMonth()+1));
+    setTimeout(() => {
+      this.ngOnInit();
+    }, 400);
   }
 
   public getFirstDayOfCalendar():Date{
