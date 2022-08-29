@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { EventsModel } from 'src/app/model/events.model';
 import { AddEventComponent } from 'src/app/popup/event/addEvent.component';
+import { CalendarService } from 'src/app/service/calendar.service';
 
 @Component({
   selector: 'app-calendar',
@@ -9,9 +11,10 @@ import { AddEventComponent } from 'src/app/popup/event/addEvent.component';
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent implements OnInit {
-  form: FormGroup = new FormGroup({});
 
+  events: {[key: string]: EventsModel[]}
   constructor(
+    private calendarService:CalendarService,
     private dialog: MatDialog
   ) { }
 
@@ -24,6 +27,7 @@ export class CalendarComponent implements OnInit {
   //mainDateCalendar = new Date(2024,8,1) //mois qui commence par un dimanche
 
   currentWeek:number;
+  currentYearMonthFormat:string;
   
   calendarWeek1:(string | number)[][];
   calendarWeek2:(string | number)[][];
@@ -33,13 +37,25 @@ export class CalendarComponent implements OnInit {
   calendarWeek6:(string | number)[][];
 
   ngOnInit(): void {
-    var daysToDisplay:(string | number)[][][] = this.generateDaysToDisplayArray();
-    this.calendarWeek1 = daysToDisplay[0];
-    this.calendarWeek2 = daysToDisplay[1];
-    this.calendarWeek3 = daysToDisplay[2];
-    this.calendarWeek4 = daysToDisplay[3];
-    this.calendarWeek5 = daysToDisplay[4];
-    this.calendarWeek6 = daysToDisplay[5];
+
+    
+    this.getAllEvents();
+
+    setTimeout(() => {
+      var daysToDisplay:(string | number)[][][] = this.generateDaysToDisplayArray();
+      this.calendarWeek1 = daysToDisplay[0];
+      this.calendarWeek2 = daysToDisplay[1];
+      this.calendarWeek3 = daysToDisplay[2];
+      this.calendarWeek4 = daysToDisplay[3];
+      this.calendarWeek5 = daysToDisplay[4];
+      this.calendarWeek6 = daysToDisplay[5];
+
+      console.log(daysToDisplay);
+    }, 200);
+    
+
+    
+    
   }
 
   public updateMainDate(year:number, month:number, day:number){
@@ -48,7 +64,7 @@ export class CalendarComponent implements OnInit {
       this.mainDateCalendar = new Date(year,month, day);
       setTimeout(() => {
         this.ngOnInit();
-      }, 200);
+      }, 400);
     }
   }
 
@@ -153,7 +169,9 @@ export class CalendarComponent implements OnInit {
     if(firstDayToDisplay != 1){
       while (firstDayToDisplay <= maxDayPreviousMonth) {
         //allDaysArray.push(firstDayToDisplay);
-        allDaysArray.push(["out",firstDayToDisplay]);
+        allDaysArray.push(
+            [ "out", firstDayToDisplay ]
+        );
         firstDayToDisplay++;
       }
     }
@@ -182,9 +200,25 @@ export class CalendarComponent implements OnInit {
           case 11: { month = "er Décembre"; break; }
           default: { month = "er"; break; } 
         }
-        allDaysArray.push([inOrCurrentClass,initalCpt+month]);
+        //allDaysArray.push([inOrCurrentClass,initalCpt+month]);
+        allDaysArray.push(
+          [
+            inOrCurrentClass,
+            initalCpt+month,
+            this.createCurrentYearMonthFormat(this.mainDateCalendar.toString(), initalCpt.toString())
+          ]
+        );
+
+        
       } else {
-        allDaysArray.push([inOrCurrentClass, initalCpt]);
+        //allDaysArray.push([inOrCurrentClass, initalCpt]);
+        allDaysArray.push(
+          [
+            inOrCurrentClass,
+            initalCpt,
+            this.createCurrentYearMonthFormat(this.mainDateCalendar.toString(), initalCpt.toString())
+          ]
+        );
       }
       initalCpt++;
     }
@@ -214,6 +248,7 @@ export class CalendarComponent implements OnInit {
       }
       initalCpt++;
     }
+
 
     //Nous supprimons le surplus
     //allDaysArray = allDaysArray.slice(0,42);
@@ -258,6 +293,20 @@ export class CalendarComponent implements OnInit {
     return calendarDays;
   }
 
+  getAllEvents() {
+    this.calendarService.getAllEvents().subscribe((response: any)  => {
+      this.events = response;
+    });
+  }
+
+  createCurrentYearMonthFormat(str:string,day:string):string{
+    var date = new Date(str),
+    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+    day = ("0" + day).slice(-2);
+    return [date.getFullYear(), mnth, day].join("-");
+  }
+
+
   addEvent(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
@@ -267,5 +316,6 @@ export class CalendarComponent implements OnInit {
 
   }
 
+  
 
 }
