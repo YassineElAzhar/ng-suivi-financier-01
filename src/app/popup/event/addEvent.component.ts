@@ -14,10 +14,10 @@ export class AddEventComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       typeExpense: [null],
-      destinataire: [null, [Validators.required, Validators.minLength(3)]],
       titre: [null, [Validators.required, Validators.minLength(10)]],
       dateExpense: [null, [Validators.required]],
-      montant: [null]
+      startTime: [null, [Validators.required]],
+      endTime: [null, [Validators.required]],
     });
   }
 
