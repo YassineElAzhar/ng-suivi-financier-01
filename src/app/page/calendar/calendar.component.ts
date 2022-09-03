@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EventsModel } from 'src/app/model/events.model';
 import { AddEventComponent } from 'src/app/popup/event/addEvent.component';
@@ -12,20 +11,13 @@ import { CalendarService } from 'src/app/service/calendar.service';
 })
 export class CalendarComponent implements OnInit {
 
-  events: {[key: string]: EventsModel[]}
+  events: {[key: string]: EventsModel[]};
   constructor(
     private calendarService:CalendarService,
     private dialog: MatDialog
   ) { }
 
   mainDateCalendar = new Date();
-
-  //mainDateCalendar = new Date(2022,7,1) //mois qui commence par un lundi
-  //mainDateCalendar = new Date(2022,8,1) //mois quelconque
-  //mainDateCalendar = new Date(2023,3,1) //mois qui termine par un dimanche
-  //mainDateCalendar = new Date(2022,4,1) //mois qui commence par un dimanche
-  //mainDateCalendar = new Date(2024,8,1) //mois qui commence par un dimanche
-
   currentWeek:number;
   currentYearMonthFormat:string;
   
@@ -50,8 +42,6 @@ export class CalendarComponent implements OnInit {
       this.calendarWeek5 = daysToDisplay[4];
       this.calendarWeek6 = daysToDisplay[5];
     }, 200);
-    
-
     
     
   }
@@ -327,7 +317,6 @@ export class CalendarComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
     this.dialog.open(AddEventComponent, dialogConfig);
-
   }
 
   

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
+import { EventsModel } from 'src/app/model/events.model';
+import { CalendarService } from 'src/app/service/calendar.service';
 
 @Component({
   selector: 'app-addEvent',
@@ -9,20 +12,39 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class AddEventComponent implements OnInit {
   form: FormGroup = new FormGroup({});
 
-  constructor(private fb: FormBuilder) { }
+  events: EventsModel;
+
+
+  constructor(
+    private fb: FormBuilder, 
+    private calendarService:CalendarService,
+    public dialogRef: MatDialogRef<AddEventComponent>
+  ) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      typeExpense: [null],
-      titre: [null, [Validators.required, Validators.minLength(10)]],
-      dateExpense: [null, [Validators.required]],
-      startTime: [null, [Validators.required]],
-      endTime: [null, [Validators.required]],
+      type: [null],
+      title: [null, [Validators.required, Validators.minLength(10)]],
+      date_event: [null, [Validators.required]],
+      start_time: [null, [Validators.required]],
+      end_time: [null, [Validators.required]],
     });
   }
 
   saveDetails(form: any) {
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(form.value, null, 4));
+    this.events = form.value;
+    this.addEvent(this.events);
+
+    // On reset le form et on ferme la fenetre de dialogue pour terminer.
+    this.form.reset();
+    this.dialogRef.close();
+  }
+
+
+  addEvent(event:EventsModel) {
+    this.calendarService.addEvent(event).subscribe((response:any) => {
+      console.log(response);
+    });
   }
 
 
