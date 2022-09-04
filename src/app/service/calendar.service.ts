@@ -46,7 +46,7 @@ export class CalendarService{
         return this.http.post(
             this.urlAddEvent, 
             formData, 
-            {responseType: 'text'}
+            {responseType: 'json'}
         );
     }
 
