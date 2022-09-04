@@ -1,11 +1,11 @@
 
 <div class="container">
-    <form [formGroup]="form" (ngSubmit)="saveDetails(form)">
+    <form [formGroup]="form">
         <div class="row">
             <div class="col">
                 <mat-form-field appearance="standard" hintLabel="Le type est obligatoire">
                     <mat-label>Type</mat-label>
-                    <mat-select matNativeControl name="typeExpense" formControlName="typeExpense">
+                    <mat-select matNativeControl name="type" formControlName="type">
                         <mat-option value="hypoteque">Hypoteque</mat-option>
                         <mat-option value="taxes">Taxes</mat-option>
                         <mat-option value="facture">Facture</mat-option>
@@ -67,7 +67,7 @@
 
         <div class="row text-center">
             <div class="col">
-                <button type="button" class="btn btn-primary">Ajouter</button>
+                <button type="button" class="btn btn-primary" (click)="saveDetails(form)">Ajouter</button>
             </div>
         </div>
       

@@ -19,6 +19,9 @@ export class ExpensesComponent implements AfterViewInit {
   expenses: ExpensesModel[];
   dataSource = new MatTableDataSource<ExpensesModel>();
   displayedColumns: string[] = ['id', 'type', 'destinataire','titre', 'montant', 'dateExpense'];
+
+  //Compteur pour eviter bug de realod du ngOnInit
+  cptNgOnInitReload:number = 0; //Nous l'initialisons à 0
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -69,12 +72,25 @@ export class ExpensesComponent implements AfterViewInit {
     });
   }
 
-  onCreate(){
+  addExpense(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
     this.dialog.open(AddExpensesComponent, dialogConfig);
+    //Lorsque la fenêtre de dialogue se ferme, nous rechargeons la page
+    this.dialog.closeAll;
+
+    //Si le compteur est inférieur à 1
+    if(this.cptNgOnInitReload < 1){
+      this.dialog.afterAllClosed.subscribe(() => {
+        this.ngOnInit();
+      });
+      //Nous incémentons le compteur de 1 pour éviter de relancer le ngOnInit()
+      this.cptNgOnInitReload = this.cptNgOnInitReload+1;
+    }
+    //Ce comportement survient car this.dialog.afterAllClosed est relancé plusieurs fois
+    //Si nous ouvrons 3 fois la fenêtre de dialogue, nous aurons 3 fenêtre de dialogue différentes
 
   }
 

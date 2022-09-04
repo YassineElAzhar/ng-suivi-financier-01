@@ -10,6 +10,7 @@ import { map,tap } from 'rxjs/operators';
 export class ExpensesService{
 
     private urlGetAllExpenses="http://local-api/expenses.php";
+    private urlAddExpense="http://local-api/addExpense.php?";
 
     constructor(private http:HttpClient){
         
@@ -29,6 +30,24 @@ export class ExpensesService{
                // console.log(response.length.toString());
             }),
             catchError(this.handleError)
+        );
+    }
+
+
+    addExpense(expense:ExpensesModel): Observable<any> {
+        var formData: any = new FormData();
+
+        formData.append('dateExpense', expense.dateExpense);
+        formData.append('destinataire', expense.destinataire);
+        formData.append('id', expense.id);
+        formData.append('montant', expense.montant);
+        formData.append('titre', expense.titre);
+        formData.append('type', expense.type);
+
+        return this.http.post(
+            this.urlAddExpense, 
+            formData, 
+            {responseType: 'json'}
         );
     }
 

@@ -328,7 +328,7 @@ export class CalendarComponent implements OnInit {
         this.ngOnInit();
       });
       //Nous incémentons le compteur de 1 pour éviter de relancer le ngOnInit()
-      this.cptNgOnInitReload = this.cptNgOnInitReload+1; //Decommenter cette ligne pour le test
+      this.cptNgOnInitReload = this.cptNgOnInitReload+1;
     }
     //Ce comportement survient car this.dialog.afterAllClosed est relancé plusieurs fois
     //Si nous ouvrons 3 fois la fenêtre de dialogue, nous aurons 3 fenêtre de dialogue différentes
