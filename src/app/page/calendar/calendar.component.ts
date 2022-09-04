@@ -20,6 +20,9 @@ export class CalendarComponent implements OnInit {
   mainDateCalendar = new Date();
   currentWeek:number;
   currentYearMonthFormat:string;
+
+  //Compteur pour eviter bug de realod du ngOnInit
+  cptNgOnInitReload:number = 0; //Nous l'initialisons à 0
   
   calendarWeek1:(string | number)[][];
   calendarWeek2:(string | number)[][];
@@ -42,7 +45,6 @@ export class CalendarComponent implements OnInit {
       this.calendarWeek5 = daysToDisplay[4];
       this.calendarWeek6 = daysToDisplay[5];
     }, 200);
-    
     
   }
 
@@ -317,6 +319,19 @@ export class CalendarComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
     this.dialog.open(AddEventComponent, dialogConfig);
+    //Lorsque la fenêtre de dialogue se ferme, nous rechargeons la page
+    this.dialog.closeAll;
+
+    //Si le compteur est inférieur à 1
+    if(this.cptNgOnInitReload < 1){
+      this.dialog.afterAllClosed.subscribe(() => {
+        this.ngOnInit();
+      });
+      //Nous incémentons le compteur de 1 pour éviter de relancer le ngOnInit()
+      this.cptNgOnInitReload = this.cptNgOnInitReload+1; //Decommenter cette ligne pour le test
+    }
+    //Ce comportement survient car this.dialog.afterAllClosed est relancé plusieurs fois
+    //Si nous ouvrons 3 fois la fenêtre de dialogue, nous aurons 3 fenêtre de dialogue différentes
   }
 
   
