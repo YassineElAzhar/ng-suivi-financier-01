@@ -85,6 +85,9 @@ export class ExpensesComponent implements AfterViewInit {
     if(this.cptNgOnInitReload < 1){
       this.dialog.afterAllClosed.subscribe(() => {
         this.ngOnInit();
+        setTimeout(() => {
+          this.ngAfterViewInit();
+        }, 100);
       });
       //Nous incémentons le compteur de 1 pour éviter de relancer le ngOnInit()
       this.cptNgOnInitReload = this.cptNgOnInitReload+1;
