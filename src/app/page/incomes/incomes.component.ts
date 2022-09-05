@@ -22,6 +22,9 @@ export class IncomesComponent implements AfterViewInit {
   //Si nous souhations utiliser la mock-list, nous utiliserions cette declaration de dataSource
   //dataSource = new MatTableDataSource<IncomesModel>(ELEMENT_DATA_INCOMES);
   dataSource = new MatTableDataSource<IncomesModel>();
+  
+  //Compteur pour eviter bug de realod du ngOnInit
+  cptNgOnInitReload:number = 0; //Nous l'initialisons à 0
 
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -90,19 +93,35 @@ export class IncomesComponent implements AfterViewInit {
   getAllIncomes() {
     this.incomesService.getAllIncomes().subscribe((response: IncomesModel[]) => {
       this.members = response;
-      console.log(this.members);
+      //console.log(this.members);
       //On met à jour le dataSource avec les valeurs venant du WebService
       this.dataSource = new MatTableDataSource<IncomesModel>(this.members);
-      console.log(this.dataSource.data);
+      //console.log(this.dataSource.data);
     });
   }
 
-  onCreate(){
+  addIncome(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
     this.dialog.open(AddIncomesComponent, dialogConfig);
+    //Lorsque la fenêtre de dialogue se ferme, nous rechargeons la page
+    this.dialog.closeAll;
+
+    //Si le compteur est inférieur à 1
+    if(this.cptNgOnInitReload < 1){
+      this.dialog.afterAllClosed.subscribe(() => {
+        this.ngOnInit();
+        setTimeout(() => {
+          this.ngAfterViewInit();
+        }, 100);
+      });
+      //Nous incémentons le compteur de 1 pour éviter de relancer le ngOnInit()
+      this.cptNgOnInitReload = this.cptNgOnInitReload+1;
+    }
+    //Ce comportement survient car this.dialog.afterAllClosed est relancé plusieurs fois
+    //Si nous ouvrons 3 fois la fenêtre de dialogue, nous aurons 3 fenêtre de dialogue différentes
 
   }
 

@@ -10,6 +10,7 @@ import { map,tap } from 'rxjs/operators';
 export class IncomesService{
 
     private urlGetAllIncomes="http://local-api/incomes.php";
+    private urlAddIncome="http://local-api/addIncome.php?";
 
     constructor(private http:HttpClient){
         
@@ -37,9 +38,27 @@ export class IncomesService{
             return response;
         }),
             tap((response) => {
-                console.log(response.length.toString());
+                //console.log(response.length.toString());
             }),
             catchError(this.handleError)
+        );
+    }
+
+
+    addIncome(income:IncomesModel): Observable<any> {
+        var formData: any = new FormData();
+
+        formData.append('dateIncome', income.dateIncome);
+        formData.append('montant', income.montant);
+        formData.append('id', income.id);
+        formData.append('provenance', income.provenance);
+        formData.append('titre', income.titre);
+        formData.append('type', income.type);
+
+        return this.http.post(
+            this.urlAddIncome, 
+            formData, 
+            {responseType: 'json'}
         );
     }
 
