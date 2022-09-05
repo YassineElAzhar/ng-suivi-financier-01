@@ -68,7 +68,7 @@
                                 <br>
                                 <ul *ngIf="dayNumberWeek1[2]">
                                     <li *ngFor="let dayEvent of events[dayNumberWeek1[2]]; let i=index">
-                                        <span class="event">{{ dayEvent.title }}</span>
+                                        <span class="event" (click)="udpateEvent(dayEvent.id)">{{ dayEvent.title }}</span>
                                         <span class="time">{{ dayEvent.start_time }}</span>
                                     </li>
                                 </ul>

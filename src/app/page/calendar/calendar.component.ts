@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EventsModel } from 'src/app/model/events.model';
 import { AddEventComponent } from 'src/app/popup/event/addEvent.component';
+import { UpdateEventComponent } from 'src/app/popup/event/updateEvent.component';
 import { CalendarService } from 'src/app/service/calendar.service';
 
 @Component({
@@ -332,6 +333,16 @@ export class CalendarComponent implements OnInit {
     }
     //Ce comportement survient car this.dialog.afterAllClosed est relancé plusieurs fois
     //Si nous ouvrons 3 fois la fenêtre de dialogue, nous aurons 3 fenêtre de dialogue différentes
+  }
+
+  udpateEvent(eventId:number){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "60%";
+    
+    let dialogRef = this.dialog.open(UpdateEventComponent, dialogConfig);
+    dialogRef.componentInstance.eventId = eventId;
   }
 
   

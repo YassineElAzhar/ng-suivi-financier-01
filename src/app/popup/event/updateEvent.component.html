@@ -1,0 +1,94 @@
+Nous allons mettre à jour l'évenement {{ eventId }}
+<br>
+
+<div class="container">
+    <!--<form [formGroup]="form" (ngSubmit)="saveDetails(form)">-->
+    <form [formGroup]="form">
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="standard" hintLabel="Le type est obligatoire">
+                    <mat-label>Type</mat-label>
+                    <mat-select matNativeControl name="type" formControlName="type">
+                        <mat-option value="hypoteque">Hypoteque</mat-option>
+                        <mat-option value="taxes">Taxes</mat-option>
+                        <mat-option value="facture">Facture</mat-option>
+                        <mat-option value="immobilier">Immobilier</mat-option>
+                        <mat-option value="divers">Divers</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field appearance="standard">
+                    <mat-label>Selectionner la date</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="date_event">
+                    <mat-datepicker-toggle matSuffix [for]="picker">
+                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+    
+        <hr/>
+
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="standard">
+                    <mat-label>Titre</mat-label>
+                    <input matInput maxlength="40" inputmode="text" placeholder="Titre" formControlName="title" #titleInput>
+                    <mat-hint>Mini character 10: {{ titleInput.value.length }}/10</mat-hint>
+                    <mat-error>Le destinatire est obligatoire</mat-error>
+                    <mat-error *ngIf="form.controls['title'].errors?.['minlength']">
+                        Entrez au moins 10 caractères
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        
+        <hr/>
+
+        <div class="row">
+    
+            <div class="col">
+                <mat-form-field appearance="standard">
+                    <mat-label>Heuere de début</mat-label>
+                    <input matInput type="time" placeholder="start date" formControlName="start_time" #startTimeInput>
+                    <mat-error>L'heure de début est obligatoire</mat-error>
+                  </mat-form-field>
+            </div>
+    
+            <div class="col">
+                <mat-form-field appearance="standard">
+                    <mat-label>Heuere de fin</mat-label>
+                    <input matInput type="time" placeholder="end date" formControlName="end_time" #endTimeInput>
+                    <mat-error>L'heure de find est obligatoire</mat-error>
+                  </mat-form-field>
+            </div>
+        </div>
+        <hr/>
+
+        <div class="row text-center">
+            <div class="col">
+            </div>
+            <div class="col">
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-primary" (click)="updateEvent(form)">Modifier</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-danger" (click)="deleteEvent(form)">Supprimer</button>
+            </div>
+            <div class="col">
+            </div>
+            <div class="col">
+            </div>
+        </div>
+      
+    </form>
+
+    <hr/>
+
+    <div class="row">
+        <div class="col">{{ form.value | json }}</div>
+    </div>
+  </div>
