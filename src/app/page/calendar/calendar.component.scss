@@ -33,7 +33,7 @@
     min-width: 100%;
   }
   @media (max-width: 800px) {
-    table .time {
+    table .updateEvent {
       display: none;
     }
   }
@@ -100,10 +100,11 @@
     display: inline-block;
     padding-right: 0.25em;
   }
-  .time {
+  .updateEvent {
     float: right;
     text-align: right;
     color: #999;
+    cursor: pointer;
   }
   .event {
     color: #333;

@@ -68,8 +68,11 @@
                                 <br>
                                 <ul *ngIf="dayNumberWeek1[2]">
                                     <li *ngFor="let dayEvent of events[dayNumberWeek1[2]]; let i=index">
-                                        <span class="event" (click)="udpateEvent(dayEvent.id)">{{ dayEvent.title }}</span>
-                                        <span class="time">{{ dayEvent.start_time }}</span>
+                                        <span class="event">{{ dayEvent.title }}</span>
+                                        <span class="updateEvent" (click)="udpateEvent(dayEvent.id)">
+                                            <!-- {{ dayEvent.start_time }} -->
+                                            <mat-icon>open_in_new</mat-icon>
+                                        </span>
                                     </li>
                                 </ul>
                             </span>
@@ -90,7 +93,10 @@
                                 <ul *ngIf="dayNumberWeek2[2]">
                                     <li *ngFor="let dayEvent of events[dayNumberWeek2[2]]; let i=index">
                                         <span class="event">{{ dayEvent.title }}</span>
-                                        <span class="time">{{ dayEvent.start_time }}</span>
+                                        <span class="updateEvent" (click)="udpateEvent(dayEvent.id)">
+                                            <!-- {{ dayEvent.start_time }} -->
+                                            <mat-icon>open_in_new</mat-icon>
+                                        </span>
                                     </li>
                                 </ul>
                             </span>
@@ -111,7 +117,10 @@
                                 <ul *ngIf="dayNumberWeek3[2]">
                                     <li *ngFor="let dayEvent of events[dayNumberWeek3[2]]; let i=index">
                                         <span class="event">{{ dayEvent.title }}</span>
-                                        <span class="time">{{ dayEvent.start_time }}</span>
+                                        <span class="updateEvent" (click)="udpateEvent(dayEvent.id)">
+                                            <!-- {{ dayEvent.start_time }} -->
+                                            <mat-icon>open_in_new</mat-icon>
+                                        </span>
                                     </li>
                                 </ul>
                             </span>
@@ -132,7 +141,10 @@
                                 <ul *ngIf="dayNumberWeek4[2]">
                                     <li *ngFor="let dayEvent of events[dayNumberWeek4[2]]; let i=index">
                                         <span class="event">{{ dayEvent.title }}</span>
-                                        <span class="time">{{ dayEvent.start_time }}</span>
+                                        <span class="updateEvent" (click)="udpateEvent(dayEvent.id)">
+                                            <!-- {{ dayEvent.start_time }} -->
+                                            <mat-icon>open_in_new</mat-icon>
+                                        </span>
                                     </li>
                                 </ul>
                             </span>
@@ -148,7 +160,10 @@
                                 <ul *ngIf="dayNumberWeek5[2]">
                                     <li *ngFor="let dayEvent of events[dayNumberWeek5[2]]; let i=index">
                                         <span class="event">{{ dayEvent.title }}</span>
-                                        <span class="time">{{ dayEvent.start_time }}</span>
+                                        <span class="updateEvent" (click)="udpateEvent(dayEvent.id)">
+                                            <!-- {{ dayEvent.start_time }} -->
+                                            <mat-icon>open_in_new</mat-icon>
+                                        </span>
                                     </li>
                                 </ul>
                             </span>
@@ -164,7 +179,10 @@
                                 <ul *ngIf="dayNumberWeek6[2]">
                                     <li *ngFor="let dayEvent of events[dayNumberWeek6[2]]; let i=index">
                                         <span class="event">{{ dayEvent.title }}</span>
-                                        <span class="time">{{ dayEvent.start_time }}</span>
+                                        <span class="updateEvent" (click)="udpateEvent(dayEvent.id)">
+                                            <!-- {{ dayEvent.start_time }} -->
+                                            <mat-icon>open_in_new</mat-icon>
+                                        </span>
                                     </li>
                                 </ul>
                             </span>

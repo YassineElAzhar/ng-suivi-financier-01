@@ -30,6 +30,13 @@ export class UpdateEventComponent implements OnInit {
       start_time: [null, [Validators.required]],
       end_time: [null, [Validators.required]],
     });
+
+    //Seulement pour le test
+    this.form.patchValue({type: 'immobilier'});
+    this.form.patchValue({title: 'Ceci est un titre '.concat(this.eventId.toString())});
+    this.form.patchValue({date_event: '2022-09-05T04:00:00.000Z'});
+    this.form.patchValue({start_time: '00:00'});
+    this.form.patchValue({end_time: '01:00'});
   }
 
   updateEvent(form: any) {
@@ -48,11 +55,15 @@ export class UpdateEventComponent implements OnInit {
   }
 
   deleteEvent(form: any) {
-    console.log("Event " + this.eventId + " has been deleted");
 
-    // On reset le form et on ferme la fenetre de dialogue pour terminer.
-    this.form.reset();
-    this.dialogRef.close();
+    if(confirm("Êtes vous sûr de vouloir supprimer l'évenement \""+this.form.value.title+"\"")) {
+      console.log("Event " + this.eventId + " has been deleted");
+  
+      // On reset le form et on ferme la fenetre de dialogue pour terminer.
+      this.form.reset();
+      this.dialogRef.close();
+    }
+
   }
 
 
