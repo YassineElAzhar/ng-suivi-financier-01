@@ -2,7 +2,8 @@
     <div class="col-lg-4 col-md-12">
         <div class="row">
             <div class="col" style="margin: auto;" >
-                <select class="form-control-sm" #moisSelect>
+                <form [formGroup]="form">
+                <select class="form-control-sm" formControlName="moisSelect" #moisSelect>
                     <option value="" disabled selected>Mois</option>
                     <option value="1">Janvier</option>
                     <option value="2">Février</option>
@@ -17,7 +18,7 @@
                     <option value="11">Novembre</option>
                     <option value="12">Décembre</option>
                 </select>
-                <select class="form-control-sm" style="margin-left: 15px;" #anneeSelect>
+                <select class="form-control-sm" style="margin-left: 15px;" formControlName="anneeSelect" #anneeSelect>
                     <option disabled selected>Année</option>
                     <option value="2020">2020</option>
                     <option value="2021">2021</option>
@@ -26,6 +27,7 @@
                     <option value="2024">2024</option>
                 </select>
                 <button type="button" class="btn btn-light" style="margin-left: 15px;" (click)="updateMainDate(+anneeSelect.value, +moisSelect.value,1)">Go</button>
+                </form>
             </div>
             <div class="col" style="text-align: right;">
                 <button type="button" class="btn btn-primary" (click)="addEvent()">Ajouter un event</button>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EventsModel } from 'src/app/model/events.model';
 import { AddEventComponent } from 'src/app/popup/event/addEvent.component';
@@ -11,9 +12,11 @@ import { CalendarService } from 'src/app/service/calendar.service';
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent implements OnInit {
+  form: FormGroup = new FormGroup({});
 
   events: {[key: string]: EventsModel[]};
   constructor(
+    private fb: FormBuilder,
     private calendarService:CalendarService,
     private dialog: MatDialog
   ) { }
@@ -35,6 +38,12 @@ export class CalendarComponent implements OnInit {
   ngOnInit(): void {
 
     
+    this.form = this.fb.group({
+      moisSelect: String,
+      anneeSelect: String,
+    });
+
+
     this.getAllEvents();
 
     setTimeout(() => {
@@ -46,8 +55,13 @@ export class CalendarComponent implements OnInit {
       this.calendarWeek5 = daysToDisplay[4];
       this.calendarWeek6 = daysToDisplay[5];
     }, 200);
+
+    //Nous initialisons le form avec le mois courant et l'année courante
+    this.form.patchValue({moisSelect: this.mainDateCalendar.getMonth()+1});
+    this.form.patchValue({anneeSelect: this.mainDateCalendar.getFullYear()});
     
   }
+
 
   public updateMainDate(year:number, month:number, day:number){
     if((!isNaN(year))&&(month>0)){
