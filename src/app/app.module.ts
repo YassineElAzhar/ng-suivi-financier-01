@@ -34,6 +34,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { HomeComponent } from './page/home/home.component';
 import { ProfileComponent } from './page/profile/profile.component';
+import { SearchComponent } from './page/search/search.component';
 import { AboutComponent } from './page/about/about.component';
 import { HelpComponent } from './page/help/help.component';
 import { NotFoundComponent } from './page/not-found/not-found.component';
@@ -64,6 +65,7 @@ import { SetExpenseComponent } from './popup/expenses/setExpense.component';
     AppComponent,
     HomeComponent,
     ProfileComponent,
+    SearchComponent,
     AboutComponent,
     HelpComponent,
     NotFoundComponent,
