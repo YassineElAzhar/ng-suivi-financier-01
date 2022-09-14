@@ -53,6 +53,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 import { NgChartsModule } from 'ng2-charts';
+import { SetIncomeComponent } from './popup/incomes/setIncome.component';
 
 
 
@@ -72,7 +73,8 @@ import { NgChartsModule } from 'ng2-charts';
     AddIncomesComponent,
     AddEventComponent,
     UpdateEventComponent,
-    ChartsComponent
+    ChartsComponent,
+    SetIncomeComponent
   ],
   imports: [
     CommonModule,

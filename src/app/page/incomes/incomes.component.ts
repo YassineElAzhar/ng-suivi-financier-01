@@ -7,6 +7,7 @@ import { ELEMENT_DATA_INCOMES } from '../../mock-data/mock-incomes-list';
 import { IncomesService } from '../../service/incomes.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddIncomesComponent } from 'src/app/popup/incomes/addIncomes.component';
+import { SetIncomeComponent } from 'src/app/popup/incomes/setIncome.component';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Component({
@@ -123,6 +124,22 @@ export class IncomesComponent implements AfterViewInit {
     //Ce comportement survient car this.dialog.afterAllClosed est relancé plusieurs fois
     //Si nous ouvrons 3 fois la fenêtre de dialogue, nous aurons 3 fenêtre de dialogue différentes
 
+  }
+
+  setIncome(element:IncomesModel){
+    console.log(element);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "60%";
+    
+    let dialogRef = this.dialog.open(SetIncomeComponent, dialogConfig);
+    dialogRef.componentInstance.incomeId = element.id;
+    dialogRef.componentInstance.incomeTitre = element.titre;
+    dialogRef.componentInstance.incomeProvenance = element.provenance;
+    dialogRef.componentInstance.incomeType = element.type;
+    dialogRef.componentInstance.incomeDateIncome = element.dateIncome;
+    dialogRef.componentInstance.incomeMontant = element.montant;
   }
 
 
