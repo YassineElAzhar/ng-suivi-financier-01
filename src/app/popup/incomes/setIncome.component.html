@@ -6,19 +6,20 @@
                 <mat-form-field appearance="standard" hintLabel="Le type est obligatoire">
                     <mat-label>Type</mat-label>
                     <mat-select matNativeControl name="type" formControlName="type">
-                        <mat-option value="salaire">Salaire</mat-option>
-                        <mat-option value="immobilier">Immobilier</mat-option>
-                        <mat-option value="divers">Divers</mat-option>
+                        <mat-option value="Salaire">Salaire</mat-option>
+                        <mat-option value="Immobilier">Immobilier</mat-option>
+                        <mat-option value="Loyer">Loyer</mat-option>
+                        <mat-option value="Divers">Divers</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
             <div class="col">
                 <mat-form-field appearance="standard">
-                    <mat-label>Destinataire</mat-label>
-                    <input matInput maxlength="15" inputmode="text" placeholder="Destinataire" formControlName="destinataire" #destinataireInput>
-                    <mat-hint>Mini character 3: {{ destinataireInput.value.length }}/3</mat-hint>
-                    <mat-error>Le destinataire est obligatoire</mat-error>
-                    <mat-error *ngIf="form.controls['destinataire'].errors?.['minlength']">
+                    <mat-label>Provenance</mat-label>
+                    <input matInput maxlength="15" inputmode="text" placeholder="Provenance" formControlName="provenance" #provenanceInput>
+                    <mat-hint>Mini character 3: {{ provenanceInput.value.length }}/3</mat-hint>
+                    <mat-error>La provenance est obligatoire</mat-error>
+                    <mat-error *ngIf="form.controls['provenance'].errors?.['minlength']">
                         Entrez au moins de 3 caractères
                     </mat-error>
                 </mat-form-field>
