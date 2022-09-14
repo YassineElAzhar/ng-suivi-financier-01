@@ -14,11 +14,11 @@
             </div>
             <div class="col">
                 <mat-form-field appearance="standard">
-                    <mat-label>Provenance</mat-label>
-                    <input matInput maxlength="15" inputmode="text" placeholder="Provenance" formControlName="provenance" #provenanceInput>
-                    <mat-hint>Mini character 3: {{ provenanceInput.value.length }}/3</mat-hint>
-                    <mat-error>Le destinatire est obligatoire</mat-error>
-                    <mat-error *ngIf="form.controls['provenance'].errors?.['minlength']">
+                    <mat-label>Destinataire</mat-label>
+                    <input matInput maxlength="15" inputmode="text" placeholder="Destinataire" formControlName="destinataire" #destinataireInput>
+                    <mat-hint>Mini character 3: {{ destinataireInput.value.length }}/3</mat-hint>
+                    <mat-error>Le destinataire est obligatoire</mat-error>
+                    <mat-error *ngIf="form.controls['destinataire'].errors?.['minlength']">
                         Entrez au moins de 3 caractères
                     </mat-error>
                 </mat-form-field>

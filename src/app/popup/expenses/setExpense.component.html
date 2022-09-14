@@ -6,7 +6,9 @@
                 <mat-form-field appearance="standard" hintLabel="Le type est obligatoire">
                     <mat-label>Type</mat-label>
                     <mat-select matNativeControl name="type" formControlName="type">
-                        <mat-option value="salaire">Salaire</mat-option>
+                        <mat-option value="hypoteque">Hypoteque</mat-option>
+                        <mat-option value="taxes">Taxes</mat-option>
+                        <mat-option value="facture">Facture</mat-option>
                         <mat-option value="immobilier">Immobilier</mat-option>
                         <mat-option value="divers">Divers</mat-option>
                     </mat-select>
@@ -14,11 +16,11 @@
             </div>
             <div class="col">
                 <mat-form-field appearance="standard">
-                    <mat-label>Provenance</mat-label>
-                    <input matInput maxlength="15" inputmode="text" placeholder="Provenance" formControlName="provenance" #provenanceInput>
-                    <mat-hint>Mini character 3: {{ provenanceInput.value.length }}/3</mat-hint>
-                    <mat-error>La provenance est obligatoire</mat-error>
-                    <mat-error *ngIf="form.controls['provenance'].errors?.['minlength']">
+                    <mat-label>Destinataire</mat-label>
+                    <input matInput maxlength="15" inputmode="text" placeholder="Destinataire" formControlName="destinataire" #destinataireInput>
+                    <mat-hint>Mini character 3: {{ destinataireInput.value.length }}/3</mat-hint>
+                    <mat-error>Le destinatire est obligatoire</mat-error>
+                    <mat-error *ngIf="form.controls['destinataire'].errors?.['minlength']">
                         Entrez au moins de 3 caractères
                     </mat-error>
                 </mat-form-field>
@@ -33,7 +35,7 @@
                     <mat-label>Titre</mat-label>
                     <input matInput maxlength="40" inputmode="text" placeholder="Titre" formControlName="titre" #titreInput>
                     <mat-hint>Mini character 10: {{ titreInput.value.length }}/10</mat-hint>
-                    <mat-error>La provenance est obligatoire</mat-error>
+                    <mat-error>Le destinatire est obligatoire</mat-error>
                     <mat-error *ngIf="form.controls['titre'].errors?.['minlength']">
                         Entrez au moins 10 caractères
                     </mat-error>
@@ -48,7 +50,7 @@
             <div class="col">
                 <mat-form-field appearance="standard">
                     <mat-label>Selectionner la date</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="dateIncome">
+                    <input matInput [matDatepicker]="picker" formControlName="dateExpense">
                     <mat-datepicker-toggle matSuffix [for]="picker">
                         <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
                     </mat-datepicker-toggle>
@@ -65,7 +67,18 @@
 
         <div class="row text-center">
             <div class="col">
-                <button type="button" class="btn btn-primary" (click)="saveDetails(form)">Ajouter</button>
+            </div>
+            <div class="col">
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-primary" (click)="updateExpense(form)">Modifier</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-danger" (click)="deleteExpense(form)">Supprimer</button>
+            </div>
+            <div class="col">
+            </div>
+            <div class="col">
             </div>
         </div>
       

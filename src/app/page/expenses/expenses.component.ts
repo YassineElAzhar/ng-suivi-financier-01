@@ -7,6 +7,7 @@ import { ExpensesService } from 'src/app/service/expenses.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddExpensesComponent } from 'src/app/popup/expenses/addExpenses.component';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { SetExpenseComponent } from 'src/app/popup/expenses/setExpense.component';
 
 @Component({
   selector: 'app-expenses',
@@ -95,6 +96,22 @@ export class ExpensesComponent implements AfterViewInit {
     //Ce comportement survient car this.dialog.afterAllClosed est relancé plusieurs fois
     //Si nous ouvrons 3 fois la fenêtre de dialogue, nous aurons 3 fenêtre de dialogue différentes
 
+  }
+
+  setExpense(element:ExpensesModel){
+    console.log(element);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "60%";
+    
+    let dialogRef = this.dialog.open(SetExpenseComponent, dialogConfig);
+    dialogRef.componentInstance.expenseId = element.id;
+    dialogRef.componentInstance.expenseTitre = element.titre;
+    dialogRef.componentInstance.expenseDestinataire = element.destinataire;
+    dialogRef.componentInstance.expenseType = element.type;
+    dialogRef.componentInstance.expenseDateExpense = element.dateExpense;
+    dialogRef.componentInstance.expenseMontant = element.montant;
   }
 
 

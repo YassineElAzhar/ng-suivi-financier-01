@@ -51,7 +51,7 @@ export class SetIncomeComponent implements OnInit {
     console.log(this.income.type);
     console.log(this.income.dateIncome);
     
-    console.log("Event " + this.income + " has been updated");
+    console.log("Income " + this.income + " has been updated");
 
     // On reset le form et on ferme la fenetre de dialogue pour terminer.
     this.form.reset();
