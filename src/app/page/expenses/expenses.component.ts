@@ -99,7 +99,7 @@ export class ExpensesComponent implements AfterViewInit {
   }
 
   setExpense(element:ExpensesModel){
-    console.log(element);
+    //console.log(element);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;

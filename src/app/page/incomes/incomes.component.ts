@@ -127,7 +127,7 @@ export class IncomesComponent implements AfterViewInit {
   }
 
   setIncome(element:IncomesModel){
-    console.log(element);
+    //console.log(element);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;

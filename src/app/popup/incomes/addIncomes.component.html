@@ -34,7 +34,7 @@
                     <mat-label>Titre</mat-label>
                     <input matInput maxlength="40" inputmode="text" placeholder="Titre" formControlName="titre" #titreInput>
                     <mat-hint>Mini character 10: {{ titreInput.value.length }}/10</mat-hint>
-                    <mat-error>La provenance est obligatoire</mat-error>
+                    <mat-error>Le titre est obligatoire</mat-error>
                     <mat-error *ngIf="form.controls['titre'].errors?.['minlength']">
                         Entrez au moins 10 caractères
                     </mat-error>
