@@ -44,7 +44,7 @@ export class CalendarComponent implements OnInit {
     });
 
 
-    this.getAllEvents();
+    this.getAllEvents((this.mainDateCalendar.getMonth()+1).toString(),this.mainDateCalendar.getFullYear().toString());
 
     setTimeout(() => {
       var daysToDisplay:(string | number)[][][] = this.generateDaysToDisplayArray();
@@ -314,8 +314,8 @@ export class CalendarComponent implements OnInit {
     return calendarDays;
   }
 
-  getAllEvents() {
-    this.calendarService.getAllEvents().subscribe((response: any)  => {
+  getAllEvents(mois:string, annee:string) {
+    this.calendarService.getAllEvents(mois,annee).subscribe((response: any)  => {
       this.events = response;
     });
   }

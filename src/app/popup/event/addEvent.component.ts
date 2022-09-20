@@ -24,7 +24,7 @@ export class AddEventComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       type: [null],
-      title: [null, [Validators.required, Validators.minLength(10)]],
+      titre: [null, [Validators.required, Validators.minLength(10)]],
       date_event: [null, [Validators.required]],
       start_time: [null, [Validators.required]],
       end_time: [null, [Validators.required]],
@@ -44,7 +44,7 @@ export class AddEventComponent implements OnInit {
   addEvent(event:EventsModel) {
     this.calendarService.addEvent(event).subscribe((newEvent:EventsModel) => {
       console.log(newEvent.id);
-      console.log(newEvent.title);
+      console.log(newEvent.titre);
       console.log(newEvent.type);
       console.log(newEvent.date_event);
     });

@@ -35,10 +35,10 @@ Nous allons mettre à jour l'évenement {{ eventId }}
             <div class="col">
                 <mat-form-field appearance="standard">
                     <mat-label>Titre</mat-label>
-                    <input matInput maxlength="40" inputmode="text" placeholder="Titre" formControlName="title" #titleInput>
-                    <mat-hint>Mini character 10: {{ titleInput.value.length }}/10</mat-hint>
+                    <input matInput maxlength="40" inputmode="text" placeholder="Titre" formControlName="titre" #titreInput>
+                    <mat-hint>Mini character 10: {{ titreInput.value.length }}/10</mat-hint>
                     <mat-error>Le destinatire est obligatoire</mat-error>
-                    <mat-error *ngIf="form.controls['title'].errors?.['minlength']">
+                    <mat-error *ngIf="form.controls['titre'].errors?.['minlength']">
                         Entrez au moins 10 caractères
                     </mat-error>
                 </mat-form-field>
