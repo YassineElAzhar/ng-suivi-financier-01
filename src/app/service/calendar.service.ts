@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse } from '@angular/common/http'
+import { HttpClient, HttpErrorResponse,HttpHeaders } from '@angular/common/http'
 import { EventsModel } from '../model/events.model'
 import { catchError, Observable, throwError } from "rxjs";
 import { map,tap } from 'rxjs/operators';
+import { json } from "express";
 
 @Injectable({
     providedIn: 'root'
@@ -11,6 +12,8 @@ export class CalendarService{
 
     private urlGetAllEvents="http://localhost:8080/suivi-financier/getEventsByMonth/";
     private urlAddEvent="http://local-api/addEvent.php?";
+    private urlGetEventById = "http://localhost:8080/suivi-financier/getEventById/";
+    private urlSetEvent = "http://localhost:8080/suivi-financier/events/";
 
     constructor(private http:HttpClient){
         
@@ -30,8 +33,20 @@ export class CalendarService{
             return response;
         }),
             tap((response) => {
-                console.log(response);
-                console.log(mois + " " + annee);
+                //console.log(response);
+            }),
+            catchError(this.handleError)
+        );
+    }
+
+    getEventById(id:string) :Observable<EventsModel>{
+        return this.http.get<EventsModel>(this.urlGetEventById+"/"+id)
+        .pipe(              
+        map((response:any) => {
+            return response;
+        }),
+            tap((response) => {
+                //console.log(response);
             }),
             catchError(this.handleError)
         );
@@ -41,9 +56,9 @@ export class CalendarService{
     addEvent(event:EventsModel): Observable<any> {
         var formData: any = new FormData();
 
-        formData.append('date_event', event.date_event);
-        formData.append('end_time', event.end_time);
-        formData.append('start_time', event.start_time);
+        formData.append('dateEvent', event.dateEvent);
+        formData.append('endTime', event.endTime);
+        formData.append('startTime', event.startTime);
         formData.append('titre', event.titre);
         formData.append('type', event.type);
 
@@ -51,6 +66,26 @@ export class CalendarService{
             this.urlAddEvent, 
             formData, 
             {responseType: 'json'}
+        );
+    }
+
+    updateEvent(event:EventsModel): Observable<any> {
+        //On change le event en JSON
+        const body = JSON.stringify(event);
+        //On prépare les httpHeaders pour passer un objet en json
+        const headers= new HttpHeaders()
+            .set('content-type', 'application/json')
+            .set('Access-Control-Allow-Origin', '*');
+
+        return this.http.put<EventsModel>(this.urlSetEvent+event.id,body,{headers})
+        .pipe(              
+        map((response:any) => {
+            return response;
+        }),
+            tap((response) => {
+                //console.log(response);
+            }),
+            catchError(this.handleError)
         );
     }
 

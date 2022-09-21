@@ -25,9 +25,9 @@ export class AddEventComponent implements OnInit {
     this.form = this.fb.group({
       type: [null],
       titre: [null, [Validators.required, Validators.minLength(10)]],
-      date_event: [null, [Validators.required]],
-      start_time: [null, [Validators.required]],
-      end_time: [null, [Validators.required]],
+      dateEvent: [null, [Validators.required]],
+      startTime: [null, [Validators.required]],
+      endTime: [null, [Validators.required]],
     });
   }
 
@@ -46,7 +46,7 @@ export class AddEventComponent implements OnInit {
       console.log(newEvent.id);
       console.log(newEvent.titre);
       console.log(newEvent.type);
-      console.log(newEvent.date_event);
+      console.log(newEvent.dateEvent);
     });
   }
 

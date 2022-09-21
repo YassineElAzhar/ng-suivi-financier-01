@@ -18,7 +18,7 @@
             <div class="col">
                 <mat-form-field appearance="standard">
                     <mat-label>Selectionner la date</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="date_event">
+                    <input matInput [matDatepicker]="picker" formControlName="dateEvent">
                     <mat-datepicker-toggle matSuffix [for]="picker">
                         <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
                     </mat-datepicker-toggle>
@@ -50,7 +50,7 @@
             <div class="col">
                 <mat-form-field appearance="standard">
                     <mat-label>Heuere de début</mat-label>
-                    <input matInput type="time" placeholder="start date" formControlName="start_time" #startTimeInput>
+                    <input matInput type="time" placeholder="start date" formControlName="startTime" #startTimeInput>
                     <mat-error>L'heure de début est obligatoire</mat-error>
                   </mat-form-field>
             </div>
@@ -58,7 +58,7 @@
             <div class="col">
                 <mat-form-field appearance="standard">
                     <mat-label>Heuere de fin</mat-label>
-                    <input matInput type="time" placeholder="end date" formControlName="end_time" #endTimeInput>
+                    <input matInput type="time" placeholder="end date" formControlName="endTime" #endTimeInput>
                     <mat-error>L'heure de find est obligatoire</mat-error>
                   </mat-form-field>
             </div>
