@@ -48,18 +48,9 @@ export class UpdateEventComponent implements OnInit {
   updateEvent(form: any) {
     this.events = form.value;
     this.events.id = this.eventId;
-    console.log(this.events.id);
-    console.log(this.events.titre);
-    console.log(this.events.type);
-    console.log(this.events.dateEvent);
-    
-    console.log("Event " + this.eventId + " has been updated");
 
     this.calendarService.updateEvent(this.events).subscribe((newEvent:EventsModel) => {
-      console.log(newEvent.id);
-      console.log(newEvent.titre);
-      console.log(newEvent.type);
-      console.log(newEvent.dateEvent);
+      //console.log(newEvent);
     });
 
     // On reset le form et on ferme la fenetre de dialogue pour terminer.
@@ -70,8 +61,10 @@ export class UpdateEventComponent implements OnInit {
   deleteEvent(form: any) {
 
     if(confirm("Êtes vous sûr de vouloir supprimer l'évenement \""+this.form.value.titre+"\"")) {
-      console.log("Event " + this.eventId + " has been deleted");
-  
+      this.calendarService.deleteEventById(this.eventId.toString()).subscribe((result:String) => {
+        //console.log(result);
+      });
+
       // On reset le form et on ferme la fenetre de dialogue pour terminer.
       this.form.reset();
       this.dialogRef.close();

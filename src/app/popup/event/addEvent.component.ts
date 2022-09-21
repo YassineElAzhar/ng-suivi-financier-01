@@ -43,10 +43,7 @@ export class AddEventComponent implements OnInit {
 
   addEvent(event:EventsModel) {
     this.calendarService.addEvent(event).subscribe((newEvent:EventsModel) => {
-      console.log(newEvent.id);
-      console.log(newEvent.titre);
-      console.log(newEvent.type);
-      console.log(newEvent.dateEvent);
+      //console.log(newEvent);
     });
   }
 
