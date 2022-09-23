@@ -39,10 +39,15 @@ export class SetIncomeComponent implements OnInit {
     setTimeout(() => {
       this.incomeService.getIncomeById(this.incomeId).subscribe((response: IncomesModel)  => {
         //Nous mettons à jour le formulaire avec les données venant de l'API
+
+        //Nous recupérons la date en objet
+        var dateFormat = new Date(response.dateIncome);
+        dateFormat.setDate(dateFormat.getDate() + 1);
+
         this.form.patchValue({type: response.type});
         this.form.patchValue({titre: response.titre});
         this.form.patchValue({provenance: response.provenance});
-        this.form.patchValue({dateIncome: response.dateIncome});
+        this.form.patchValue({dateIncome: dateFormat});
         this.form.patchValue({montant: response.montant});
       });
     }, 200);

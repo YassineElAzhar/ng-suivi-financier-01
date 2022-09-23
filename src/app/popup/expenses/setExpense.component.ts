@@ -39,10 +39,15 @@ export class SetExpenseComponent implements OnInit {
     setTimeout(() => {
       this.expenseService.getExpenseById(this.expenseId).subscribe((response: ExpensesModel)  => {
         //Nous mettons à jour le formulaire avec les données venant de l'API
+
+        //Nous recupérons la date en objet
+        var dateFormat = new Date(response.dateExpense);
+        dateFormat.setDate(dateFormat.getDate() + 1);
+
         this.form.patchValue({type: response.type});
         this.form.patchValue({titre: response.titre});
         this.form.patchValue({destinataire: response.destinataire});
-        this.form.patchValue({dateExpense: response.dateExpense});
+        this.form.patchValue({dateExpense: dateFormat});
         this.form.patchValue({montant: response.montant});
       });
     }, 200);
