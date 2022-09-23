@@ -14,6 +14,7 @@ export class ExpensesService{
     private urlAddExpense="http://localhost:8080/suivi-financier/addExpense";
     private urlSetExpense="http://localhost:8080/suivi-financier/expenses/";
     private urlGetExpenseById="http://localhost:8080/suivi-financier/getExpenseById/";
+    private urlDeleteExpense = "http://localhost:8080/suivi-financier/expenses/";
 
     constructor(private http:HttpClient){
         
@@ -35,25 +36,6 @@ export class ExpensesService{
             catchError(this.handleError)
         );
     }
-
-    /*
-    addExpense(expense:ExpensesModel): Observable<any> {
-        var formData: any = new FormData();
-
-        formData.append('dateExpense', expense.dateExpense);
-        formData.append('destinataire', expense.destinataire);
-        formData.append('id', expense.id);
-        formData.append('montant', expense.montant);
-        formData.append('titre', expense.titre);
-        formData.append('type', expense.type);
-
-        return this.http.post(
-            this.urlAddExpense, 
-            formData, 
-            {responseType: 'json'}
-        );
-    }
-    */
 
     addExpense(expense:ExpensesModel): Observable<any> {
         //On change le event en JSON
@@ -101,6 +83,20 @@ export class ExpensesService{
 
     getExpenseById(id:number) :Observable<ExpensesModel>{
         return this.http.get<ExpensesModel>(this.urlGetExpenseById+"/"+id)
+        .pipe(              
+        map((response:any) => {
+            return response;
+        }),
+            tap((response) => {
+                //console.log(response);
+            }),
+            catchError(this.handleError)
+        );
+    }
+
+    
+    deleteExpenseById(id:string) :Observable<any>{
+        return this.http.delete<any>(this.urlDeleteExpense+"/"+id)
         .pipe(              
         map((response:any) => {
             return response;

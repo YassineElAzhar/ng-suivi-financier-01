@@ -65,7 +65,9 @@ export class SetExpenseComponent implements OnInit {
   deleteExpense(form: any){
 
     if(confirm("Êtes vous sûr de vouloir supprimer la dépense \""+this.form.value.titre+"\"")) {
-      console.log("Expense " + this.expenseId + " has been deleted");
+      this.expenseService.deleteExpenseById(this.expenseId.toString()).subscribe((result:String) => {
+        //console.log(result);
+      });
   
       // On reset le form et on ferme la fenetre de dialogue pour terminer.
       this.form.reset();
