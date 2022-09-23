@@ -53,24 +53,6 @@ export class CalendarService{
         );
     }
 
-    /*
-    addEvent(event:EventsModel): Observable<any> {
-        var formData: any = new FormData();
-
-        formData.append('dateEvent', event.dateEvent);
-        formData.append('endTime', event.endTime);
-        formData.append('startTime', event.startTime);
-        formData.append('titre', event.titre);
-        formData.append('type', event.type);
-
-        return this.http.post(
-            this.urlAddEvent, 
-            formData, 
-            {responseType: 'json'}
-        );
-    }
-    */
-
     addEvent(event:EventsModel): Observable<any> {
         //On change le event en JSON
         const body = JSON.stringify(event);

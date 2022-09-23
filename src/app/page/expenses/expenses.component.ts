@@ -95,6 +95,9 @@ export class ExpensesComponent implements AfterViewInit {
     }
     //Ce comportement survient car this.dialog.afterAllClosed est relancé plusieurs fois
     //Si nous ouvrons 3 fois la fenêtre de dialogue, nous aurons 3 fenêtre de dialogue différentes
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.ngOnInit();
+    });
 
   }
 
@@ -112,6 +115,10 @@ export class ExpensesComponent implements AfterViewInit {
     dialogRef.componentInstance.expenseType = element.type;
     dialogRef.componentInstance.expenseDateExpense = element.dateExpense;
     dialogRef.componentInstance.expenseMontant = element.montant;
+    
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.ngOnInit();
+    });
   }
 
 

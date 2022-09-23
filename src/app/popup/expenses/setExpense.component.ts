@@ -35,28 +35,31 @@ export class SetExpenseComponent implements OnInit {
       montant: [null],
     });
 
-    //Seulement pour le test
-    this.form.patchValue({type: this.expenseType});
-    this.form.patchValue({titre: this.expenseTitre});
-    this.form.patchValue({destinataire: this.expenseDestinataire});
-    this.form.patchValue({dateExpense: this.expenseDateExpense});
-    this.form.patchValue({montant: this.expenseMontant});
+
+    setTimeout(() => {
+      this.expenseService.getExpenseById(this.expenseId).subscribe((response: ExpensesModel)  => {
+        //Nous mettons à jour le formulaire avec les données venant de l'API
+        this.form.patchValue({type: response.type});
+        this.form.patchValue({titre: response.titre});
+        this.form.patchValue({destinataire: response.destinataire});
+        this.form.patchValue({dateExpense: response.dateExpense});
+        this.form.patchValue({montant: response.montant});
+      });
+    }, 200);
   }
-
-  updateExpense(form: any){
+  
+  
+  updateExpense(form: any) {
     this.expense = form.value;
-
-    console.log(this.expenseId);
-    console.log(this.expense.titre);
-    console.log(this.expense.type);
-    console.log(this.expense.dateExpense);
-    
-    console.log("Expense " + this.expense + " has been updated");
+    this.expense.id = this.expenseId;
+    //this.expense.type = "1";
+    this.expenseService.updateExpense(this.expense).subscribe((newEvent:ExpensesModel) => {
+      console.log(newEvent);
+    });
 
     // On reset le form et on ferme la fenetre de dialogue pour terminer.
     this.form.reset();
     this.dialogRef.close();
-
   }
 
   deleteExpense(form: any){
@@ -68,6 +71,10 @@ export class SetExpenseComponent implements OnInit {
       this.form.reset();
       this.dialogRef.close();
     }
+
+    // On reset le form et on ferme la fenetre de dialogue pour terminer.
+    this.form.reset();
+    this.dialogRef.close();
 
   }
 
