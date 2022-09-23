@@ -39,14 +39,9 @@ export class AddIncomesComponent implements OnInit {
 
   addIncome(income:IncomesModel) {
     this.incomeService.addIncome(income).subscribe((newIncome:IncomesModel) => {
-      console.log(newIncome.id);
-      console.log(newIncome.titre);
-      console.log(newIncome.type);
+      console.log(newIncome);
     });
   }
 
-
-
-
-
+  
 }

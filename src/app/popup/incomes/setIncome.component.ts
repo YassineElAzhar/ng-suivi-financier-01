@@ -35,39 +35,48 @@ export class SetIncomeComponent implements OnInit {
       montant: [null],
     });
 
-    //Seulement pour le test
-    this.form.patchValue({type: this.incomeType});
-    this.form.patchValue({titre: this.incomeTitre});
-    this.form.patchValue({provenance: this.incomeProvenance});
-    this.form.patchValue({dateIncome: this.incomeDateIncome});
-    this.form.patchValue({montant: this.incomeMontant});
+
+    setTimeout(() => {
+      this.incomeService.getIncomeById(this.incomeId).subscribe((response: IncomesModel)  => {
+        //Nous mettons à jour le formulaire avec les données venant de l'API
+        this.form.patchValue({type: response.type});
+        this.form.patchValue({titre: response.titre});
+        this.form.patchValue({provenance: response.provenance});
+        this.form.patchValue({dateIncome: response.dateIncome});
+        this.form.patchValue({montant: response.montant});
+      });
+    }, 200);
   }
-
-  updateIncome(form: any){
+  
+  
+  updateIncome(form: any) {
     this.income = form.value;
-
-    console.log(this.incomeId);
-    console.log(this.income.titre);
-    console.log(this.income.type);
-    console.log(this.income.dateIncome);
-    
-    console.log("Income " + this.income + " has been updated");
+    this.income.id = this.incomeId;
+    //this.income.type = "1";
+    this.incomeService.updateIncome(this.income).subscribe((newEvent:IncomesModel) => {
+      console.log(newEvent);
+    });
 
     // On reset le form et on ferme la fenetre de dialogue pour terminer.
     this.form.reset();
     this.dialogRef.close();
-
   }
 
   deleteIncome(form: any){
 
-    if(confirm("Êtes vous sûr de vouloir supprimer le revenu \""+this.form.value.titre+"\"")) {
-      console.log("Income " + this.incomeId + " has been deleted");
+    if(confirm("Êtes vous sûr de vouloir supprimer la dépense \""+this.form.value.titre+"\"")) {
+      this.incomeService.deleteIncomeById(this.incomeId.toString()).subscribe((result:String) => {
+        //console.log(result);
+      });
   
       // On reset le form et on ferme la fenetre de dialogue pour terminer.
       this.form.reset();
       this.dialogRef.close();
     }
+
+    // On reset le form et on ferme la fenetre de dialogue pour terminer.
+    this.form.reset();
+    this.dialogRef.close();
 
   }
 

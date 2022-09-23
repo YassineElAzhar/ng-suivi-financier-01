@@ -9,56 +9,102 @@ import { map,tap } from 'rxjs/operators';
 })
 export class IncomesService{
 
-    private urlGetAllIncomes="http://local-api/incomes.php";
-    private urlAddIncome="http://local-api/addIncome.php?";
+    //private urlGetAllIncomes="http://local-api/incomes.php";
+    private urlGetAllIncomes="http://localhost:8080/suivi-financier/getAllIncomes";
+    private urlAddIncome="http://localhost:8080/suivi-financier/addIncome";
+    private urlSetIncome="http://localhost:8080/suivi-financier/incomes/";
+    private urlGetIncomeById="http://localhost:8080/suivi-financier/getIncomeById/";
+    private urlDeleteIncome = "http://localhost:8080/suivi-financier/incomes/";
 
     constructor(private http:HttpClient){
         
     }
 
-    getAllIncomesV1(): Observable<IncomesModel> {
-        return this.http.get<IncomesModel>(this.urlGetAllIncomes).pipe(
-            catchError(this.handleError)
-        );        
-    }
-
     handleError (error: HttpErrorResponse){
         return throwError(() => error.message);
     }
-    
 
-
-
-    
     getAllIncomes() : Observable<IncomesModel[]> {
         return this.http.get<IncomesModel[]>(this.urlGetAllIncomes)
         .pipe(              
         map((response : IncomesModel[]) => {
-            //On retourne la liste des IncomesModels
             return response;
         }),
             tap((response) => {
-                //console.log(response.length.toString());
+               // console.log(response.length.toString());
             }),
             catchError(this.handleError)
         );
     }
 
-
     addIncome(income:IncomesModel): Observable<any> {
-        var formData: any = new FormData();
+        //On change le event en JSON
+        const body = JSON.stringify(income);
+        //On prépare les httpHeaders pour passer un objet en json
+        const headers= new HttpHeaders()
+            .set('content-type', 'application/json')
+            .set('Access-Control-Allow-Origin', '*');
 
-        formData.append('dateIncome', income.dateIncome);
-        formData.append('montant', income.montant);
-        formData.append('id', income.id);
-        formData.append('provenance', income.provenance);
-        formData.append('titre', income.titre);
-        formData.append('type', income.type);
+        return this.http.post<IncomesModel>(this.urlAddIncome,body,{headers})
+        .pipe(              
+        map((response:any) => {
+            return response;
+        }),
+            tap((response) => {
+                //console.log(response);
+            }),
+            catchError(this.handleError)
+        );
+    }
 
-        return this.http.post(
-            this.urlAddIncome, 
-            formData, 
-            {responseType: 'json'}
+    updateIncome(income:IncomesModel): Observable<any> {
+        //On change le event en JSON
+        const body = JSON.stringify(income);
+        //On prépare les httpHeaders pour passer un objet en json
+        const headers= new HttpHeaders()
+            .set('content-type', 'application/json')
+            .set('Access-Control-Allow-Origin', '*');
+
+
+        console.log("id = " + income.id); 
+        return this.http.put<IncomesModel>(this.urlSetIncome+income.id,body,{headers})
+        .pipe(              
+            map((response:any) => {
+                return response;
+            }),
+            tap((response) => {
+                //console.log(response);
+            }),
+            catchError(this.handleError)
+        );
+    }
+
+    
+
+    getIncomeById(id:number) :Observable<IncomesModel>{
+        return this.http.get<IncomesModel>(this.urlGetIncomeById+"/"+id)
+        .pipe(              
+        map((response:any) => {
+            return response;
+        }),
+            tap((response) => {
+                //console.log(response);
+            }),
+            catchError(this.handleError)
+        );
+    }
+
+    
+    deleteIncomeById(id:string) :Observable<any>{
+        return this.http.delete<any>(this.urlDeleteIncome+"/"+id)
+        .pipe(              
+        map((response:any) => {
+            return response;
+        }),
+            tap((response) => {
+                //console.log(response);
+            }),
+            catchError(this.handleError)
         );
     }
 
