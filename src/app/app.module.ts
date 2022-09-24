@@ -34,6 +34,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { HomeComponent } from './page/home/home.component';
 import { ProfileComponent } from './page/profile/profile.component';
+import { SearchComponent } from './page/search/search.component';
 import { AboutComponent } from './page/about/about.component';
 import { HelpComponent } from './page/help/help.component';
 import { NotFoundComponent } from './page/not-found/not-found.component';
@@ -46,11 +47,15 @@ import { AddExpensesComponent } from './popup/expenses/addExpenses.component';
 import { AddIncomesComponent } from './popup/incomes/addIncomes.component';
 import { AddEventComponent } from './popup/event/addEvent.component';
 
+import { UpdateEventComponent } from './popup/event/updateEvent.component';
+
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 import { NgChartsModule } from 'ng2-charts';
+import { SetIncomeComponent } from './popup/incomes/setIncome.component';
+import { SetExpenseComponent } from './popup/expenses/setExpense.component';
 
 
 
@@ -60,6 +65,7 @@ import { NgChartsModule } from 'ng2-charts';
     AppComponent,
     HomeComponent,
     ProfileComponent,
+    SearchComponent,
     AboutComponent,
     HelpComponent,
     NotFoundComponent,
@@ -68,8 +74,11 @@ import { NgChartsModule } from 'ng2-charts';
     ExpensesComponent,
     AddExpensesComponent,
     AddIncomesComponent,
+    AddEventComponent,
+    UpdateEventComponent,
     ChartsComponent,
-    AddEventComponent
+    SetIncomeComponent,
+    SetExpenseComponent
   ],
   imports: [
     CommonModule,

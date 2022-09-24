@@ -1,3 +1,5 @@
+Nous allons mettre à jour l'évenement {{ eventId }}
+<br>
 
 <div class="container">
     <!--<form [formGroup]="form" (ngSubmit)="saveDetails(form)">-->
@@ -69,7 +71,18 @@
 
         <div class="row text-center">
             <div class="col">
-                <button type="button" class="btn btn-primary" (click)="saveDetails(form)">Ajouter</button>
+            </div>
+            <div class="col">
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-primary" (click)="updateEvent(form)">Modifier</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-danger" (click)="deleteEvent(form)">Supprimer</button>
+            </div>
+            <div class="col">
+            </div>
+            <div class="col">
             </div>
         </div>
       

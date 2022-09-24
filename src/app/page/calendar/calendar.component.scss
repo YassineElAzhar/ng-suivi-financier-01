@@ -33,7 +33,7 @@
     min-width: 100%;
   }
   @media (max-width: 800px) {
-    table .time {
+    table .updateEvent {
       display: none;
     }
   }
@@ -100,10 +100,11 @@
     display: inline-block;
     padding-right: 0.25em;
   }
-  .time {
+  .updateEvent {
     float: right;
     text-align: right;
     color: #999;
+    cursor: pointer;
   }
   .event {
     color: #333;
@@ -125,10 +126,35 @@
   .weekend {
     background: rgb(188 201 217 / 17%);
   }
+
+  /*a utliser dans les "li" pour la couleur de l'event*/
   .date .different-calendar {
     color: #00c800;
   }
   
+
+  .outOfWeek {
+    background-color: #b9b6c326; border: solid #FFF 2px;
+  }
+
+  .calendarMainBox {
+    /*width: 92%;
+    margin-left: 4%;*/
+    width: 90%; 
+    float: left;
+    border: solid;
+    border-radius: 10px;
+    border-color: #f0f2f5a6;
+  }
+  .calendarLeftRightBox{
+    width: 5%;
+    float: left;
+  }
+
+  .eventCellScrollable{
+    overflow:auto;
+  }
+
 
   
 

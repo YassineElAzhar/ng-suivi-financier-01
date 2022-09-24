@@ -1,30 +1,28 @@
 
 <div class="container">
-    <!--<form [formGroup]="form" (ngSubmit)="saveDetails(form)">-->
     <form [formGroup]="form">
         <div class="row">
             <div class="col">
                 <mat-form-field appearance="standard" hintLabel="Le type est obligatoire">
                     <mat-label>Type</mat-label>
                     <mat-select matNativeControl name="type" formControlName="type">
-                        <mat-option value="1">Loyer</mat-option>
-                        <mat-option value="2">Salaire</mat-option>
                         <mat-option value="3">Hypoteque</mat-option>
-                        <mat-option value="4">Immobilier</mat-option>
-                        <mat-option value="5">Facture</mat-option>
-                        <mat-option value="6">Divers</mat-option>
                         <mat-option value="7">Taxes</mat-option>
+                        <mat-option value="5">Facture</mat-option>
+                        <mat-option value="4">Immobilier</mat-option>
+                        <mat-option value="6">Divers</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
             <div class="col">
                 <mat-form-field appearance="standard">
-                    <mat-label>Selectionner la date</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="dateEvent">
-                    <mat-datepicker-toggle matSuffix [for]="picker">
-                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-                    </mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-label>Destinataire</mat-label>
+                    <input matInput maxlength="15" inputmode="text" placeholder="Destinataire" formControlName="destinataire" #destinataireInput>
+                    <mat-hint>Mini character 3: {{ destinataireInput.value.length }}/3</mat-hint>
+                    <mat-error>Le destinatire est obligatoire</mat-error>
+                    <mat-error *ngIf="form.controls['destinataire'].errors?.['minlength']">
+                        Entrez au moins de 3 caractères
+                    </mat-error>
                 </mat-form-field>
             </div>
         </div>
@@ -37,7 +35,7 @@
                     <mat-label>Titre</mat-label>
                     <input matInput maxlength="40" inputmode="text" placeholder="Titre" formControlName="titre" #titreInput>
                     <mat-hint>Mini character 10: {{ titreInput.value.length }}/10</mat-hint>
-                    <mat-error>Le destinatire est obligatoire</mat-error>
+                    <mat-error>Le titre est obligatoire</mat-error>
                     <mat-error *ngIf="form.controls['titre'].errors?.['minlength']">
                         Entrez au moins 10 caractères
                     </mat-error>
@@ -48,28 +46,39 @@
         <hr/>
 
         <div class="row">
-    
+            
             <div class="col">
                 <mat-form-field appearance="standard">
-                    <mat-label>Heuere de début</mat-label>
-                    <input matInput type="time" placeholder="start date" formControlName="startTime" #startTimeInput>
-                    <mat-error>L'heure de début est obligatoire</mat-error>
-                  </mat-form-field>
+                    <mat-label>Selectionner la date</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="dateExpense">
+                    <mat-datepicker-toggle matSuffix [for]="picker">
+                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
             </div>
-    
             <div class="col">
                 <mat-form-field appearance="standard">
-                    <mat-label>Heuere de fin</mat-label>
-                    <input matInput type="time" placeholder="end date" formControlName="endTime" #endTimeInput>
-                    <mat-error>L'heure de find est obligatoire</mat-error>
-                  </mat-form-field>
+                    <input matInput type="number" placeholder="Montant" formControlName="montant" #montantInput>
+                </mat-form-field>
             </div>
         </div>
         <hr/>
 
         <div class="row text-center">
             <div class="col">
-                <button type="button" class="btn btn-primary" (click)="saveDetails(form)">Ajouter</button>
+            </div>
+            <div class="col">
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-primary" (click)="updateExpense(form)">Modifier</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-danger" (click)="deleteExpense(form)">Supprimer</button>
+            </div>
+            <div class="col">
+            </div>
+            <div class="col">
             </div>
         </div>
       

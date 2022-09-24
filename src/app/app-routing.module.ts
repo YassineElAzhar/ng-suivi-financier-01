@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './page/home/home.component';
 import { ProfileComponent } from './page/profile/profile.component';
+import { SearchComponent } from './page/search/search.component';
 import { AboutComponent } from './page/about/about.component';
 import { NotFoundComponent } from './page/not-found/not-found.component';
 import { HelpComponent } from './page/help/help.component';
@@ -26,6 +27,10 @@ const routes: Routes = [
     component: ProfileComponent
   },
   {
+    path: 'search',
+    component: SearchComponent
+  },
+  {
     path: 'calendar',
     component: CalendarComponent
   },
@@ -34,7 +39,7 @@ const routes: Routes = [
     component: AboutComponent
   },
   {
-    path: 'help',
+    path: 'help', //On le laisse, accessible depuis l'url /help
     component: HelpComponent
   },
   {

@@ -1,31 +1,33 @@
 <div class="row" style="margin-bottom: 20px; margin-top: 5px;">
     <div class="col-lg-4 col-md-12">
         <div class="row">
-            <div class="col" style="margin: auto;">
-                <select class="form-control-sm">
-                    <option>Mois</option>
-                    <option>Janvier</option>
-                    <option>Février</option>
-                    <option>Mars</option>
-                    <option>Avril</option>
-                    <option>Mai</option>
-                    <option>Juin</option>
-                    <option>Juillet</option>
-                    <option selected="selected">Aout</option>
-                    <option>Septembre</option>
-                    <option>Octobre</option>
-                    <option>Novembre</option>
-                    <option>Décembre</option>
+            <div class="col" style="margin: auto;" >
+                <form [formGroup]="form">
+                <select class="form-control-sm" formControlName="moisSelect" #moisSelect>
+                    <option value="" disabled selected>Mois</option>
+                    <option value="1">Janvier</option>
+                    <option value="2">Février</option>
+                    <option value="3">Mars</option>
+                    <option value="4">Avril</option>
+                    <option value="5">Mai</option>
+                    <option value="6">Juin</option>
+                    <option value="7">Juillet</option>
+                    <option value="8">Aout</option>
+                    <option value="9">Septembre</option>
+                    <option value="10">Octobre</option>
+                    <option value="11">Novembre</option>
+                    <option value="12">Décembre</option>
                 </select>
-                <select class="form-control-sm" style="margin-left: 15px;">
-                    <option>Année</option>
-                    <option>2020</option>
-                    <option>2021</option>
-                    <option selected="selected">2022</option>
-                    <option>2023</option>
+                <select class="form-control-sm" style="margin-left: 15px;" formControlName="anneeSelect" #anneeSelect>
+                    <option disabled selected>Année</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
                 </select>
-                <button type="button" class="btn btn-light" style="margin-left: 15px;">Go</button>
-                <!--February 2014-->
+                <button type="button" class="btn btn-light" style="margin-left: 15px;" (click)="updateMainDate(+anneeSelect.value, +moisSelect.value,1)">Go</button>
+                </form>
             </div>
             <div class="col" style="text-align: right;">
                 <button type="button" class="btn btn-primary" (click)="addEvent()">Ajouter un event</button>
@@ -35,174 +37,168 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-4 col-md-12">
+    <div style="width: 5%;float: left;margin-left: 1%;">
+        <button type="button" class="btn btn-light" style=" position: relative; right: 5px;" (click)="goToPreviousMonth()" >
+            <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+    </div>
+    <div class="col-lg-4 col-md-12 calendarMainBox" style="width: 87%;float: left;">
         <div class="row">
             <table>
                 <thead>
                 <tr>
-                    <th>Mon</th>
-                    <th>Tue</th>
-                    <th>Wed</th>
-                    <th>Thu</th>
-                    <th>Fri</th>
-                    <th>Sat</th>
-                    <th>Sun</th>
+                    <th>Lundi</th>
+                    <th>Mardi</th>
+                    <th>Mercredi</th>
+                    <th>Jeudi</th>
+                    <th>Vendredi</th>
+                    <th>Samedi</th>
+                    <th>Dimanche</th>
                 </tr>
                 </thead>
-                <tr>
-                    <td style="background-color: #b9b6c326; border: solid #FFF 2px;">
-                        <span class="date">
-                    27
-                    <ul>
-                        <li>
-                        <span class="event">Bus Stop</span>
-                        <span class="time">4 pm</span>
-                        </li>
-                    </ul>  
-                        </span>
-                    </td>
-                    <td style="background-color: #b9b6c326; border: solid #FFF 2px;">
-                        <span class="date">28</span>
-                    </td>
-                    <td style="background-color: #b9b6c326; border: solid #FFF 2px;">
-                        <span class="date">29</span>
-                    </td>
-                    <td style="background-color: #b9b6c326; border: solid #FFF 2px;">
-                        <span class="date">30</span>
-                    </td>
-                    <td style="background-color: #b9b6c326; border: solid #FFF 2px;">
-                        <span class="date">31</span>
-                    </td>
-                    <td class="weekend">
-                        <span class="date">February 1</span>
-                    </td>
-                    <td class="weekend">
-                        <span class="date">
-                        2
-                        <ul>
-                            <li>
-                                <span class="event">Super Bowl</span>
-                                <span class="time">6:30 pm</span>
-                            </li>
-                        </ul>  
-                        </span>
+                
+                <tr [ngClass]="{'current-week': currentWeek == 1}">
+                    <td *ngFor="let dayNumberWeek1 of calendarWeek1; let i = index"  class="eventCellScrollable" >
+                        <div 
+                            [ngClass]="{
+                                'weekend': i >= 5, 
+                                'outOfWeek': dayNumberWeek1[0] == 'out', 
+                                'current-day': dayNumberWeek1[0] == 'current'
+                            }">
+                            <span class="date">
+                                <b>{{ dayNumberWeek1[1] }}</b>
+                                <br>
+                                <ul *ngIf="dayNumberWeek1[2]">
+                                    <li *ngFor="let dayEvent of events[dayNumberWeek1[2]]; let i=index">
+                                        <span class="event">{{ dayEvent.titre }}</span>
+                                        <span class="updateEvent" (click)="udpateEvent(dayEvent.id)">
+                                            <!-- {{ dayEvent.startTime }} -->
+                                            <mat-icon>open_in_new</mat-icon>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </span>
+                        </div>
                     </td>
                 </tr>
-                <tr class="previous-week">
-                    <td>
-                        <span class="date">3</span>
-                    </td>
-                    <td>
-                        <span class="date">4</span>
-                    </td>
-                    <td>
-                        <span class="date">5</span>
-                    </td>
-                    <td>
-                        <span class="date">6</span>
-                    </td>
-                    <td>
-                        <span class="date">7</span>
-                    </td>
-                    <td class="weekend">
-                        <span class="date">8</span>
-                    </td>
-                    <td class="weekend">
-                        <span class="date">9</span>
-                    </td>
-                </tr>
-                <tr class="current-week">
-                    <td>
-                        <span class="date">10</span>
-                    </td>
-                    <td>
-                        <span class="date">11</span>
-                    </td>
-                    <td>
-                        <span class="date">12</span>
-                    </td>
-                    <td>
-                        <span class="date">13</span>
-                    </td>
-                    <td class="current-day">
-                        <span class="date">
-                            14
-                            <ul>
-                                <li class="different-calendar"><span class="event">Valentines Day</span></li>
-                            </ul>  
-                        </span>
-                    </td>
-                    <td class="weekend">
-                        <span class="date">15</span>
-                    </td>
-                    <td class="weekend">
-                        <span class="date">16</span>
+                <tr [ngClass]="{'current-week': currentWeek == 2}">
+                    <td *ngFor="let dayNumberWeek2 of calendarWeek2; let i = index" class="eventCellScrollable" >
+                        <div 
+                        [ngClass]="{
+                            'weekend': i >= 5, 
+                            'outOfWeek': dayNumberWeek2[0] == 'out', 
+                            'current-day': dayNumberWeek2[0] == 'current'
+                        }">
+                            <span class="date">
+                                <b>{{ dayNumberWeek2[1] }}</b>
+                                <br>
+                                <ul *ngIf="dayNumberWeek2[2]">
+                                    <li *ngFor="let dayEvent of events[dayNumberWeek2[2]]; let i=index">
+                                        <span class="event">{{ dayEvent.titre }}</span>
+                                        <span class="updateEvent" (click)="udpateEvent(dayEvent.id)">
+                                            <!-- {{ dayEvent.startTime }} -->
+                                            <mat-icon>open_in_new</mat-icon>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </span>
+                        </div>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <span class="date">17</span>
-                    </td>
-                    <td>
-                        <span class="date">18</span>
-                    </td>
-                    <td>
-                        <span class="date">19</span>
-                    </td>
-                    <td>
-                        <span class="date">20</span>
-                    </td>
-                    <td>
-                        <span class="date">21</span>
-                    </td>
-                    <td class="weekend">
-                        <span class="date">22</span>
-                    </td>
-                    <td class="weekend">
-                        <span class="date">23</span>
+                <tr [ngClass]="{'current-week': currentWeek == 3}">
+                    <td *ngFor="let dayNumberWeek3 of calendarWeek3; let i = index" class="eventCellScrollable" >
+                        <div 
+                        [ngClass]="{
+                            'weekend': i >= 5, 
+                            'outOfWeek': dayNumberWeek3[0] == 'out', 
+                            'current-day': dayNumberWeek3[0] == 'current'
+                        }">
+                            <span class="date">
+                                <b>{{ dayNumberWeek3[1] }}</b>
+                                <br>
+                                <ul *ngIf="dayNumberWeek3[2]">
+                                    <li *ngFor="let dayEvent of events[dayNumberWeek3[2]]; let i=index">
+                                        <span class="event">{{ dayEvent.titre }}</span>
+                                        <span class="updateEvent" (click)="udpateEvent(dayEvent.id)">
+                                            <!-- {{ dayEvent.startTime }} -->
+                                            <mat-icon>open_in_new</mat-icon>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </span>
+                        </div>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <span class="date">24</span>
+                <tr [ngClass]="{'current-week': currentWeek == 4}">
+                    <td *ngFor="let dayNumberWeek4 of calendarWeek4; let i = index" class="eventCellScrollable" >
+                        <div 
+                        [ngClass]="{
+                            'weekend': i >= 5, 
+                            'outOfWeek': dayNumberWeek4[0] == 'out', 
+                            'current-day': dayNumberWeek4[0] == 'current'
+                        }">
+                            <span class="date">
+                                <b>{{ dayNumberWeek4[1] }}</b>
+                                <br>
+                                <ul *ngIf="dayNumberWeek4[2]">
+                                    <li *ngFor="let dayEvent of events[dayNumberWeek4[2]]; let i=index">
+                                        <span class="event">{{ dayEvent.titre }}</span>
+                                        <span class="updateEvent" (click)="udpateEvent(dayEvent.id)">
+                                            <!-- {{ dayEvent.startTime }} -->
+                                            <mat-icon>open_in_new</mat-icon>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </span>
+                        </div>
                     </td>
-                    <td>
-                        <span class="date">
-                            25
-                            <ul>
-                                <li class="different-calendar">
-                                    <span class="event">Seulement 17 char</span>
-                                    <span class="time">10 am</span>
-                                </li>
-                                <li>
-                                    <span class="event">Code Review</span>
-                                    <span class="time">Noon</span>
-                                </li>
-                                <li>
-                                    <span class="event">Project X Kickoff</span>
-                                    <span class="time">5 pm</span>
-                                </li>
-                            </ul>  
-                        </span>
+                </tr>
+                <tr [ngClass]="{'current-week': currentWeek == 5}">
+                    <td *ngFor="let dayNumberWeek5 of calendarWeek5; let i = index" class="eventCellScrollable" >
+                        <div [ngClass]="{'weekend': i >= 5, 'outOfWeek': dayNumberWeek5[0] >= 'out', 'current-day': dayNumberWeek5[0] == 'current'}">
+                            <span class="date">
+                                <b>{{ dayNumberWeek5[1] }}</b>
+                                <br>
+                                <ul *ngIf="dayNumberWeek5[2]">
+                                    <li *ngFor="let dayEvent of events[dayNumberWeek5[2]]; let i=index">
+                                        <span class="event">{{ dayEvent.titre }}</span>
+                                        <span class="updateEvent" (click)="udpateEvent(dayEvent.id)">
+                                            <!-- {{ dayEvent.startTime }} -->
+                                            <mat-icon>open_in_new</mat-icon>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </span>
+                        </div>
                     </td>
-                    <td>
-                        <span class="date">26</span>
-                    </td>
-                    <td>
-                        <span class="date">27</span>
-                    </td>
-                    <td>
-                        <span class="date">28</span>
-                    </td>
-                    <td class="weekend" style="background-color: #b9b6c326; border: solid #FFF 2px;">
-                        <span class="date">March 1</span>
-                    </td>
-                    <td class="weekend" style="background-color: #b9b6c326; border: solid #FFF 2px;">
-                        <span class="date">2</span>
+                </tr>
+                <tr [ngClass]="{'current-week': currentWeek == 6}">
+                    <td *ngFor="let dayNumberWeek6 of calendarWeek6; let i = index" class="eventCellScrollable" >
+                        <div [ngClass]="{'weekend': i >= 5, 'outOfWeek': dayNumberWeek6[0] >= 'out', 'current-day': dayNumberWeek6[0] == 'current'}">
+                            <span class="date">
+                                <b>{{ dayNumberWeek6[1] }}</b>
+                                <br>
+                                <ul *ngIf="dayNumberWeek6[2]">
+                                    <li *ngFor="let dayEvent of events[dayNumberWeek6[2]]; let i=index">
+                                        <span class="event">{{ dayEvent.titre }}</span>
+                                        <span class="updateEvent" (click)="udpateEvent(dayEvent.id)">
+                                            <!-- {{ dayEvent.startTime }} -->
+                                            <mat-icon>open_in_new</mat-icon>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </span>
+                        </div>
                     </td>
                 </tr>
             </table>
         </div>
     </div>
     
+    <div style="width: 5%;float: left;margin-left: 1%;">
+        <button type="button" class="btn btn-light"  style=" position: relative; right: 5px;" (click)="goToNextMonth()">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+    </div>
+
 </div>

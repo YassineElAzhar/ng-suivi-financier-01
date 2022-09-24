@@ -1,16 +1,16 @@
 
 <div class="container">
-    <form [formGroup]="form" (ngSubmit)="saveDetails(form)">
+    <form [formGroup]="form">
         <div class="row">
             <div class="col">
                 <mat-form-field appearance="standard" hintLabel="Le type est obligatoire">
                     <mat-label>Type</mat-label>
-                    <mat-select matNativeControl name="typeExpense" formControlName="typeExpense">
-                        <mat-option value="hypoteque">Hypoteque</mat-option>
-                        <mat-option value="taxes">Taxes</mat-option>
-                        <mat-option value="facture">Facture</mat-option>
-                        <mat-option value="immobilier">Immobilier</mat-option>
-                        <mat-option value="divers">Divers</mat-option>
+                    <mat-select matNativeControl name="type" formControlName="type">
+                        <mat-option value="3">Hypoteque</mat-option>
+                        <mat-option value="7">Taxes</mat-option>
+                        <mat-option value="5">Facture</mat-option>
+                        <mat-option value="4">Immobilier</mat-option>
+                        <mat-option value="6">Divers</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -35,7 +35,7 @@
                     <mat-label>Titre</mat-label>
                     <input matInput maxlength="40" inputmode="text" placeholder="Titre" formControlName="titre" #titreInput>
                     <mat-hint>Mini character 10: {{ titreInput.value.length }}/10</mat-hint>
-                    <mat-error>Le destinatire est obligatoire</mat-error>
+                    <mat-error>Le titre est obligatoire</mat-error>
                     <mat-error *ngIf="form.controls['titre'].errors?.['minlength']">
                         Entrez au moins 10 caractères
                     </mat-error>
@@ -67,7 +67,7 @@
 
         <div class="row text-center">
             <div class="col">
-                <button type="button" class="btn btn-primary">Ajouter</button>
+                <button type="button" class="btn btn-primary" (click)="saveDetails(form)">Ajouter</button>
             </div>
         </div>
       

@@ -1,0 +1,118 @@
+<div class="row" style="margin-bottom: 20px; margin-top: 5px;">
+    <div class="col-lg-4 col-md-12">
+        <div class="row">
+            <div class="col" style="margin: auto;">
+                <h4>Recherche avancée</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <form [formGroup]="form">
+        <hr/>
+        <div class="col">
+            <mat-form-field appearance="standard">
+                <mat-label>Mot clé</mat-label>
+                <input matInput maxlength="40" inputmode="text" placeholder="Mot clé" formControlName="motCle" #motCleInput>
+                <mat-hint>Mini character 10: {{ motCleInput.value.length }}/10</mat-hint>
+                <mat-error>Un mot clé est obligatoire</mat-error>
+                <mat-error *ngIf="form.controls['motCle'].errors?.['minlength']">
+                    Entrez au moins 10 caractères
+                </mat-error>
+            </mat-form-field>
+        </div>
+        
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="standard" hintLabel="L'objet est obligatoire">
+                    <mat-label>Objet</mat-label>
+                    <mat-select matNativeControl name="objet" formControlName="objet">
+                        <mat-option value="Evenement">Evenement</mat-option>
+                        <mat-option value="Revenu">Revenu</mat-option>
+                        <mat-option value="Dépense">Dépense</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field appearance="standard">
+                    <mat-label>Destinataire / Provenance</mat-label>
+                    <input matInput maxlength="15" inputmode="text" placeholder="Destinataire / Provenance " formControlName="destinataireOrProvenance" #destinataireOrProvenanceInput>
+                    <mat-hint>Mini character 3: {{ destinataireOrProvenanceInput.value.length }}/3</mat-hint>
+                    <mat-error>Le destinatire ou la provenance est obligatoire</mat-error>
+                    <mat-error *ngIf="form.controls['destinataireOrProvenance'].errors?.['minlength']">
+                        Entrez au moins de 3 caractères
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="standard" hintLabel="Le type d'évenement est obligatoire">
+                    <mat-label>Type d'évenement</mat-label>
+                    <mat-select matNativeControl name="typeEvent" formControlName="typeEvent">
+                        <mat-option value="hypoteque">Hypoteque</mat-option>
+                        <mat-option value="taxes">Taxes</mat-option>
+                        <mat-option value="facture">Facture</mat-option>
+                        <mat-option value="immobilier">Immobilier</mat-option>
+                        <mat-option value="Salaire">Salaire</mat-option>
+                        <mat-option value="Immobilier">Immobilier</mat-option>
+                        <mat-option value="Loyer">Loyer</mat-option>
+                        <mat-option value="Divers">Divers</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="standard">
+                    <mat-label>Selectionnez la date de début</mat-label>
+                    <input matInput [matDatepicker]="pickerDebut" formControlName="dateDebut">
+                    <mat-datepicker-toggle matSuffix [for]="pickerDebut">
+                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #pickerDebut></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field appearance="standard">
+                    <mat-label>Selectionnez la date de fin</mat-label>
+                    <input matInput [matDatepicker]="pickerFin" formControlName="dateFin">
+                    <mat-datepicker-toggle matSuffix [for]="pickerFin">
+                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #pickerFin></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row">
+            
+            <div class="col">
+                <mat-form-field appearance="standard">
+                    <input matInput type="number" placeholder="Montant minimum" formControlName="montantMin" #montantMin>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field appearance="standard">
+                    <input matInput type="number" placeholder="Montant maximum" formControlName="montantMax" #montantMin>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row text-center">
+            <div class="col">
+                <button type="button" class="btn btn-primary" (click)="search(form)">Rechercher</button>
+            </div>
+        </div>
+      
+    </form>
+
+    <hr/>
+
+    <div class="row">
+        <div class="col">{{ form.value | json }}</div>
+    </div>
+  </div>
