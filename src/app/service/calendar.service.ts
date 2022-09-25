@@ -10,11 +10,11 @@ import { json } from "express";
 })
 export class CalendarService{
 
-    private urlGetAllEvents="http://localhost:8080/suivi-financier/getEventsByMonth/";
-    private urlGetEventById = "http://localhost:8080/suivi-financier/getEventById/";
-    private urlSetEvent = "http://localhost:8080/suivi-financier/events/";
-    private urlAddEvent = "http://localhost:8080/suivi-financier/addEvent/";
-    private urlDeleteEvent = "http://localhost:8080/suivi-financier/events/";
+    private urlGetAllEvents="https://suivi-financier-backend.herokuapp.com/suivi-financier/getEventsByMonth/";
+    private urlGetEventById = "https://suivi-financier-backend.herokuapp.com/suivi-financier/getEventById/";
+    private urlSetEvent = "https://suivi-financier-backend.herokuapp.com/suivi-financier/events/";
+    private urlAddEvent = "https://suivi-financier-backend.herokuapp.com/suivi-financier/addEvent/";
+    private urlDeleteEvent = "https://suivi-financier-backend.herokuapp.com/suivi-financier/events/";
 
     constructor(private http:HttpClient){
         

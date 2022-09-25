@@ -10,11 +10,11 @@ import { map,tap } from 'rxjs/operators';
 export class ExpensesService{
 
     //private urlGetAllExpenses="http://local-api/expenses.php";
-    private urlGetAllExpenses="http://localhost:8080/suivi-financier/getAllExpenses";
-    private urlAddExpense="http://localhost:8080/suivi-financier/addExpense";
-    private urlSetExpense="http://localhost:8080/suivi-financier/expenses/";
-    private urlGetExpenseById="http://localhost:8080/suivi-financier/getExpenseById/";
-    private urlDeleteExpense = "http://localhost:8080/suivi-financier/expenses/";
+    private urlGetAllExpenses="https://suivi-financier-backend.herokuapp.com/suivi-financier/getAllExpenses";
+    private urlAddExpense="https://suivi-financier-backend.herokuapp.com/suivi-financier/addExpense";
+    private urlSetExpense="https://suivi-financier-backend.herokuapp.com/suivi-financier/expenses/";
+    private urlGetExpenseById="https://suivi-financier-backend.herokuapp.com/suivi-financier/getExpenseById/";
+    private urlDeleteExpense = "https://suivi-financier-backend.herokuapp.com/suivi-financier/expenses/";
 
     constructor(private http:HttpClient){
         
