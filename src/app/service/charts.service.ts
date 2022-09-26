@@ -12,7 +12,7 @@ import { map,tap } from 'rxjs/operators';
 })
 export class ChartService{
 
-    private urlGetInOutChartData="https://suivi-financier-backend.herokuapp.com/suivi-financier/getChartInOutCurrentYear";
+    private urlGetInOutChartData="http://localhost:8080/suivi-financier/getChartInOutCurrentYear";
     //private urlGetInOutChartData2="http://local-api/chart-in-out.php";
     private urlGetInChartData="http://local-api/chart-in.php";
     private urlGetOutChartData="http://local-api/chart-out.php";
