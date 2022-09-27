@@ -303,7 +303,7 @@ export class ChartsComponent implements OnInit {
   // Call the API with the services
   public getInOutChartData() {
     this.chartService.getInOutChartData().subscribe((response: ChartInOutModel) => {
-      console.log(response);
+      //console.log(response);
       this.chartInOutModel = response;
     });
   }

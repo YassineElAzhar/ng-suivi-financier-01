@@ -15,7 +15,8 @@ export class ChartService{
     private urlGetInOutChartData="http://localhost:8080/suivi-financier/getChartInOutCurrentYear";
     //private urlGetInOutChartData2="http://local-api/chart-in-out.php";
     private urlGetInChartData="http://local-api/chart-in.php";
-    private urlGetOutChartData="http://local-api/chart-out.php";
+    //private urlGetOutChartData="http://local-api/chart-out.php";
+    private urlGetOutChartData="http://localhost:8080/suivi-financier/getChartOutCurrentMonth";
     private urlGetForcastChartData="http://local-api/chart-forcast.php";
 
     constructor(private http:HttpClient){
