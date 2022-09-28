@@ -12,9 +12,10 @@ import { map,tap } from 'rxjs/operators';
 })
 export class ChartService{
 
-    private urlGetInOutChartData="https://suivi-financier-backend.herokuapp.com/suivi-financier/getChartInOutCurrentYear";
     //private urlGetInOutChartData2="http://local-api/chart-in-out.php";
-    private urlGetInChartData="http://local-api/chart-in.php";
+    private urlGetInOutChartData="https://suivi-financier-backend.herokuapp.com/suivi-financier/getChartInOutCurrentYear";
+    //private urlGetInChartData="http://local-api/chart-in.php";
+    private urlGetInChartData="https://suivi-financier-backend.herokuapp.com/suivi-financier/getChartInCurrentMonth";
     //private urlGetOutChartData="http://local-api/chart-out.php";
     private urlGetOutChartData="https://suivi-financier-backend.herokuapp.com/suivi-financier/getChartOutCurrentMonth";
     private urlGetForcastChartData="http://local-api/chart-forcast.php";
