@@ -12,9 +12,10 @@ import { map,tap } from 'rxjs/operators';
 })
 export class ChartService{
 
-    private urlGetInOutChartData="http://localhost:8080/suivi-financier/getChartInOutCurrentYear";
     //private urlGetInOutChartData2="http://local-api/chart-in-out.php";
-    private urlGetInChartData="http://local-api/chart-in.php";
+    private urlGetInOutChartData="http://localhost:8080/suivi-financier/getChartInOutCurrentYear";
+    //private urlGetInChartData="http://local-api/chart-in.php";
+    private urlGetInChartData="http://localhost:8080/suivi-financier/getChartInCurrentMonth";
     //private urlGetOutChartData="http://local-api/chart-out.php";
     private urlGetOutChartData="http://localhost:8080/suivi-financier/getChartOutCurrentMonth";
     private urlGetForcastChartData="http://local-api/chart-forcast.php";
