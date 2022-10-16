@@ -75,6 +75,7 @@
     <mat-sidenav-content>
         <div class="content mat-elevation-z8">
             <router-outlet>
+                <app-spinner></app-spinner> <!-- On met un loader pour laisser le temps aux pages de se chargées -->
                 <!-- C'est ici que tout se passe -->
                 <!-- Voir les routes dans app-routing.module.ts -->
             </router-outlet>

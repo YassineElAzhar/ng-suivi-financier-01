@@ -86,7 +86,7 @@ export class ChartsComponent implements OnInit {
       this.in_ChartType = this.in_ChartType === 'polarArea' ? 'pie' : 'polarArea';
       //this.forcast_ChartType = this.forcast_ChartType === 'radar' ? 'line' : 'radar';
       this.inflation_ChartType = this.inflation_ChartType === 'line' ? 'line' : 'line';
-    }, 1000);
+    }, this.initChartsTimeout);
   }
 
   public async updateInOutData(){
