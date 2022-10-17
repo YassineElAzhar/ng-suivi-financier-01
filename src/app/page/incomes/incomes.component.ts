@@ -39,8 +39,9 @@ export class IncomesComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    setTimeout(() => this.dataSource.paginator = this.paginator);
-    setTimeout(() => this.dataSource.sort = this.sort);
+    this.paginator._intl.itemsPerPageLabel = "Nombre de revenus affichés";
+    setTimeout(() => this.dataSource.paginator = this.paginator, 500);
+    setTimeout(() => this.dataSource.sort = this.sort, 500);
   }
 
   public applyFilter(filterValue: string){
