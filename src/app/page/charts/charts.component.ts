@@ -129,7 +129,7 @@ export class ChartsComponent implements OnInit {
   public async updateInflationData(){
     setTimeout(() => {
       //Dépenses - Mise à jour des données avec l'API
-      console.log( this.chartInflationModel);
+      //console.log( this.chartInflationModel);
       this.inflation_ChartData.labels = this.chartInflationModel.chartLabels;
       this.inflation_ChartData.datasets = this.chartInflationModel.dataset;
       this.inflation_ChartType = this.chartInflationModel.chartTypeInit;
@@ -396,7 +396,7 @@ export class ChartsComponent implements OnInit {
 
   public getInflationChartData() {
     this.chartService.getInflationChartData().subscribe((response: ChartInflationModel) => {
-      console.log(response);
+      //console.log(response);
       this.chartInflationModel = response;
     });
   }
