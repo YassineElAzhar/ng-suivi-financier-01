@@ -34,14 +34,12 @@ export class ExpensesComponent implements AfterViewInit {
   ){
   }
 
-  ngOnInit(){
-    this.getAllExpenses();
+  async ngOnInit(){
+    await this.getAllExpenses();
   }
 
-  ngAfterViewInit() {
-    this.paginator._intl.itemsPerPageLabel = "Nombre de dépense affichées";
-    setTimeout(() => this.dataSource.paginator = this.paginator,500);
-    setTimeout(() => this.dataSource.sort = this.sort,500);
+  async ngAfterViewInit() {
+    await this.getAllExpenses();
   }
 
   public applyFilter(filterValue: string){
@@ -64,13 +62,16 @@ export class ExpensesComponent implements AfterViewInit {
     }
   }
 
-  getAllExpenses() {
+  async getAllExpenses() {
     this.expensesService.getAllExpenses().subscribe((response: ExpensesModel[]) => {
       this.expenses = response;
       //console.log(this.expenses);
       //On met à jour le dataSource avec les valeurs venant du WebService
       this.dataSource = new MatTableDataSource<ExpensesModel>(this.expenses);
       //console.log(this.dataSource.data);
+      this.paginator._intl.itemsPerPageLabel = "Nombre de dépense affichées";
+      setTimeout(() => this.dataSource.paginator = this.paginator,500);
+      setTimeout(() => this.dataSource.sort = this.sort,500);
     });
   }
 
