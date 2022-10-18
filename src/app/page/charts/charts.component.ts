@@ -26,7 +26,7 @@ export class ChartsComponent implements OnInit {
 
   breakpoint: number; //Pour le responsive
 
-  public initChartsTimeout: number = 1000; //Nous placons une seconde pour laisser le temps au WS d'envoyer les dataset
+  public initChartsTimeout: number = 1500; //Nous placons une seconde pour laisser le temps au WS d'envoyer les dataset
 
   /*****************************************/
   
@@ -58,26 +58,25 @@ export class ChartsComponent implements OnInit {
   constructor(private chartService:ChartService) {
   }
 
-  ngOnInit():void {
+  async ngOnInit() {
     //Pour le responsive
     this.breakpoint = (window.innerWidth <= 1200) ? 1 : 2;
-
     //On appel le webservice
-    this.getInOutChartData();
-    this.getInChartData();
-    this.getOutChartData();
-    //this.getForcastChartData();
-    this.getInflationChartData();
+    await this.getInOutChartData();
+    await this.getInChartData();
+    await this.getOutChartData();
+    //await this.getForcastChartData();
+    await this.getInflationChartData();
   }
   
 
-  ngAfterViewInit() {
+  async ngAfterViewInit() {
     //On met à jour le graphique "Revenus VS Dépenses" avec le web service 
-    this.updateInOutData();
-    this.updateInData();
-    this.updateOutData();
-    //this.updateForcastData();
-    this.updateInflationData();
+    await this.updateInOutData();
+    await this.updateInData();
+    await this.updateOutData();
+    //await this.updateForcastData();
+    await this.updateInflationData();
     this.charts?.update;
 
     setTimeout(() => {
@@ -369,32 +368,32 @@ export class ChartsComponent implements OnInit {
 
 
   // Call the API with the services
-  public getInOutChartData() {
+  public async getInOutChartData() {
     this.chartService.getInOutChartData().subscribe((response: ChartInOutModel) => {
       //console.log(response);
       this.chartInOutModel = response;
     });
   }
 
-  public getInChartData() {
+  public async getInChartData() {
     this.chartService.getInChartData().subscribe((response: ChartInModel) => {
       this.chartInModel = response;
     });
   }
 
-  public getOutChartData() {
+  public async getOutChartData() {
     this.chartService.getOutChartData().subscribe((response: ChartOutModel) => {
       this.chartOutModel = response;
     });
   }
 
-  public getForcastChartData() {
+  public async getForcastChartData() {
     this.chartService.getForcastChartData().subscribe((response: ChartForcastModel) => {
       this.chartForcastModel = response;
     });
   }
 
-  public getInflationChartData() {
+  public async getInflationChartData() {
     this.chartService.getInflationChartData().subscribe((response: ChartInflationModel) => {
       //console.log(response);
       this.chartInflationModel = response;
