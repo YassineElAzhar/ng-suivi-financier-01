@@ -159,7 +159,7 @@ export class ChartsComponent implements OnInit {
     },
     plugins: {
       legend: { display: true },
-      title: { display: true, text: "Revenus VS Dépenses"}
+      title: { display: true, text: "Revenus VS Dépenses - " + (new Date()).getFullYear().toString()}
     }
   };
 
@@ -199,7 +199,7 @@ export class ChartsComponent implements OnInit {
     },
     plugins: {
       legend: { display: false },
-      title: { display: true, text: "Dépenses - Juillet 2022"}
+      title: { display: true, text: "Dépenses - " + ("0" + ((new Date()).getMonth() + 1)).slice(-2) + "/" + (new Date()).getFullYear()}
     }
   };
 
@@ -240,7 +240,7 @@ export class ChartsComponent implements OnInit {
     },
     plugins: {
       legend: { display: false },
-      title: { display: true, text: "Revenus - Juillet 2020"}
+      title: { display: true, text: "Revenus - " + ("0" + ((new Date()).getMonth() + 1)).slice(-2) + "/" + (new Date()).getFullYear()}
     }
   };
 
