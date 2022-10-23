@@ -1,0 +1,66 @@
+import { Input, Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/service/auth.service';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
+})
+export class LoginComponent implements OnInit {
+
+    constructor(public authService: AuthService, public router: Router) { }
+  
+    ngOnInit(): void {
+    }
+
+    
+    @Input() error: string | null;
+    @Input() info: string | null;
+    
+    @Output() loginStatus = new EventEmitter();
+
+    form: FormGroup = new FormGroup({
+        //(admin/C£©!€$ʈ1W0t2P^s$ɘ)
+        username: new FormControl(''),
+        password: new FormControl(''),
+    });
+
+    login() {
+        //console.log(this.form.value);
+        if (this.form.valid) {
+            this.info = "Tentative de connexion en cours...";
+            this.authService.login(this.form.value["username"], this.form.value["password"]).subscribe(() => {
+                this.loginStatus.emit(true);
+                this.setMessage();
+                if (this.authService.isLoggedIn) {
+                    // Récupère l'URL de redirection depuis le service d'authentification
+                    // Si aucune redirection n'a été définis, redirige l'utilisateur vers la liste des pokemons.
+                    let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/home';
+                    // Redirige l'utilisateur
+                    this.router.navigate([redirect]);
+                }
+            });
+            document.location.href = "/home";
+        }
+    }
+  
+    // Déconnecte l'utilisateur
+    logout() {
+        this.authService.logout();
+        this.setMessage();
+    }
+    
+
+    // Informe l'utilisateur sur son authentfication.
+    setMessage() {
+        this.info = "";
+        this.error = this.authService.isLoggedIn ?
+            'Vous êtes connecté.' : 'Identifiant ou mot de passe incorrect.';
+    }
+
+
+
+
+}

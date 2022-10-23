@@ -1,3 +1,7 @@
+<div class="loginView" *ngIf="!isLoggedIn">
+    <app-login></app-login>
+</div>
+<div *ngIf="isLoggedIn">
 <mat-toolbar class="mat-elevation-z8">
     <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
         <mat-icon *ngIf="!sidenav.opened">
@@ -82,3 +86,4 @@
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>
+</div>
