@@ -18,7 +18,12 @@ export class AuthService {
 
   
   login(name: string, password: string): Observable<boolean> {
-    const isLoggedIn = (name == 'admin' && password == 'C£©!€$ʈ1W0t2P^s$ɘ');
+    //Pour les décoder il faudrait utiliser cette ligne de code ci-dessous
+    //var userNameDecode = decodeURIComponent(escape(window.atob(name)));
+    var nameDecode:string = decodeURIComponent(escape(window.atob(name)));
+    var passwordDecode:string = decodeURIComponent(escape(window.atob(password)));
+    
+    const isLoggedIn = (nameDecode == 'admin' && passwordDecode == "C£©!€$ʈ1W0t2P^s$ɘ");
     if(isLoggedIn){
       //On sauvegarde le status du login dans les cookies
       localStorage.setItem('isLoggedIn','true');

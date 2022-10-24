@@ -28,10 +28,13 @@ export class LoginComponent implements OnInit {
     });
 
     login() {
-        //console.log(this.form.value);
+        //Nous allons encoder les infos en base64
+        var userNameB64:string = btoa(unescape(encodeURIComponent(this.form.value["username"])));
+        var passwordB64:string = btoa(unescape(encodeURIComponent(this.form.value["password"])));
+        
         if (this.form.valid) {
             this.info = "Tentative de connexion en cours...";
-            this.authService.login(this.form.value["username"], this.form.value["password"]).subscribe(() => {
+            this.authService.login(userNameB64, passwordB64).subscribe(() => {
                 this.loginStatus.emit(true);
                 this.setMessage();
                 if (this.authService.isLoggedIn) {
@@ -40,9 +43,9 @@ export class LoginComponent implements OnInit {
                     let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/home';
                     // Redirige l'utilisateur
                     this.router.navigate([redirect]);
+                    document.location.href = "/home";
                 }
             });
-            document.location.href = "/home";
         }
     }
   
