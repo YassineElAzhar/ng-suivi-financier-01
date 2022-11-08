@@ -11,6 +11,8 @@ import { CalendarComponent } from './page/calendar/calendar.component';
 import { IncomesComponent } from './page/incomes/incomes.component';
 import { ExpensesComponent } from './page/expenses/expenses.component';
 import { ChartsComponent } from './page/charts/charts.component';
+import { AuthGuard } from './auth.guard';
+import { LoginComponent } from './page/login/login.component';
 
 const routes: Routes = [
   {
@@ -20,39 +22,48 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate : [AuthGuard]
   },
   {
     path: 'profile',
-    component: ProfileComponent
+    component: ProfileComponent,
+    canActivate : [AuthGuard]
   },
   {
     path: 'search',
-    component: SearchComponent
+    component: SearchComponent,
+    canActivate : [AuthGuard]
   },
   {
     path: 'calendar',
-    component: CalendarComponent
+    component: CalendarComponent,
+    canActivate : [AuthGuard]
   },
   {
     path: 'about',
-    component: AboutComponent
+    component: AboutComponent,
+    canActivate : [AuthGuard]
   },
   {
     path: 'help', //On le laisse, accessible depuis l'url /help
-    component: HelpComponent
+    component: HelpComponent,
+    canActivate : [AuthGuard]
   },
   {
     path: 'incomes',
-    component: IncomesComponent
+    component: IncomesComponent,
+    canActivate : [AuthGuard]
   },
   {
     path: 'expenses',
-    component: ExpensesComponent
+    component: ExpensesComponent,
+    canActivate : [AuthGuard]
   },
   {
     path: 'charts',
-    component: ChartsComponent
+    component: ChartsComponent,
+    canActivate : [AuthGuard]
   },
   {
     path: '**',

@@ -54,7 +54,7 @@ mat-sidenav-container {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    font-size: 1rem;
+    /*font-size: 1rem;*/
 
     mat-icon {
         margin-right: 8px;
@@ -89,4 +89,8 @@ mat-divider{
     padding-right: 10px;
     border-radius: 5px;
     width: 93%;
+}
+
+.loginView{
+    overflow-y: hidden; 
 }

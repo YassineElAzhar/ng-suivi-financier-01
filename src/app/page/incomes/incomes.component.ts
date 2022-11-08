@@ -34,13 +34,12 @@ export class IncomesComponent implements AfterViewInit {
   ){
   }
 
-  ngOnInit(){
-    this.getAllIncomes();
+  async ngOnInit(){
+    await this.getAllIncomes();
   }
 
-  ngAfterViewInit() {
-    setTimeout(() => this.dataSource.paginator = this.paginator);
-    setTimeout(() => this.dataSource.sort = this.sort);
+  async ngAfterViewInit() {
+    await this.getAllIncomes();
   }
 
   public applyFilter(filterValue: string){
@@ -63,14 +62,18 @@ export class IncomesComponent implements AfterViewInit {
     }
   }
 
-  getAllIncomes() {
+  async getAllIncomes() {
     this.incomesService.getAllIncomes().subscribe((response: IncomesModel[]) => {
       this.incomes = response;
       //console.log(this.incomes);
       //On met à jour le dataSource avec les valeurs venant du WebService
       this.dataSource = new MatTableDataSource<IncomesModel>(this.incomes);
       //console.log(this.dataSource.data);
+      this.paginator._intl.itemsPerPageLabel = "Nombre de revenus affichés";
+      setTimeout(() => this.dataSource.paginator = this.paginator);
+      setTimeout(() => this.dataSource.sort = this.sort);
     });
+    
   }
 
   addIncome(){

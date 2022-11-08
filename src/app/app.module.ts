@@ -30,7 +30,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { HomeComponent } from './page/home/home.component';
 import { ProfileComponent } from './page/profile/profile.component';
@@ -56,6 +56,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgChartsModule } from 'ng2-charts';
 import { SetIncomeComponent } from './popup/incomes/setIncome.component';
 import { SetExpenseComponent } from './popup/expenses/setExpense.component';
+import { SpinnerComponent } from './page/spinner/spinner.component';
+import { LoadingInterceptor } from './interceptor/loading.interceptor';
+import { LoginComponent } from './page/login/login.component';
 
 
 
@@ -78,7 +81,9 @@ import { SetExpenseComponent } from './popup/expenses/setExpense.component';
     UpdateEventComponent,
     ChartsComponent,
     SetIncomeComponent,
-    SetExpenseComponent
+    SetExpenseComponent,
+    SpinnerComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
@@ -98,7 +103,6 @@ import { SetExpenseComponent } from './popup/expenses/setExpense.component';
     MatTableModule,
     MatPaginatorModule,
     MatSelectModule,
-    AppRoutingModule,
     HttpClientModule,
     MatGridListModule,
     MatFormFieldModule,
@@ -115,7 +119,11 @@ import { SetExpenseComponent } from './popup/expenses/setExpense.component';
     NgChartsModule
     
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

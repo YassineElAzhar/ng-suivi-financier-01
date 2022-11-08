@@ -13,6 +13,15 @@
     </mat-grid-tile>
 
     <!-- Graphique 2 - Prévisions annuel -->
+    <mat-grid-tile (click)="inflationChangeChartType()">
+      <div class="canvasBlock">
+        <canvas baseChart [data]="inflation_ChartData" [options]="inflation_ChartOptions"
+          [type]="inflation_ChartType" (chartHover)="inflationChartHovered($event)"
+          (chartClick)="inflationChartClicked($event)">
+        </canvas>
+      </div>
+    </mat-grid-tile>
+    <!--
     <mat-grid-tile (click)="forcastChangeChartType()">
       <div class="canvasBlock">
         <canvas baseChart [data]="forcast_ChartData" [options]="forcast_ChartOptions"
@@ -21,6 +30,7 @@
         </canvas>
       </div>
     </mat-grid-tile>
+    -->
 
     <!-- Graphique 3 - Dépenses sur le dernier mois -->
     <mat-grid-tile (click)="outChangeChartType()">
