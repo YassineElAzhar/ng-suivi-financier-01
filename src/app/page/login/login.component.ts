@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
     setMessage() {
         this.info = "";
         this.returnStatus = this.authService.isLoggedIn ?
-            'Vous êtes connecté.' : 'Identifiant ou mot de passe incorrect.';
+            'Redirection en cours...' : 'Identifiant ou mot de passe incorrect.';
     }
 
 
