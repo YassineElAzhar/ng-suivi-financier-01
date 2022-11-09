@@ -14,9 +14,9 @@ import { AuthService } from 'src/app/service/auth.service'
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
-
-  loginComponent = new AuthService;
+  constructor(
+    private loginComponent:AuthService,
+  ) { }
 
   ngOnInit(): void {
   }
