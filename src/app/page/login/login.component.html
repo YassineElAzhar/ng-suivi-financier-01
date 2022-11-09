@@ -14,8 +14,8 @@
         </mat-form-field>
       </p>
 
-      <p *ngIf="error" class="error">
-        {{ error }}
+      <p *ngIf="returnStatus" class="error" [ngStyle]="{'background-color':authService.isLoggedIn == true ? '#28a745' : '#dc3545' }">
+        {{ returnStatus }}
       </p>
 
       <p *ngIf="info" class="info">

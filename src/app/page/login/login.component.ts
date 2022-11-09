@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
     }
 
     
-    @Input() error: string | null;
+    @Input() returnStatus: string | null;
     @Input() info: string | null;
     
     @Output() loginStatus = new EventEmitter();
@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
     // Informe l'utilisateur sur son authentfication.
     setMessage() {
         this.info = "";
-        this.error = this.authService.isLoggedIn ?
+        this.returnStatus = this.authService.isLoggedIn ?
             'Vous êtes connecté.' : 'Identifiant ou mot de passe incorrect.';
     }
 
