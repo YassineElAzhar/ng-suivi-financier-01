@@ -13,11 +13,6 @@ export class LoginComponent implements OnInit {
     constructor(public authService: AuthService, public router: Router) { }
   
     ngOnInit(): void {
-        /*
-        this.authService.testLogin("test","test").subscribe((response: boolean) => {
-            console.log(response);
-        });
-        */
     }
 
     

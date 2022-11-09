@@ -39,7 +39,6 @@ export class AuthService {
     var emailParameter:string = "?emailUser="+email;
     var passwordParameter:string = "&password="+password;
     urlLogin = urlLogin + emailParameter + passwordParameter;
-    console.log(urlLogin);
     return this.http.post(urlLogin, null).pipe(map(
         (response:any) => {
           return response;
@@ -54,27 +53,6 @@ export class AuthService {
       catchError(this.handleError)
     );
   }
-
-  /*
-  //Old test
-  login(name: string, password: string): Observable<boolean> {
-    //Pour les décoder il faudrait utiliser cette ligne de code ci-dessous
-    //var userNameDecode = decodeURIComponent(escape(window.atob(name)));
-    var nameDecode:string = decodeURIComponent(escape(window.atob(name)));
-    var passwordDecode:string = decodeURIComponent(escape(window.atob(password)));
-    
-    const isLoggedIn = (nameDecode == 'admin' && passwordDecode == "C£©!€$ʈ1W0t2P^s$ɘ");
-    if(isLoggedIn){
-      //On sauvegarde le status du login dans les cookies
-      localStorage.setItem('isLoggedIn','true');
-    }
-
-    return of(isLoggedIn).pipe(
-      delay(1000),
-      tap( isLoggedIn => this.isLoggedIn = isLoggedIn )
-    );
-  }
-  */
 
   logout() {
     this.isLoggedIn = false;
