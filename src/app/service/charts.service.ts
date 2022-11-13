@@ -14,13 +14,13 @@ import { ChartInflationModel } from "../model/chart.inflation.model";
 export class ChartService{
 
     //private urlGetInOutChartData2="http://local-api/chart-in-out.php";
-    private urlGetInOutChartData="http://localhost:8080/suivi-financier/getChartInOutCurrentYear";
+    private urlGetInOutChartData="http://184.163.123.240:8080/suivi-financier/getChartInOutCurrentYear";
     //private urlGetInChartData="http://local-api/chart-in.php";
-    private urlGetInChartData="http://localhost:8080/suivi-financier/getChartInCurrentMonth";
+    private urlGetInChartData="http://184.163.123.240:8080/suivi-financier/getChartInCurrentMonth";
     //private urlGetOutChartData="http://local-api/chart-out.php";
-    private urlGetOutChartData="http://localhost:8080/suivi-financier/getChartOutCurrentMonth";
-    private urlGetForcastChartData="http://local-api/chart-forcast.php";
-    private urlGetInflationChartData="http://localhost:8080/suivi-financier/getInflationRate";
+    private urlGetOutChartData="http://184.163.123.240:8080/suivi-financier/getChartOutCurrentMonth";
+    //private urlGetForcastChartData="http://local-api/chart-forcast.php";
+    private urlGetInflationChartData="http://184.163.123.240:8080/suivi-financier/getInflationRate";
 
     constructor(private http:HttpClient){
         
@@ -73,6 +73,7 @@ export class ChartService{
     }
     
     //Forcast
+    /*
     getForcastChartData() : Observable<ChartForcastModel> {
         return this.http.get<ChartForcastModel>(this.urlGetForcastChartData)
         .pipe(              
@@ -85,6 +86,7 @@ export class ChartService{
             catchError(this.handleError)
         );
     }
+    */
     
     //Inflation
     getInflationChartData() : Observable<ChartInflationModel> {

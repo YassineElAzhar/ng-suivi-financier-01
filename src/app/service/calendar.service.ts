@@ -10,11 +10,11 @@ import { json } from "express";
 })
 export class CalendarService{
 
-    private urlGetAllEvents="http://localhost:8080/suivi-financier/getEventsByMonth/";
-    private urlGetEventById = "http://localhost:8080/suivi-financier/getEventById/";
-    private urlSetEvent = "http://localhost:8080/suivi-financier/events/";
-    private urlAddEvent = "http://localhost:8080/suivi-financier/addEvent/";
-    private urlDeleteEvent = "http://localhost:8080/suivi-financier/events/";
+    private urlGetAllEvents="http://184.163.123.240:8080/suivi-financier/getEventsByMonth/";
+    private urlGetEventById = "http://184.163.123.240:8080/suivi-financier/getEventById/";
+    private urlSetEvent = "http://184.163.123.240:8080/suivi-financier/events/";
+    private urlAddEvent = "http://184.163.123.240:8080/suivi-financier/addEvent/";
+    private urlDeleteEvent = "http://184.163.123.240:8080/suivi-financier/events/";
 
     constructor(private http:HttpClient){
         

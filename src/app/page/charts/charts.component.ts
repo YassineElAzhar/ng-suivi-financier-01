@@ -386,13 +386,13 @@ export class ChartsComponent implements OnInit {
       this.chartOutModel = response;
     });
   }
-
+  /*
   public async getForcastChartData() {
     this.chartService.getForcastChartData().subscribe((response: ChartForcastModel) => {
       this.chartForcastModel = response;
     });
   }
-
+  */
   public async getInflationChartData() {
     this.chartService.getInflationChartData().subscribe((response: ChartInflationModel) => {
       //console.log(response);

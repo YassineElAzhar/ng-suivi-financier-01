@@ -25,7 +25,7 @@ export class AuthService {
 
 
   login(email:String, password:String): Observable<boolean> {
-    var urlLogin:string = "http://localhost:9090/suivi-financier-auth/login";
+    var urlLogin:string = "http://184.163.123.240:9090/suivi-financier-auth/login";
 
     //Pour les décoder il faudrait utiliser cette ligne de code ci-dessous
     //var userNameDecode = decodeURIComponent(escape(window.atob(name)));
