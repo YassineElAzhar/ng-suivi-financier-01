@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
         
         if (this.form.valid) {
             this.info = "Tentative de connexion en cours...";
-            this.authService.login(userNameB64, passwordB64).subscribe(() => {
+            this.authService.login(userNameB64, passwordB64, this.form.value["username"]).subscribe(() => {
                 this.loginStatus.emit(true);
                 this.setMessage();
                 if (this.authService.isLoggedIn) {

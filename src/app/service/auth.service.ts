@@ -24,7 +24,7 @@ export class AuthService {
 
 
 
-  login(email:String, password:String): Observable<boolean> {
+  login(email:String, password:String, emailUtf8:string): Observable<boolean> {
     var urlLogin:string = "http://localhost:9090/suivi-financier-auth/login";
 
     //Pour les décoder il faudrait utiliser cette ligne de code ci-dessous
@@ -49,6 +49,7 @@ export class AuthService {
           this.isLoggedIn = response;
           //On sauvegarde le status du login dans les cookies
           localStorage.setItem('isLoggedIn','true');
+          localStorage.setItem('email',emailUtf8);
       }),
       catchError(this.handleError)
     );
@@ -58,6 +59,7 @@ export class AuthService {
     this.isLoggedIn = false;
     //On supprime le status du login dans les cookies
     localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('email');
   }
 
 }
