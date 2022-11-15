@@ -9,7 +9,7 @@ import { ProfileUserModel } from '../model/profile.user.model'
 })
 export class ProfileService{
 
-    private urlGetUser="http://localhost:9090/suivi-financier-auth/getUser/";
+    private urlGetUser="http://localhost:9090/suivi-financier-auth/getUser/"+localStorage.getItem("email");
  
     constructor(private http:HttpClient){
     }
@@ -22,7 +22,6 @@ export class ProfileService{
     
 
     getUser() : Observable<ProfileUserModel> {
-        this.urlGetUser = this.urlGetUser+localStorage.getItem("email");
         return this.http.get<ProfileUserModel>(this.urlGetUser)
         .pipe(              
         map((response : ProfileUserModel) => {

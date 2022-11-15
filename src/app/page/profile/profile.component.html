@@ -1,59 +1,97 @@
+<div class="row" style="margin-bottom: 20px; margin-top: 5px;">
+    <div class="col-lg-4 col-md-12">
+        <div class="row">
+            <div class="col" style="margin: auto;">
+                <h4>Profile</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col">
             <p class="mb-0">Nom et Prénom</p>
         </div>
-        <div class="col-sm-9">
+        <div class="col">
             <p class="text-muted mb-0">{{profileUser.nom}} {{profileUser.prenom}}</p>
         </div>
+        <div class="col">
+        </div>
     </div>
     <hr>
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col">
             <p class="mb-0">Email</p>
         </div>
-        <div class="col-sm-9">
+        <div class="col">
             <p class="text-muted mb-0">{{profileUser.email}}</p>
         </div>
+        <div class="col">
+            <p class="mb-0"><mat-icon>open_in_new</mat-icon></p>
+        </div>
     </div>
     <hr>
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col">
             <p class="mb-0">Type de profile</p>
         </div>
-        <div class="col-sm-9">
+        <div class="col">
             <p class="text-muted mb-0">{{profileUser.typeProfil}}</p>
         </div>
+        <div class="col">
+            <p class="mb-0"><mat-icon>open_in_new</mat-icon></p>
+        </div>
     </div>
     <hr>
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col">
             <p class="mb-0">Date de naissance</p>
         </div>
-        <div class="col-sm-9">
+        <div class="col">
             <p class="text-muted mb-0">{{profileUser.dateNaissance}}</p>
         </div>
+        <div class="col">
+            <p class="mb-0"><mat-icon>open_in_new</mat-icon></p>
+        </div>
     </div>
     <hr>
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col">
             <p class="mb-0">Adresse</p>
         </div>
-        <div class="col-sm-9">
+        <div class="col">
             <p class="text-muted mb-0">{{profileUser.adresse}}</p>
+        </div>
+        <div class="col">
+            <p class="mb-0"><mat-icon>open_in_new</mat-icon></p>
         </div>
     </div>
     <hr>
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col">
             <p class="mb-0">Ville</p>
         </div>
-        <div class="col-sm-9">
-            <p class="text-muted mb-0">{{profileUser.ville}}</p>
+        <div class="col">
+            <p class="text-muted mb-0">{{profileUser.ville}}, {{profileUser.zip}}</p>
+        </div>
+        <div class="col">
+            <p class="mb-0"><mat-icon>open_in_new</mat-icon></p>
         </div>
     </div>
     <hr>
-    <button type="button" class="btn btn-primary" (click)="logout()">Se deconnecter</button>
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col">
+            <p class="text-muted mb-0">
+                <button type="button" class="btn btn-primary" (click)="logout()">Se deconnecter</button>
+            </p>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+    <hr>
 
 </div>
