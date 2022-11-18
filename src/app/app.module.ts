@@ -59,6 +59,7 @@ import { SetExpenseComponent } from './popup/expenses/setExpense.component';
 import { SpinnerComponent } from './page/spinner/spinner.component';
 import { LoadingInterceptor } from './interceptor/loading.interceptor';
 import { LoginComponent } from './page/login/login.component';
+import { UpdateEmailComponent } from './popup/profile/updateEmail.component';
 
 
 
@@ -83,7 +84,8 @@ import { LoginComponent } from './page/login/login.component';
     SetIncomeComponent,
     SetExpenseComponent,
     SpinnerComponent,
-    LoginComponent
+    LoginComponent,
+    UpdateEmailComponent
   ],
   imports: [
     CommonModule,

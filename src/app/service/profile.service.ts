@@ -18,9 +18,6 @@ export class ProfileService{
         return throwError(() => error.message);
     }
 
-
-    
-
     getUser() : Observable<ProfileUserModel> {
         return this.http.get<ProfileUserModel>(this.urlGetUser)
         .pipe(              
@@ -29,6 +26,27 @@ export class ProfileService{
         }),
             tap((response) => {
                // console.log(response.length.toString());
+            }),
+            catchError(this.handleError)
+        );
+    }
+
+    updateEmail(newEmail:string, oldEmail:string): Observable<any> {
+        var urlUpdateEmail="http://localhost:9090/suivi-financier-auth/updateEmail?newEmail="+newEmail+"&oldEmail="+oldEmail+"&userId="+localStorage.getItem('userId');
+        //On change le event en JSON
+        const body = "";
+        //On prépare les httpHeaders pour passer un objet en json
+        const headers= new HttpHeaders()
+            .set('content-type', 'application/json')
+            .set('Access-Control-Allow-Origin', '*');
+
+        return this.http.post<string>(urlUpdateEmail,body,{headers})
+        .pipe(              
+        map((response:any) => {
+            return response;
+        }),
+            tap((response) => {
+                //console.log(response);
             }),
             catchError(this.handleError)
         );

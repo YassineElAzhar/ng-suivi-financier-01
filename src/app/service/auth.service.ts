@@ -60,6 +60,7 @@ export class AuthService {
     //On supprime le status du login dans les cookies
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('email');
+    localStorage.removeItem('userId');
   }
 
 }

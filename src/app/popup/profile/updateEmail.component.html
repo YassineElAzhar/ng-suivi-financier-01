@@ -1,0 +1,69 @@
+
+<div class="container">
+    <!--<form [formGroup]="form" (ngSubmit)="saveDetails(form)">-->
+    <form [formGroup]="form">
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="standard">
+                    <mat-label>Courriel actuel</mat-label>
+                    <input matInput maxlength="40" inputmode="email" placeholder="Courriel actuel" formControlName="currentEmail" #currentEmailInput ngModel [email]="true">
+                    <mat-hint>Mini character 10: {{ currentEmailInput.value.length }}/10</mat-hint>
+                    <mat-error>Le courriel n'est pas valide</mat-error>
+                    <mat-error *ngIf="form.controls['currentEmail'].errors?.['minlength']">
+                        Entrez au moins 10 caractères
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        
+        <hr/>
+
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="standard">
+                    <mat-label>Nouveau courriel</mat-label>
+                    <input matInput maxlength="40" inputmode="email" placeholder="Nouveau courriel" formControlName="newEmail" #newEmailInput>
+                    <mat-hint>Mini character 10: {{ newEmailInput.value.length }}/10</mat-hint>
+                    <mat-error>Le courriel n'est pas valide</mat-error>
+                    <mat-error *ngIf="form.controls['newEmail'].errors?.['minlength']">
+                        Entrez au moins 10 caractères
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        
+        <hr/>
+
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="standard">
+                    <mat-label>Confirmation du nouveau courriel</mat-label>
+                    <input matInput maxlength="40" inputmode="text" placeholder="Confirmation du nouveau courriel" formControlName="newEmailConfirm" #newEmailConfirmInput>
+                    <mat-hint>Mini character 10: {{ newEmailConfirmInput.value.length }}/10</mat-hint>
+                    <mat-error>Le courriel n'est pas valide</mat-error>
+                    <mat-error *ngIf="form.controls['newEmailConfirm'].errors?.['minlength']">
+                        Entrez au moins 10 caractères
+                    </mat-error>
+                    <mat-error *ngIf="form.controls['newEmail'].value != form.controls['newEmailConfirm'].value">
+                        Le courriel est différent
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <hr/>
+
+        <div class="row text-center">
+            <div class="col">
+                <button type="button" class="btn btn-primary" (click)="updateEmailRequest()">Envoyer</button>
+            </div>
+        </div>
+      
+    </form>
+
+    <hr/>
+
+    <div class="row">
+        <div class="col text-info">Un demande de confirmation vous sera envoyer sur votre nouvelle adresse.</div>
+    </div>
+  </div>
