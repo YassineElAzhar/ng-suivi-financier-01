@@ -8,4 +8,5 @@ export interface ProfileUserModel {
     ville: string;
     zip: string;
     typeProfil: string;
+    pictureUrl: string;
 }
