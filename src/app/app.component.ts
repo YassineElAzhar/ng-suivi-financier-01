@@ -21,7 +21,12 @@ export class AppComponent implements AfterViewInit {
   
   @ViewChild(LoginComponent) loginComponent: LoginComponent;
 
-  constructor(private observer: BreakpointObserver, private router: Router, private profileService:ProfileService) { };
+  constructor(
+    private observer: BreakpointObserver,
+    private router: Router,
+    private profileService:ProfileService) {
+    this.setUserDataDisplayed();
+  };
   
   isLoggedIn:boolean = localStorage.getItem("isLoggedIn") == "true";
   urlProfilePicture:string = "";
@@ -31,7 +36,6 @@ export class AppComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     if(this.isLoggedIn){
-      this.setUserDataDisplayed();
       this.observer.observe(['(max-width: 800px)'])
       .pipe(delay(1), untilDestroyed(this))
       .subscribe((res) => {
