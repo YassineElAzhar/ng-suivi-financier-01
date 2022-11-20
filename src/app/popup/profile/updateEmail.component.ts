@@ -14,6 +14,8 @@ export class UpdateEmailComponent implements OnInit {
   form: FormGroup = new FormGroup({});
 
   profileUserModel: ProfileUserModel;
+  isDifferent:boolean = false;
+  equalCurrentEmail:boolean = false;
   
   constructor(
     private fb: FormBuilder,
@@ -27,14 +29,27 @@ export class UpdateEmailComponent implements OnInit {
       newEmail: [null, [Validators.required, Validators.minLength(10), Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       newEmailConfirm: [null, [Validators.required, Validators.minLength(10), Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
     });
+    this.isDifferent = false;
+    this.equalCurrentEmail = false;
   }
 
   updateEmailRequest() {
-    this.profileService.updateEmail(this.form.controls["newEmail"].value,this.form.controls["currentEmail"].value).subscribe((response:string) => {
-      console.log(response)
-    });
-    this.form.reset();
-    this.dialogRef.close();
+    if(this.form.controls["newEmail"].value !== this.form.controls["newEmailConfirm"].value){
+      this.isDifferent = true;
+      this.equalCurrentEmail = false;
+    } else if(this.form.controls["currentEmail"].value === this.form.controls["newEmailConfirm"].value){
+      this.equalCurrentEmail = true;
+      this.isDifferent = false;
+    }
+    else {
+      this.profileService.updateEmail(this.form.controls["newEmail"].value,this.form.controls["currentEmail"].value).subscribe((response:string) => {
+        console.log(response)
+      });
+      this.equalCurrentEmail = false;
+      this.isDifferent = false;
+      this.form.reset();
+      this.dialogRef.close();
+    }
   }
 
 }

@@ -23,7 +23,10 @@
                 <mat-form-field appearance="standard">
                     <mat-label>Nouveau courriel</mat-label>
                     <input matInput maxlength="40" inputmode="email" placeholder="Nouveau courriel" formControlName="newEmail" #newEmailInput>
-                    <mat-hint>Mini character 10: {{ newEmailInput.value.length }}/10</mat-hint>
+                    <mat-hint>
+                        Mini character 10: {{ newEmailInput.value.length }}/10
+                        <span class="hint-error" *ngIf="equalCurrentEmail"><br>Le nouveau courriel ne peut-être similaire au courriel actuel</span>
+                    </mat-hint>
                     <mat-error>Le courriel n'est pas valide</mat-error>
                     <mat-error *ngIf="form.controls['newEmail'].errors?.['minlength']">
                         Entrez au moins 10 caractères
@@ -39,13 +42,13 @@
                 <mat-form-field appearance="standard">
                     <mat-label>Confirmation du nouveau courriel</mat-label>
                     <input matInput maxlength="40" inputmode="text" placeholder="Confirmation du nouveau courriel" formControlName="newEmailConfirm" #newEmailConfirmInput>
-                    <mat-hint>Mini character 10: {{ newEmailConfirmInput.value.length }}/10</mat-hint>
+                    <mat-hint>
+                        Mini character 10: {{ newEmailConfirmInput.value.length }}/10
+                        <span class="hint-error" *ngIf="isDifferent"><br>Les courriels sont différents</span>
+                    </mat-hint>
                     <mat-error>Le courriel n'est pas valide</mat-error>
                     <mat-error *ngIf="form.controls['newEmailConfirm'].errors?.['minlength']">
                         Entrez au moins 10 caractères
-                    </mat-error>
-                    <mat-error *ngIf="form.controls['newEmail'].value != form.controls['newEmailConfirm'].value">
-                        Le courriel est différent
                     </mat-error>
                 </mat-form-field>
             </div>
