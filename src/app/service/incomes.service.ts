@@ -25,7 +25,7 @@ export class IncomesService{
     }
 
     getAllIncomes() : Observable<IncomesModel[]> {
-        return this.http.get<IncomesModel[]>(this.urlGetAllIncomes)
+        return this.http.get<IncomesModel[]>(this.urlGetAllIncomes+"/"+localStorage.getItem("userId"))
         .pipe(              
         map((response : IncomesModel[]) => {
             return response;
@@ -38,6 +38,7 @@ export class IncomesService{
     }
 
     addIncome(income:IncomesModel): Observable<any> {
+        income.userId = Number(localStorage.getItem("userId"));
         //On change le event en JSON
         const body = JSON.stringify(income);
         //On prépare les httpHeaders pour passer un objet en json
@@ -58,6 +59,7 @@ export class IncomesService{
     }
 
     updateIncome(income:IncomesModel): Observable<any> {
+        income.userId = Number(localStorage.getItem("userId"));
         //On change le event en JSON
         const body = JSON.stringify(income);
         //On prépare les httpHeaders pour passer un objet en json
@@ -66,7 +68,6 @@ export class IncomesService{
             .set('Access-Control-Allow-Origin', '*');
 
 
-        console.log("id = " + income.id); 
         return this.http.put<IncomesModel>(this.urlSetIncome+income.id,body,{headers})
         .pipe(              
             map((response:any) => {

@@ -67,6 +67,7 @@ export class AppComponent implements AfterViewInit {
       this.userNom = response.nom;
       this.userPrenom = response.prenom;
       this.userTypeProfile = response.typeProfil;
+      localStorage.setItem("userId", response.id.toString());
     });
   }
 
