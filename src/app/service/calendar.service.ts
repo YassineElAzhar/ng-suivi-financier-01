@@ -28,7 +28,7 @@ export class CalendarService{
         if(Number(mois) < 10){
             mois = "0"+mois;
         }
-        return this.http.get<EventsModel[]>(this.urlGetAllEvents+"/"+mois+"/"+annee)
+        return this.http.get<EventsModel[]>(this.urlGetAllEvents+"/"+localStorage.getItem("userId")+"/"+mois+"/"+annee)
         .pipe(              
         map((response:any) => {
             return response;
@@ -54,6 +54,7 @@ export class CalendarService{
     }
 
     addEvent(event:EventsModel): Observable<any> {
+        event.userId = Number(localStorage.getItem("userId"));
         //On change le event en JSON
         const body = JSON.stringify(event);
         //On prépare les httpHeaders pour passer un objet en json
@@ -74,6 +75,7 @@ export class CalendarService{
     }
 
     updateEvent(event:EventsModel): Observable<any> {
+        event.userId = Number(localStorage.getItem("userId"));
         //On change le event en JSON
         const body = JSON.stringify(event);
         //On prépare les httpHeaders pour passer un objet en json

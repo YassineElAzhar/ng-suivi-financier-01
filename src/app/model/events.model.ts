@@ -1,5 +1,6 @@
 export interface EventsModel {
     id: number;
+    userId: number;
     type: string;
     titre: string;
     dateEvent: string;
