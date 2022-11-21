@@ -32,7 +32,7 @@ export class ChartService{
 
     //Dépenses VS Revenus    
     getInOutChartData() : Observable<ChartInOutModel> {
-        return this.http.get<ChartInOutModel>(this.urlGetInOutChartData)
+        return this.http.get<ChartInOutModel>(this.urlGetInOutChartData+"/"+localStorage.getItem("userId"))
         .pipe(              
         map((response : ChartInOutModel) => {
             return response;
@@ -46,7 +46,7 @@ export class ChartService{
     
     //Revenus
     getInChartData() : Observable<ChartInModel> {
-        return this.http.get<ChartInModel>(this.urlGetInChartData)
+        return this.http.get<ChartInModel>(this.urlGetInChartData+"/"+localStorage.getItem("userId"))
         .pipe(              
         map((response : ChartInModel) => {
             return response;
@@ -60,7 +60,7 @@ export class ChartService{
     
     //Dépenses
     getOutChartData() : Observable<ChartOutModel> {
-        return this.http.get<ChartOutModel>(this.urlGetOutChartData)
+        return this.http.get<ChartOutModel>(this.urlGetOutChartData+"/"+localStorage.getItem("userId"))
         .pipe(              
         map((response : ChartOutModel) => {
             return response;
