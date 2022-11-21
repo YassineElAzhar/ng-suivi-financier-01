@@ -25,7 +25,7 @@ export class ExpensesService{
     }
 
     getAllExpenses() : Observable<ExpensesModel[]> {
-        return this.http.get<ExpensesModel[]>(this.urlGetAllExpenses)
+        return this.http.get<ExpensesModel[]>(this.urlGetAllExpenses+"/"+localStorage.getItem("userId"))
         .pipe(              
         map((response : ExpensesModel[]) => {
             return response;
@@ -38,6 +38,7 @@ export class ExpensesService{
     }
 
     addExpense(expense:ExpensesModel): Observable<any> {
+        expense.userId = Number(localStorage.getItem("userId"));
         //On change le event en JSON
         const body = JSON.stringify(expense);
         //On prépare les httpHeaders pour passer un objet en json
@@ -58,6 +59,7 @@ export class ExpensesService{
     }
 
     updateExpense(expense:ExpensesModel): Observable<any> {
+        expense.userId = Number(localStorage.getItem("userId"));
         //On change le event en JSON
         const body = JSON.stringify(expense);
         //On prépare les httpHeaders pour passer un objet en json
