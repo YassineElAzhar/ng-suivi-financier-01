@@ -25,6 +25,19 @@ export class AddExpensesComponent implements OnInit {
       titre: [null, [Validators.required, Validators.minLength(10)]],
       dateExpense: [null, [Validators.required]],
       montant: [null],
+      recurrenceFlag: [null],
+      recSemaine: [null],
+      recType: [null],
+      recMonday: [null],
+      recTuseday: [null],
+      recWednesday: [null],
+      recThursday: [null],
+      recFriday: [null],
+      recSaturday: [null],
+      recSunday: [null],
+      recEndNever: [null],
+      redDateEnd: [null],
+      redNbrOccurences: [null]
     });
   }
 

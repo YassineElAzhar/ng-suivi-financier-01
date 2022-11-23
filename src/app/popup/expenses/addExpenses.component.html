@@ -1,4 +1,3 @@
-
 <div class="container">
     <form [formGroup]="form">
         <div class="row">
@@ -26,8 +25,6 @@
                 </mat-form-field>
             </div>
         </div>
-    
-        <hr/>
 
         <div class="row">
             <div class="col">
@@ -42,8 +39,6 @@
                 </mat-form-field>
             </div>
         </div>
-        
-        <hr/>
 
         <div class="row">
             
@@ -63,7 +58,78 @@
                 </mat-form-field>
             </div>
         </div>
-        <hr/>
+    
+        <hr *ngIf="!form.controls['recurrenceFlag'].value"/>
+
+        <div class="row">
+            <div class="col">
+                <mat-slide-toggle formControlName="recurrenceFlag">
+                    Ajouter une recurrence personalisée
+                </mat-slide-toggle>
+            </div>
+        </div>
+        <br *ngIf="form.controls['recurrenceFlag'].value">
+        <div class="row" *ngIf="form.controls['recurrenceFlag'].value">
+            <div class="col">
+                Répéter tout les 
+                <input matInput type="number" formControlName="recSemaine" placeholder="0" style="width:40px; text-align: left;">&nbsp;&nbsp;&nbsp;
+                <mat-select matNativeControl name="recType" placeholder="Semaine" formControlName="recType" style="width:100px; text-align: left;">
+                    <mat-option value="1">Semaine</mat-option>
+                    <mat-option value="2">Mois</mat-option>
+                    <mat-option value="3">Année</mat-option>
+                </mat-select>
+            </div>
+        </div>
+        <br *ngIf="form.controls['recurrenceFlag'].value">
+        <div class="row" *ngIf="form.controls['recurrenceFlag'].value">
+            <mat-label>Répéter le :</mat-label>
+            <div class="col">
+                <mat-checkbox formControlName="recMonday">
+                    Lundi
+                </mat-checkbox>&nbsp;&nbsp;&nbsp;
+                <mat-checkbox formControlName="recTuseday">
+                    Mardi
+                </mat-checkbox>&nbsp;&nbsp;&nbsp;
+                <mat-checkbox formControlName="recWednesday">
+                    Mercredi
+                </mat-checkbox>&nbsp;&nbsp;&nbsp;
+                <mat-checkbox formControlName="recThursday">
+                    Jeudi
+                </mat-checkbox>&nbsp;&nbsp;&nbsp;
+                <mat-checkbox formControlName="recFriday">
+                    Vendredi
+                </mat-checkbox>&nbsp;&nbsp;&nbsp;
+                <mat-checkbox formControlName="recSaturday">
+                    Samedi
+                </mat-checkbox>&nbsp;&nbsp;&nbsp;
+                <mat-checkbox formControlName="recSunday">
+                    Dimanche
+                </mat-checkbox>
+            </div>
+        </div>
+        
+        <br *ngIf="form.controls['recurrenceFlag'].value">
+
+        <div class="row" *ngIf="form.controls['recurrenceFlag'].value">
+            <mat-label>Se termine le :</mat-label>
+            <div class="col" style="padding-top: 15px;">
+                <mat-radio-group aria-label="Se termine le " formControlName="recEndNever">
+                    <mat-radio-button value="1">Jamais</mat-radio-button><br>
+                    <mat-radio-button value="2">
+                        <p style="margin-top:15px;">
+                        Le <input matInput [matDatepicker]="picker2" formControlName="redDateEnd" style="width: 120px; padding-bottom: 10px;">
+                        <mat-datepicker-toggle matSuffix [for]="picker2">
+                            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                        </p>
+                    </mat-radio-button><br>
+                    <mat-radio-button value="3">Après <input matInput type="number" formControlName="redNbrOccurences" placeholder="0" style="width:30px; text-align: left;"> occurence(s)</mat-radio-button>
+                </mat-radio-group>
+            </div>
+        </div>
+
+        <hr *ngIf="form.controls['recurrenceFlag'].value"/>
 
         <div class="row text-center">
             <div class="col">
@@ -73,9 +139,10 @@
       
     </form>
 
-    <hr/>
-
+    <!--<hr/>-->
+    <!--
     <div class="row">
         <div class="col">{{ form.value | json }}</div>
     </div>
+    -->
   </div>
